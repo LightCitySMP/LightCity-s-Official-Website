@@ -40,7 +40,6 @@
             line-height: 1.6;
         }
 
-        /* Animated Background */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -92,7 +91,6 @@
             }
         }
 
-        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -182,7 +180,6 @@
             width: 100%;
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -270,6 +267,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            cursor: pointer;
         }
 
         .btn-primary {
@@ -310,7 +308,6 @@
             left: 100%;
         }
 
-        /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
             bottom: 3rem;
@@ -338,7 +335,6 @@
             background: linear-gradient(to bottom, var(--gold-primary), transparent);
         }
 
-        /* Main Content */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -398,10 +394,9 @@
             100% { left: 100%; }
         }
 
-        /* Wiki Grid */
         .wiki-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
@@ -499,175 +494,130 @@
             opacity: 1;
         }
 
-        /* Features Section */
-        .features {
-            background: linear-gradient(180deg, transparent 0%, rgba(255, 215, 0, 0.03) 50%, transparent 100%);
-        }
-
-        .feature-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-            margin-bottom: 6rem;
-        }
-
-        .feature-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .feature-row:nth-child(even) {
-            direction: rtl;
-        }
-
-        .feature-row:nth-child(even) > * {
-            direction: ltr;
-        }
-
-        .feature-content h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--white) 0%, var(--gold-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .feature-content p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.1rem;
-            line-height: 1.9;
-            margin-bottom: 2rem;
-        }
-
-        .feature-list {
-            list-style: none;
-        }
-
-        .feature-list li {
-            padding: 0.8rem 0;
-            padding-left: 2rem;
-            position: relative;
-            color: rgba(255, 255, 255, 0.8);
-            transition: all 0.3s;
-        }
-
-        .feature-list li::before {
-            content: '✦';
-            position: absolute;
-            left: 0;
-            color: var(--gold-primary);
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-
-        .feature-list li:hover {
-            color: var(--gold-primary);
-            transform: translateX(5px);
-        }
-
-        .feature-list li:hover::before {
-            transform: scale(1.3);
-            text-shadow: 0 0 10px var(--gold-primary);
-        }
-
-        .feature-visual {
-            position: relative;
-            height: 400px;
-            background: var(--card-bg);
-            border-radius: 30px;
-            border: 1px solid rgba(255, 215, 0, 0.1);
+        .progress-wrapper {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
             overflow: hidden;
+            height: 40px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary));
+            width: 25%;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .feature-visual::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 70% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .placeholder-text {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            color: var(--gold-muted);
-            z-index: 1;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        /* Stats Section */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
-            transform: scaleX(0);
-            transition: transform 0.4s;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 215, 0, 0.3);
-        }
-
-        .stat-item:hover::before {
-            transform: scaleX(1);
-        }
-
-        .stat-number {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
+            color: var(--darker-bg);
             font-weight: 800;
-            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
+            font-size: 1.1rem;
+            transition: width 1s ease-in-out;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--darker-bg);
+            margin: 5% auto;
+            padding: 3rem;
+            border: 1px solid var(--gold-primary);
+            width: 90%;
+            max-width: 800px;
+            border-radius: 20px;
+            color: var(--white);
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.1);
+            animation: modalFadeIn 0.4s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            color: var(--gold-primary);
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--white);
+        }
+
+        .modal-content h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--gold-primary);
             margin-bottom: 0.5rem;
         }
 
-        .stat-label {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .modal-content h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
         }
 
-        /* Footer */
+        .modal-content p, .modal-content li {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content strong {
+            color: var(--gold-primary);
+        }
+
+        .modal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .modal-table th, .modal-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,215,0,0.1);
+        }
+
+        .modal-table th {
+            color: var(--gold-primary);
+            font-weight: 600;
+            background: rgba(255,215,0,0.05);
+        }
+
         footer {
             background: var(--darker-bg);
             border-top: 1px solid rgba(255, 215, 0, 0.1);
@@ -693,36 +643,14 @@
 
         .footer-text {
             color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .developer-credits {
+            color: var(--gold-muted);
+            font-size: 0.95rem;
             margin-bottom: 2rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.4s;
-            font-size: 1.2rem;
-        }
-
-        .social-links a:hover {
-            background: var(--gold-primary);
-            color: var(--dark-bg);
-            transform: translateY(-5px) rotate(360deg);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            font-weight: 500;
         }
 
         .copyright {
@@ -732,37 +660,12 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Responsive */
         @media (max-width: 968px) {
             .nav-links {
                 display: none;
             }
-
-            .feature-row {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .feature-row:nth-child(even) {
-                direction: ltr;
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
 
-        @media (max-width: 600px) {
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .wiki-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Loading Animation */
         .loader {
             position: fixed;
             top: 0;
@@ -818,7 +721,6 @@
             letter-spacing: 3px;
         }
 
-        /* Scroll Reveal */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
@@ -830,7 +732,6 @@
             transform: translateY(0);
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -851,7 +752,6 @@
 <base target="_blank">
 </head>
 <body>
-    <!-- Loader -->
     <div class="loader" id="loader">
         <div class="loader-content">
             <div class="loader-spinner"></div>
@@ -859,243 +759,215 @@
         </div>
     </div>
 
-    <!-- Background Effects -->
     <div class="bg-animation"></div>
     <div class="particles" id="particles"></div>
 
-    <!-- Navigation -->
     <nav id="navbar">
         <a href="#" class="logo">⚡ LightCitySMP</a>
         <ul class="nav-links">
+            <li><a href="#shop">Shop</a></li>
             <li><a href="#wiki">Wiki</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#lore">Lore</a></li>
-            <li><a href="#guide">Guide</a></li>
-            <li><a href="#join">Join</a></li>
         </ul>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="season-badge">SEASON 5 — NOW LIVE</div>
+            <div class="season-badge">SEASON 5 — CUT HALF</div>
             <h1>LightCitySMP</h1>
-            <p>Welcome to the ultimate Minecraft SMP experience. Season 5 introduces revolutionary gameplay mechanics, an immersive custom plugin, and a thriving community like no other.</p>
+            <p>Welcome to the ultimate Minecraft SMP experience. Explore the highly anticipated Ascension Plugin systems and track our shop development.</p>
             <div class="cta-buttons">
-                <a href="#wiki" class="btn btn-primary">Explore Wiki</a>
-                <a href="#join" class="btn btn-secondary">Join Server</a>
+                <a href="#shop" class="btn btn-primary">View Shop</a>
+                <a href="#wiki" class="btn btn-secondary">Explore Wiki</a>
             </div>
         </div>
-        <div class="scroll-indicator" onclick="document.getElementById('wiki').scrollIntoView({behavior: 'smooth'})">
+        <div class="scroll-indicator" onclick="document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">
             <span>Scroll to explore</span>
             <div class="scroll-line"></div>
         </div>
     </section>
 
-    <!-- Wiki Section -->
+    <section id="shop">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Shop</h2>
+                <div class="divider"></div>
+                <p>The highly anticipated Season 5 store is currently under development.</p>
+            </div>
+            <div class="reveal" style="text-align: center;">
+                <h3 style="margin-bottom: 1.5rem; font-family: 'Cinzel', serif; color: var(--gold-light);">Development Progress</h3>
+                <div class="progress-wrapper">
+                    <div class="progress-fill">25%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="wiki">
         <div class="container">
             <div class="section-header reveal">
-                <h2>Knowledge Base</h2>
+                <h2>Ascension Wiki</h2>
                 <div class="divider"></div>
-                <p>Everything you need to know about LightCitySMP Season 5 mechanics, systems, and gameplay.</p>
+                <p>Everything you need to know about the new PvP Rebirth system.</p>
             </div>
 
             <div class="wiki-grid">
-                <div class="wiki-card reveal" onclick="openModal('getting-started')">
-                    <div class="card-icon">🚀</div>
-                    <h3>Getting Started</h3>
-                    <p>New to the server? Learn the basics of joining, setting up your profile, and understanding the core mechanics of Season 5.</p>
+                <div class="wiki-card reveal" onclick="openModal('modal-blade')">
+                    <div class="card-icon">🗡️</div>
+                    <h3>Ascension Blade</h3>
+                    <p>Learn about the craftable scythe and how to steal rebirth levels.</p>
                     <div class="card-arrow">→</div>
                 </div>
 
-                <div class="wiki-card reveal" onclick="openModal('custom-plugin')">
-                    <div class="card-icon">⚙️</div>
-                    <h3>Custom Plugin</h3>
-                    <p>Discover our exclusive plugin features, commands, and unique systems that make LightCitySMP unlike any other server.</p>
+                <div class="wiki-card reveal" onclick="openModal('modal-rebirths')">
+                    <div class="card-icon">⭐</div>
+                    <h3>Rebirths</h3>
+                    <p>Understand the Rebirth Points system and progression tiers.</p>
                     <div class="card-arrow">→</div>
                 </div>
 
-                <div class="wiki-card reveal" onclick="openModal('economy')">
-                    <div class="card-icon">💰</div>
-                    <h3>Economy System</h3>
-                    <p>Master the in-game economy, trading systems, shops, and wealth-building strategies to dominate the market.</p>
+                <div class="wiki-card reveal" onclick="openModal('modal-abilities')">
+                    <div class="card-icon">⚡</div>
+                    <h3>Abilities</h3>
+                    <p>Explore the 18 custom abilities across all 6 Ascension tiers.</p>
                     <div class="card-arrow">→</div>
                 </div>
 
-                <div class="wiki-card reveal" onclick="openModal('factions')">
-                    <div class="card-icon">🏰</div>
-                    <h3>Factions &amp; Nations</h3>
-                    <p>Create or join powerful factions, form alliances, wage wars, and build your empire across the realm.</p>
+                <div class="wiki-card reveal" onclick="openModal('modal-streaks')">
+                    <div class="card-icon">🔥</div>
+                    <h3>Kill Streaks</h3>
+                    <p>Master the PvP streak requirements and server-wide announcements.</p>
                     <div class="card-arrow">→</div>
-                </div>
-
-                <div class="wiki-card reveal" onclick="openModal('events')">
-                    <div class="card-icon">🎉</div>
-                    <h3>Events &amp; Quests</h3>
-                    <p>Participate in server-wide events, complete challenging quests, and earn exclusive rewards and achievements.</p>
-                    <div class="card-arrow">→</div>
-                </div>
-
-                <div class="wiki-card reveal" onclick="openModal('rules')">
-                    <div class="card-icon">📜</div>
-                    <h3>Rules &amp; Guidelines</h3>
-                    <p>Understand our community standards, gameplay rules, and the consequences of breaking them.</p>
-                    <div class="card-arrow">→</div>
-                </div>
-            </div>
-
-            <div class="stats reveal">
-                <div class="stat-item">
-                    <span class="stat-number" data-target="500">0</span>
-                    <span class="stat-label">Players</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="50">0</span>
-                    <span class="stat-label">Nations</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="120">0</span>
-                    <span class="stat-label">Plugins</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="99">0</span>
-                    <span class="stat-label">Uptime %</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>Season 5 Features</h2>
-                <div class="divider"></div>
-                <p>Revolutionary gameplay elements designed for the ultimate SMP experience.</p>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-content">
-                    <h3>Dynamic World</h3>
-                    <p>Experience a living, breathing world that evolves with player actions. Our custom terrain generation creates stunning landscapes while maintaining performance.</p>
-                    <ul class="feature-list">
-                        <li>Procedurally generated unique biomes</li>
-                        <li>Dynamic weather systems affecting gameplay</li>
-                        <li>Seasonal changes with visual effects</li>
-                        <li>Resource scarcity and regeneration</li>
-                    </ul>
-                </div>
-                <div class="feature-visual">
-                    <div class="placeholder-text">[World Generation Preview]<br>Your content here</div>
-                </div>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-content">
-                    <h3>Custom Progression</h3>
-                    <p>Unlock abilities, skills, and powers as you play. Our RPG-inspired system rewards dedication and skill with tangible benefits.</p>
-                    <ul class="feature-list">
-                        <li>Skill trees for combat, mining, and crafting</li>
-                        <li>Prestige system for veteran players</li>
-                        <li>Unique abilities per playstyle</li>
-                        <li>Leaderboards and rankings</li>
-                    </ul>
-                </div>
-                <div class="feature-visual">
-                    <div class="placeholder-text">[Progression System UI]<br>Your content here</div>
-                </div>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-content">
-                    <h3>Community Events</h3>
-                    <p>Weekly tournaments, building contests, and server-wide story events that bring the community together.</p>
-                    <ul class="feature-list">
-                        <li>Weekly PvP tournaments</li>
-                        <li>Monthly building competitions</li>
-                        <li>Seasonal festivals with unique rewards</li>
-                        <li>Server-wide boss battles</li>
-                    </ul>
-                </div>
-                <div class="feature-visual">
-                    <div class="placeholder-text">[Event Showcase]<br>Your content here</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Lore Section -->
-    <section id="lore">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>The Lore</h2>
-                <div class="divider"></div>
-                <p>Uncover the mysteries and stories that shape the world of LightCity.</p>
-            </div>
-
-            <div class="wiki-grid">
-                <div class="wiki-card reveal">
-                    <div class="card-icon">📖</div>
-                    <h3>The Ancient Civilization</h3>
-                    <p>Before the players arrived, an ancient civilization ruled these lands. Discover their ruins, decipher their texts, and unlock their secrets.</p>
-                </div>
-                <div class="wiki-card reveal">
-                    <div class="card-icon">⚔️</div>
-                    <h3>The Great Wars</h3>
-                    <p>Learn about the conflicts that shaped the current political landscape and the factions that emerged from the ashes.</p>
-                </div>
-                <div class="wiki-card reveal">
-                    <div class="card-icon">🔮</div>
-                    <h3>Mystical Energies</h3>
-                    <p>Strange energies flow through the world. Understand their properties and harness their power for your own gain.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Join Section -->
-    <section id="join" style="text-align: center;">
-        <div class="container">
-            <div class="reveal">
-                <h2 style="font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--white) 0%, var(--gold-primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Ready to Join?</h2>
-                <p style="color: rgba(255,255,255,0.7); font-size: 1.2rem; max-width: 600px; margin: 0 auto 3rem;">Connect with hundreds of players in the most immersive Minecraft SMP experience.</p>
-                <div style="display: inline-flex; flex-direction: column; gap: 1rem; align-items: center;">
-                    <div style="background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3); padding: 1.5rem 3rem; border-radius: 15px; font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold-primary); cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 30px rgba(255,215,0,0.3)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'" onclick="copyIP()">
-                        play.lightcitysmp.net
-                    </div>
-                    <span style="color: rgba(255,255,255,0.5); font-size: 0.9rem;">Click to copy IP address</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">LightCitySMP</div>
-                <p class="footer-text">Season 5 — Crafting legends since 2024</p>
-                <div class="social-links">
-                    <a href="#" title="Discord">💬</a>
-                    <a href="#" title="Twitter">🐦</a>
-                    <a href="#" title="YouTube">📺</a>
-                    <a href="#" title="TikTok">🎵</a>
-                </div>
-                <p class="copyright">© 2024 LightCitySMP. Not affiliated with Mojang Studios.</p>
+                <p class="footer-text">Season 5</p>
+                <p class="developer-credits">Developer credits: Sam, Fanta, George767</p>
+                <p class="copyright">© 2026 LightCitySMP. Not affiliated with Mojang Studios.</p>
             </div>
         </div>
     </footer>
 
+    <div id="modal-blade" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-blade')">&times;</span>
+            <h2>Ascension Blade</h2>
+            <div class="divider" style="margin: 1rem 0;"></div>
+            <p>A craftable weapon with a custom scythe texture.</p>
+            <p>Killing a player with it <strong>steals one of their rebirth levels</strong>, including the ability tied to it. The stolen ability is stored as an item in your inventory.</p>
+            <p>When you activate it, your currently equipped ability is removed and replaced.</p>
+            <p><em>Normal kills do nothing — only the Ascension Blade triggers rebirth stealing.</em></p>
+        </div>
+    </div>
+
+    <div id="modal-rebirths" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-rebirths')">&times;</span>
+            <h2>Rebirths</h2>
+            <div class="divider" style="margin: 1rem 0;"></div>
+            <p>Ascension is a rebirth-based progression system centered around PvP. Players grind kill streaks to earn Rebirth Points, ascend through 6 tiers, and each time they ascend they permanently unlock one chosen ability.</p>
+            <p>By Ascension 6 a player has 6 stacked abilities forming a fully custom combat build.</p>
+            <h3>How to Rebirth</h3>
+            <p>Requires 1 Rebirth Point, earned by:</p>
+            <ul>
+                <li>Reaching the required kill streak without dying</li>
+                <li>Purchasing from the server store</li>
+            </ul>
+            <p>On rebirth, players receive a reward package of items.</p>
+        </div>
+    </div>
+
+    <div id="modal-abilities" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-abilities')">&times;</span>
+            <h2>The 18 Abilities</h2>
+            <div class="divider" style="margin: 1rem 0;"></div>
+            
+            <h3>Ascension I — Low Power</h3>
+            <ul>
+                <li><strong>Iron Skin:</strong> Grants Resistance I and reduces incoming damage for 8 seconds. Cooldown: 40s.</li>
+                <li><strong>Dash:</strong> Launches the player forward in the direction they are looking, leaving a trail of cloud particles. Instant. Cooldown: 15s.</li>
+                <li><strong>Smokescreen:</strong> Blinds the target player (or yourself if no target is found) and surrounds them in thick campfire smoke for 3 seconds. Cooldown: 45s.</li>
+            </ul>
+
+            <h3>Ascension II — Low Power</h3>
+            <ul>
+                <li><strong>Blood Rush:</strong> Passive/reactive. When you hit someone or get hit, instantly gain Speed II for 5 seconds. Cooldown: 45s.</li>
+                <li><strong>Fortify:</strong> Reduces all incoming damage by 30% for you or a targeted ally, surrounded by a ring of falling obsidian tears. Lasts 5 seconds. Cooldown: 55s.</li>
+                <li><strong>Splinter:</strong> Empowers your next attacks to deal +20% bonus damage for 10 seconds, emitting critical hit particles. Cooldown: 50s.</li>
+            </ul>
+
+            <h3>Ascension III — Medium Power</h3>
+            <ul>
+                <li><strong>Exposed:</strong> Curses a target, causing them to take +50% bonus damage from all sources for 4 seconds. Cooldown: 60s.</li>
+                <li><strong>Phantom Step:</strong> Grants Invisibility and emits portal particles for 4 seconds. Cooldown: 65s.</li>
+                <li><strong>Shockwave:</strong> Violently knocks back all enemies within a 5-block radius and deals 4.0 damage (2 hearts), leaving a purple dust ring. Instant. Cooldown: 55s.</li>
+            </ul>
+
+            <h3>Ascension IV — Medium Power</h3>
+            <ul>
+                <li><strong>Overclock:</strong> Grants Speed II, Haste I, and complete immunity to all projectiles for 6 seconds. Cooldown: 70s.</li>
+                <li><strong>Soul Drain:</strong> Instantly strips all active potion effects from the target. A yellow ring and soul particles surround them. Cooldown: 75s.</li>
+                <li><strong>Warden's Grasp:</strong> Roots the target in place completely and applies Slowness X for 3 seconds. Can be blocked by Wraith Form. Cooldown: 80s.</li>
+            </ul>
+
+            <h3>Ascension V — High Power</h3>
+            <ul>
+                <li><strong>Wraith Form:</strong> Grants Invisibility, cleanses Blindness/Nausea/Slowness, cancels all incoming damage, and blocks/removes Reaper's Call and Warden's Grasp for 5 seconds. Summons an Allay on your shoulder. Cooldown: 450s.</li>
+                <li><strong>Execution:</strong> If you hit an enemy below 25% HP within a 10-second window, deal 2x damage accompanied by lightning effects. Cooldown: 85s.</li>
+                <li><strong>Marked:</strong> Targets an enemy, causing them to take +40% bonus damage from all sources for 5 seconds. Cooldown: 95s.</li>
+            </ul>
+
+            <h3>Ascension VI — High Power</h3>
+            <ul>
+                <li><strong>Soul Lock:</strong> Silences the target. Strips all their potion effects and prevents them from consuming any food or items for 6 seconds. Cooldown: 115s.</li>
+                <li><strong>Warlord's Aura:</strong> Grants Resistance I and Regeneration I to yourself and all allies within 5 blocks for 8 seconds. Indicated by heart particles. Cooldown: 110s.</li>
+                <li><strong>Reaper's Call:</strong> Encases the target in 4 spinning black rings. Target is frozen, blinded, and nauseous. Their hotbar is locked with red glass panes preventing item use. Hitting the target during this phase deals True Damage ignoring all armor. Blocked by Wraith Form. Lasts 4 seconds. Cooldown: 300s.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-streaks" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-streaks')">&times;</span>
+            <h2>Kill Streaks</h2>
+            <div class="divider" style="margin: 1rem 0;"></div>
+            
+            <table class="modal-table">
+                <tr>
+                    <th>Rebirth Level</th>
+                    <th>Kill Streak Required</th>
+                </tr>
+                <tr><td>1</td><td>5</td></tr>
+                <tr><td>2</td><td>10</td></tr>
+                <tr><td>3</td><td>15</td></tr>
+                <tr><td>4</td><td>20</td></tr>
+                <tr><td>5</td><td>25</td></tr>
+                <tr><td>6</td><td>30</td></tr>
+            </table>
+
+            <h3>Streak Rules</h3>
+            <ul>
+                <li>Killing the same player requires a 30 minute cooldown before it counts again.</li>
+                <li>Dying resets your streak to 0.</li>
+                <li>Streak does not reset on logout.</li>
+                <li>Active streaks are publicly visible to all players on the server.</li>
+            </ul>
+        </div>
+    </div>
+
     <script>
-        // Loader
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
             }, 1500);
         });
 
-        // Create particles
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
@@ -1106,7 +978,6 @@
             particlesContainer.appendChild(particle);
         }
 
-        // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -1116,7 +987,6 @@
             }
         });
 
-        // Scroll reveal
         const reveals = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             reveals.forEach(element => {
@@ -1132,61 +1002,23 @@
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
 
-        // Counter animation
-        const animateCounters = () => {
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const increment = target / 50;
-                let current = 0;
-
-                const updateCounter = () => {
-                    if (current < target) {
-                        current += increment;
-                        counter.innerText = Math.ceil(current);
-                        setTimeout(updateCounter, 30);
-                    } else {
-                        counter.innerText = target + (target === 99 ? '%' : '+');
-                    }
-                };
-                updateCounter();
-            });
-        };
-
-        // Trigger counters when stats section is visible
-        let counted = false;
-        const statsSection = document.querySelector('.stats');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !counted) {
-                    animateCounters();
-                    counted = true;
-                }
-            });
-        }, { threshold: 0.5 });
-        observer.observe(statsSection);
-
-        // Copy IP function
-        function copyIP() {
-            navigator.clipboard.writeText('play.lightcitysmp.net');
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = 'Copied!';
-            btn.style.background = 'rgba(0,255,0,0.2)';
-            btn.style.borderColor = '#00ff00';
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = 'rgba(255,215,0,0.1)';
-                btn.style.borderColor = 'rgba(255,215,0,0.3)';
-            }, 2000);
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
 
-        // Modal placeholder
-        function openModal(type) {
-            alert('Wiki article: ' + type.replace('-', ' ').toUpperCase() + '\n\nThis is a placeholder. Add your content here when ready!');
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
-        // Smooth scroll for anchor links
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1200,7 +1032,6 @@
             });
         });
 
-        // Parallax effect for hero
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const parallax = document.querySelector('.hero-content');
