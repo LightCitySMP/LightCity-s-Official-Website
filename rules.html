@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightCitySMP | Law Codex</title>
+    <title>LightCitySMP | Constitution</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -20,6 +20,8 @@
             --darker-bg: #050505;
             --card-bg: rgba(255, 255, 255, 0.03);
             --glow: rgba(255, 215, 0, 0.3);
+            --red-accent: #ff4444;
+            --red-glow: rgba(255, 68, 68, 0.3);
         }
 
         * {
@@ -367,7 +369,6 @@
         .rule-section:nth-child(3) { animation-delay: 0.3s; }
         .rule-section:nth-child(4) { animation-delay: 0.4s; }
         .rule-section:nth-child(5) { animation-delay: 0.5s; }
-        .rule-section:nth-child(6) { animation-delay: 0.6s; }
 
         @keyframes fadeInUp {
             to {
@@ -453,13 +454,62 @@
             background: linear-gradient(180deg, rgba(255, 215, 0, 0.3), transparent);
         }
 
-        .placeholder-text {
-            color: rgba(255, 255, 255, 0.4);
+        .rule-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rule-list li {
+            padding: 1rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            color: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+            line-height: 1.7;
+        }
+
+        .rule-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rule-list li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--gold-primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1;
+            top: 1rem;
+        }
+
+        .rule-list li:hover {
+            color: var(--white);
+            padding-left: 3rem;
+        }
+
+        .rule-list li:hover::before {
+            color: var(--gold-light);
+            text-shadow: 0 0 10px var(--gold-primary);
+        }
+
+        .rule-list li strong {
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        .rule-list li .highlight {
+            color: var(--red-accent);
+            font-weight: 600;
+        }
+
+        .rule-list li .note {
+            display: block;
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
             font-style: italic;
-            text-align: center;
-            padding: 2rem;
-            border: 2px dashed rgba(255, 215, 0, 0.1);
-            border-radius: 8px;
         }
 
         /* Separator */
@@ -533,6 +583,10 @@
                 height: 45px;
             }
 
+            .nav-icon-btn span {
+                display: none;
+            }
+
             .section-header {
                 padding: 1rem 1.5rem;
             }
@@ -540,6 +594,10 @@
             .section-content {
                 margin-left: 0.5rem;
                 padding: 1.5rem;
+            }
+
+            .rule-list li {
+                padding-left: 2rem;
             }
         }
     </style>
@@ -577,7 +635,7 @@
             <div class="ornament">✤ ═══════════════════════════ ✤</div>
             <h1 class="codex-title">
                 <span class="icon">⚔️</span>
-                「 LightCitySMP — Law Codex 」
+                「 LightCitySMP — Constitution 」
                 <span class="icon">⚔️</span>
             </h1>
             <div class="ornament">✤ ═══════════════════════════ ✤</div>
@@ -604,9 +662,15 @@
                 <span class="section-arrow">›</span>
             </div>
             <div class="section-content">
-                <div class="placeholder-text">
-                    ⚔️ PvP Rules will be added here ⚔️
-                </div>
+                <ul class="rule-list">
+                    <li>Using <strong>tridents</strong> or <strong>elytras</strong> in a 1v1 is <span class="highlight">prohibited</span>, but it is allowed in a 1v2s+</li>
+                    <li><strong>Elytra macing</strong> using fireworks is <span class="highlight">prohibited</span>, but elytra macing normally is allowed.</li>
+                    <li>If you're fighting someone, and you manage to get out of combat timer, you aren't allowed to do <strong>/home</strong>, <strong>/team home</strong>, <strong>/rtp</strong>, <strong>/tpa</strong>, <strong>/spawn</strong> or any command to escape unless you're too far away and your opponent doesn't know where you are.</li>
+                    <li>Using <strong>pearl chambers</strong> is strictly <span class="highlight">prohibited</span> when dueling or fighting, but is allowed for quick transportation.</li>
+                    <li><strong>Naked killing</strong> is also strictly <span class="highlight">prohibited</span> and <strong>COULD</strong> get you permanently banned from the SMP.</li>
+                    <li><strong>TP trapping</strong> / <strong>TP killing</strong> is allowed.</li>
+                    <li><strong>TNT</strong>, <strong>TNT minecarts</strong> and <strong>beds</strong> are not allowed in PvP, but can be used for trapping.</li>
+                </ul>
             </div>
         </div>
 
@@ -622,9 +686,11 @@
                 <span class="section-arrow">›</span>
             </div>
             <div class="section-content">
-                <div class="placeholder-text">
-                    🏗️ Building &amp; Griefing Rules will be added here 🏗️
-                </div>
+                <ul class="rule-list">
+                    <li>Destroying or blowing up bases is strictly <span class="highlight">prohibited</span>.</li>
+                    <li>Raiding bases is <strong>allowed</strong>.</li>
+                    <li>Bases below <strong>Y -50</strong> are considered illegal and are not allowed.</li>
+                </ul>
             </div>
         </div>
 
@@ -640,9 +706,11 @@
                 <span class="section-arrow">›</span>
             </div>
             <div class="section-content">
-                <div class="placeholder-text">
-                    🤝 Alliances &amp; Wars Rules will be added here 🤝
-                </div>
+                <ul class="rule-list">
+                    <li>Alliances are only allowed for either <strong>trading</strong> or having a <strong>non-aggression pact</strong> but are not allowed for teaming up on teams. For example: 2 teams (allied) vs 1 team is strictly <span class="highlight">prohibited</span>. We only allow <strong>1 team vs 1 team</strong>.</li>
+                    <li>We suggest players to fight their wars in the <strong>desert</strong> so they don't destroy and damage the nature of LightCitySMP.</li>
+                    <li>Killing <strong>villagers</strong> or <strong>animals</strong> is prohibited, only ones that are owned (which means that are in other's bases). <span class="note">Stealing them is allowed.</span></li>
+                </ul>
             </div>
         </div>
 
@@ -650,35 +718,19 @@
             <span class="separator-icon">✤</span>
         </div>
 
-        <!-- Death & Respawning Section -->
+        <!-- Cheating and Exploiting Section -->
         <div class="rule-section">
             <div class="section-header">
-                <span class="section-icon">💀</span>
-                <span class="section-title">» Death &amp; Respawning</span>
+                <span class="section-icon">🛡️</span>
+                <span class="section-title">» Cheating &amp; Exploiting</span>
                 <span class="section-arrow">›</span>
             </div>
             <div class="section-content">
-                <div class="placeholder-text">
-                    💀 Death &amp; Respawning Rules will be added here 💀
-                </div>
-            </div>
-        </div>
-
-        <div class="separator">
-            <span class="separator-icon">✤</span>
-        </div>
-
-        <!-- Land & Territory Section -->
-        <div class="rule-section">
-            <div class="section-header">
-                <span class="section-icon">🌍</span>
-                <span class="section-title">» Land &amp; Territory</span>
-                <span class="section-arrow">›</span>
-            </div>
-            <div class="section-content">
-                <div class="placeholder-text">
-                    🌍 Land &amp; Territory Rules will be added here 🌍
-                </div>
+                <ul class="rule-list">
+                    <li><strong>ESP</strong>, <strong>Xray</strong>, <strong>seed cracking</strong>, <strong>abusing bugs</strong> and <strong>abusing glitches</strong> are extremely <span class="highlight">prohibited</span> and will lead to a <strong>long-term ban</strong>.</li>
+                    <li>Any kind of <strong>cheating client</strong> is banned. Anyone that is caught using them will be <span class="highlight">permanently banned</span> off of the SMP.</li>
+                    <li><strong>Banned mods:</strong> Health indicator (or any mod that sees the other player's HP), minimaps that let you see players, mobs, etc.</li>
+                </ul>
             </div>
         </div>
 
@@ -694,16 +746,17 @@
                 <span class="section-arrow">›</span>
             </div>
             <div class="section-content">
-                <div class="placeholder-text">
-                    📜 General Conduct Rules will be added here 📜
-                </div>
+                <ul class="rule-list">
+                    <li><strong>Toxicity</strong> is allowed but has its limits. Don't go too far.</li>
+                    <li>If you don't have fun, then <strong>create it</strong>.</li>
+                </ul>
             </div>
         </div>
 
         <!-- Footer -->
         <footer>
             <div class="footer-ornament">✤ ═══════════════════ ✤</div>
-            <p class="footer-text">LightCitySMP Season 5 — Law Codex</p>
+            <p class="footer-text">LightCitySMP Season 5 — Constitution</p>
             <p class="footer-text" style="margin-top: 0.5rem; font-size: 0.8rem;">Developer credits: Sam, Fanta, George767</p>
         </footer>
     </div>
