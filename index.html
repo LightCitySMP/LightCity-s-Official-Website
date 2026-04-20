@@ -6,1170 +6,1011 @@
     <title>LightCitySMP | Season 5 Wiki</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold-primary: #FFD700;
-            --gold-light: #FFE55C;
-            --gold-dark: #B8860B;
-            --gold-muted: #DAA520;
-            --white: #FFFFFF;
-            --off-white: #F8F6F0;
-            --cream: #FFF8DC;
-            --dark-bg: #0a0a0a;
-            --darker-bg: #050505;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --glow: rgba(255, 215, 0, 0.3);
+            --gold: #D4A843;
+            --gold-bright: #F0C060;
+            --gold-dim: #8A6B28;
+            --gold-trace: rgba(212, 168, 67, 0.12);
+            --gold-glow: rgba(212, 168, 67, 0.22);
+            --ink: #080808;
+            --ink-2: #0F0F0D;
+            --surface: rgba(255,255,255,0.025);
+            --surface-hover: rgba(255,255,255,0.045);
+            --border: rgba(212, 168, 67, 0.14);
+            --border-strong: rgba(212, 168, 67, 0.35);
+            --text: #E8E2D5;
+            --text-dim: rgba(232, 226, 213, 0.55);
+            --text-muted: rgba(232, 226, 213, 0.3);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--darker-bg);
-            color: var(--white);
+            font-family: 'Syne', sans-serif;
+            background: var(--ink);
+            color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Animated Background Grid */
-        .bg-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background-image: 
-                linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+        /* ── Background ── */
+        .bg-layer {
+            position: fixed; inset: 0; z-index: -2;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 15%, rgba(212,168,67,0.08) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 50% at 80% 85%, rgba(212,168,67,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 40% at 50% 50%, rgba(212,168,67,0.03) 0%, transparent 60%),
+                var(--ink);
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+        .bg-lines {
+            position: fixed; inset: 0; z-index: -1;
+            background-image:
+                linear-gradient(rgba(212,168,67,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,168,67,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
         }
 
-        /* Radial Glows */
-        .bg-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: 
-                radial-gradient(ellipse at 10% 20%, rgba(255, 215, 0, 0.15) 0%, transparent 40%),
-                radial-gradient(ellipse at 90% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 40%),
-                radial-gradient(ellipse at 50% 50%, rgba(218, 165, 32, 0.05) 0%, transparent 60%),
-                radial-gradient(ellipse at 30% 70%, rgba(255, 215, 0, 0.08) 0%, transparent 35%);
-            animation: pulseGlow 8s ease-in-out infinite;
+        /* ── Loader ── */
+        .loader {
+            position: fixed; inset: 0; z-index: 9999;
+            background: var(--ink);
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+
+        .loader-inner {
+            text-align: center;
         }
 
-        /* Floating Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--gold-primary);
+        .loader-ring {
+            width: 64px; height: 64px;
+            border: 2px solid rgba(212,168,67,0.1);
+            border-top-color: var(--gold);
             border-radius: 50%;
-            opacity: 0;
-            animation: float 20s infinite;
-            box-shadow: 0 0 15px var(--gold-primary), 0 0 30px var(--gold-primary);
+            animation: spin 0.9s linear infinite;
+            margin: 0 auto 1.2rem;
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px) scale(1);
-                opacity: 0;
-            }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loader-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.3em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
         }
 
-        /* Navigation */
+        /* ── Nav ── */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 1.2rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(8,8,8,0.88);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            transition: padding 0.3s ease, box-shadow 0.3s ease;
         }
 
         nav.scrolled {
-            padding: 1rem 5%;
-            background: rgba(5, 5, 5, 0.98);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            padding: 0.9rem 5%;
+            box-shadow: 0 4px 40px rgba(0,0,0,0.7);
         }
 
         .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 50%, var(--gold-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
+            letter-spacing: 0.03em;
+            display: flex; align-items: center; gap: 0.4rem;
         }
 
-        .logo::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shine 3s infinite;
-        }
+        .logo .bolt { filter: drop-shadow(0 0 6px var(--gold)); }
 
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        /* Icon Navigation */
         .nav-icons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
+            display: flex; gap: 0.6rem; align-items: center;
         }
 
         .nav-icon-btn {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 215, 0, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 44px; height: 44px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-icon-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
         }
 
         .nav-icon-btn:hover {
-            transform: translateY(-3px);
-            border-color: var(--gold-primary);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-        }
-
-        .nav-icon-btn:hover::before {
-            opacity: 1;
+            background: var(--gold-trace);
+            border-color: var(--border-strong);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212,168,67,0.15);
         }
 
         .nav-icon-btn.active {
-            background: rgba(255, 215, 0, 0.15);
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            background: var(--gold-trace);
+            border-color: var(--gold);
+            box-shadow: 0 0 16px rgba(212,168,67,0.2);
         }
 
         .nav-icon-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--gold-primary);
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s;
+            width: 20px; height: 20px;
+            fill: var(--gold);
+            transition: transform 0.25s ease;
         }
 
-        .nav-icon-btn:hover svg {
-            transform: scale(1.1);
-        }
+        .nav-icon-btn:hover svg { transform: scale(1.1); }
 
-        .nav-icon-btn span {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            color: var(--gold-muted);
-            opacity: 0;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .nav-icon-btn:hover span {
-            opacity: 1;
-            bottom: -20px;
-        }
-
+        /* ── Hero ── */
         .hero {
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             text-align: center;
-            padding: 2rem;
+            padding: 2rem 5%;
             position: relative;
-            overflow: hidden;
         }
 
-        .hero-content {
-            z-index: 10;
-            max-width: 900px;
-        }
-
-        .hero h1 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
             margin-bottom: 1.5rem;
-            background: linear-gradient(180deg, var(--white) 0%, var(--gold-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-            animation: fadeInUp 1s ease-out;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.2s forwards;
         }
 
-        .hero p {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            animation: fadeInUp 1s ease-out 0.2s both;
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            font-weight: 700;
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.35s forwards;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-title .line1 {
+            display: block;
+            color: var(--gold-bright);
         }
 
-        .cta-buttons {
+        .hero-title .line2 {
+            display: block;
+            color: var(--text-dim);
+            font-style: italic;
+            font-size: 0.55em;
+        }
+
+        .hero-rule {
             display: flex;
+            align-items: center;
             gap: 1rem;
             justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 0.4s both;
+            margin: 1.5rem 0;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.5s forwards;
+        }
+
+        .hero-rule span {
+            height: 1px;
+            width: 60px;
+            background: linear-gradient(90deg, transparent, var(--gold-dim));
+        }
+
+        .hero-rule span:last-child {
+            background: linear-gradient(90deg, var(--gold-dim), transparent);
+        }
+
+        .hero-rule em {
+            color: var(--gold);
+            font-style: normal;
+            font-size: 0.85rem;
+        }
+
+        .hero-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.6s forwards;
+        }
+
+        .hero-cta {
+            display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.75s forwards;
         }
 
         .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.85rem;
             font-weight: 600;
+            letter-spacing: 0.05em;
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            transition: all 0.3s ease;
             cursor: pointer;
+            display: inline-flex; align-items: center; gap: 0.4rem;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
-            color: var(--dark-bg);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            background: var(--gold);
+            color: var(--ink);
+            border: 1px solid var(--gold);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.4);
+            background: var(--gold-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--gold-glow);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--white);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-dim);
+            border: 1px solid var(--border-strong);
         }
 
         .btn-secondary:hover {
-            border-color: var(--gold-primary);
-            color: var(--gold-primary);
-            transform: translateY(-3px);
+            background: var(--gold-trace);
+            color: var(--gold);
+            border-color: var(--gold);
+            transform: translateY(-2px);
         }
 
-        .btn::before {
-            content: '';
+        .scroll-hint {
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem;
+            bottom: 2.5rem;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--gold-muted);
-            font-size: 0.85rem;
-            animation: bounce 2s infinite;
+            display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
             cursor: pointer;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.2s forwards;
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
+        .scroll-hint-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
-        .scroll-line {
+        .scroll-hint-line {
             width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, var(--gold-primary), transparent);
+            height: 48px;
+            background: linear-gradient(to bottom, var(--gold-dim), transparent);
+            animation: scrollPulse 1.8s ease-in-out infinite;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 5%;
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.4; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.1); }
         }
 
-        section {
-            padding: 8rem 0;
-            position: relative;
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .section-header {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ── Sections ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+
+        section { padding: 8rem 0; position: relative; }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.25em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
             text-align: center;
-            margin-bottom: 5rem;
+            margin-bottom: 0.8rem;
         }
 
-        .section-header h2 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--white) 0%, var(--gold-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            color: var(--gold-bright);
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
         }
 
-        .section-header p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1.1rem;
-            max-width: 600px;
+        .section-rule {
+            display: flex; align-items: center; gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0 3.5rem;
+        }
+
+        .section-rule span {
+            height: 1px;
+            width: 50px;
+            background: linear-gradient(90deg, transparent, var(--gold-dim));
+        }
+
+        .section-rule span:last-child {
+            background: linear-gradient(90deg, var(--gold-dim), transparent);
+        }
+
+        .section-rule em { color: var(--gold-dim); font-style: normal; font-size: 0.7rem; }
+
+        /* ── Shop Progress ── */
+        #shop {
+            background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .progress-container {
+            max-width: 560px;
             margin: 0 auto;
         }
 
-        .divider {
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
-            margin: 1.5rem auto;
-            border-radius: 2px;
-            position: relative;
-            overflow: hidden;
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.8rem;
         }
 
-        .divider::after {
+        .progress-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .progress-pct {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .progress-track {
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 38%;
+            background: linear-gradient(90deg, var(--gold-dim), var(--gold-bright));
+            border-radius: 3px;
+            position: relative;
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-fill::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--white), transparent);
+            top: 0; right: 0;
+            width: 20px; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4));
             animation: shimmer 2s infinite;
         }
 
         @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
         }
 
+        .progress-note {
+            margin-top: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+
+        /* ── Wiki Grid ── */
         .wiki-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            gap: 1.2rem;
         }
 
         .wiki-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            border-radius: 20px;
-            padding: 2.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            backdrop-filter: blur(10px);
         }
 
         .wiki-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, transparent 60%);
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, var(--gold-dim), transparent);
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: opacity 0.3s ease;
         }
 
         .wiki-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 215, 0, 0.3);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.1);
+            background: var(--surface-hover);
+            border-color: var(--border-strong);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(212,168,67,0.06);
         }
 
-        .wiki-card:hover::before {
-            opacity: 1;
-        }
+        .wiki-card:hover::before { opacity: 1; }
 
-        .card-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.05) 100%);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            transition: all 0.4s;
-            position: relative;
-            z-index: 1;
-        }
-
-        .wiki-card:hover .card-icon {
-            transform: scale(1.1) rotate(5deg);
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.1) 100%);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-        }
-
-        .wiki-card h3 {
-            font-family: 'Cinzel', serif;
+        .card-icon-wrap {
+            width: 52px; height: 52px;
+            background: rgba(212,168,67,0.08);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
             font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--white);
-            position: relative;
-            z-index: 1;
+            margin-bottom: 1.2rem;
+            transition: all 0.3s ease;
         }
 
-        .wiki-card p {
-            color: rgba(255, 255, 255, 0.6);
-            line-height: 1.8;
-            position: relative;
-            z-index: 1;
+        .wiki-card:hover .card-icon-wrap {
+            background: rgba(212,168,67,0.14);
+            border-color: var(--border-strong);
+            transform: scale(1.05);
+        }
+
+        .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
         }
 
         .card-arrow {
             position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold-primary);
-            transform: translateX(-10px);
+            bottom: 1.5rem; right: 1.5rem;
+            color: var(--gold-dim);
+            font-size: 0.9rem;
             opacity: 0;
-            transition: all 0.4s;
+            transform: translateX(-6px);
+            transition: all 0.3s ease;
         }
 
         .wiki-card:hover .card-arrow {
-            transform: translateX(0);
             opacity: 1;
+            transform: translateX(0);
+            color: var(--gold);
         }
 
-        .progress-wrapper {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 25px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            overflow: hidden;
-            height: 40px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary));
-            width: 25%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--darker-bg);
-            font-weight: 800;
-            font-size: 1.1rem;
-            transition: width 1s ease-in-out;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-        }
-
+        /* ── Modals ── */
         .modal {
             display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
+            position: fixed; inset: 0; z-index: 2000;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
             overflow-y: auto;
+            padding: 4rem 1rem;
         }
 
-        .modal-content {
-            background: var(--darker-bg);
-            margin: 5% auto;
-            padding: 3rem;
-            border: 1px solid var(--gold-primary);
-            width: 90%;
-            max-width: 800px;
-            border-radius: 20px;
-            color: var(--white);
+        .modal-box {
+            background: var(--ink-2);
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+            width: 100%; max-width: 760px;
+            margin: 0 auto;
+            padding: 2.5rem;
             position: relative;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.1);
-            animation: modalFadeIn 0.4s ease-out;
+            animation: modalIn 0.3s ease;
         }
 
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(-16px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .close-btn {
-            color: var(--gold-primary);
+        .modal-close {
             position: absolute;
-            top: 1.5rem;
-            right: 2rem;
-            font-size: 35px;
-            font-weight: bold;
+            top: 1.2rem; right: 1.5rem;
+            color: var(--gold-dim);
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: color 0.3s;
+            line-height: 1;
+            transition: color 0.2s;
         }
 
-        .close-btn:hover {
-            color: var(--white);
+        .modal-close:hover { color: var(--gold); }
+
+        .modal-box h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--gold-bright);
+            margin-bottom: 0.3rem;
         }
 
-        .modal-content h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
-            color: var(--gold-primary);
-            margin-bottom: 0.5rem;
+        .modal-box .m-rule {
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold-dim), transparent);
+            margin: 1rem 0 1.5rem;
         }
 
-        .modal-content h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
-            color: var(--gold-light);
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+        .modal-box h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin: 1.8rem 0 0.8rem;
         }
 
-        .modal-content p, .modal-content li {
-            color: rgba(255, 255, 255, 0.8);
+        .modal-box p, .modal-box li {
+            font-size: 0.9rem;
+            color: var(--text-dim);
             line-height: 1.8;
-            margin-bottom: 1rem;
+            margin-bottom: 0.6rem;
         }
 
-        .modal-content ul {
-            padding-left: 1.5rem;
-            margin-bottom: 1.5rem;
+        .modal-box ul { padding-left: 1.2rem; margin-bottom: 1rem; }
+        .modal-box strong { color: var(--gold-bright); font-weight: 600; }
+
+        .m-table {
+            width: 100%; border-collapse: collapse;
+            margin: 0.5rem 0 1rem;
+            border-radius: 8px; overflow: hidden;
         }
 
-        .modal-content strong {
-            color: var(--gold-primary);
-        }
-
-        .modal-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 1.5rem;
-            background: rgba(255,255,255,0.02);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .modal-table th, .modal-table td {
-            padding: 15px;
+        .m-table th {
+            padding: 0.7rem 1rem;
             text-align: left;
-            border-bottom: 1px solid rgba(255,215,0,0.1);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
+            background: rgba(212,168,67,0.05);
+            border-bottom: 1px solid var(--border);
         }
 
-        .modal-table th {
-            color: var(--gold-primary);
-            font-weight: 600;
-            background: rgba(255,215,0,0.05);
+        .m-table td {
+            padding: 0.7rem 1rem;
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
+        .m-table tr:last-child td { border-bottom: none; }
+        .m-table tr:hover td { background: rgba(212,168,67,0.02); }
+
+        /* ── Footer ── */
         footer {
-            background: var(--darker-bg);
-            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            border-top: 1px solid var(--border);
             padding: 4rem 0 2rem;
-            text-align: center;
         }
 
-        .footer-content {
-            max-width: 600px;
+        .footer-inner {
+            max-width: 500px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .footer-logo {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .footer-season {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
             margin-bottom: 1rem;
         }
 
-        .footer-text {
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 1rem;
-        }
-
-        .developer-credits {
-            color: var(--gold-muted);
-            font-size: 0.95rem;
+        .footer-credits {
+            font-size: 0.82rem;
+            color: var(--text-muted);
             margin-bottom: 2rem;
-            font-weight: 500;
         }
 
-        .copyright {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.9rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        .footer-copy {
+            font-size: 0.75rem;
+            color: rgba(232,226,213,0.2);
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
         }
 
-        @media (max-width: 968px) {
-            .nav-icons {
-                gap: 0.5rem;
-            }
-
-            .nav-icon-btn {
-                width: 45px;
-                height: 45px;
-            }
-
-            .nav-icon-btn span {
-                display: none;
-            }
-        }
-
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--darker-bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s, visibility 0.5s;
-        }
-
-        .loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-content {
-            text-align: center;
-        }
-
-        .loader-spinner {
-            width: 80px;
-            height: 80px;
-            border: 3px solid rgba(255, 215, 0, 0.1);
-            border-top-color: var(--gold-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1.5rem;
-            position: relative;
-        }
-
-        .loader-spinner::before {
-            content: '';
-            position: absolute;
-            inset: -10px;
-            border: 3px solid transparent;
-            border-top-color: rgba(255, 215, 0, 0.3);
-            border-radius: 50%;
-            animation: spin 2s linear infinite reverse;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loader-text {
-            font-family: 'Cinzel', serif;
-            color: var(--gold-primary);
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-        }
-
+        /* ── Reveal ── */
         .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--darker-bg);
-        }
-
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--ink); }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--gold-dark), var(--gold-primary));
-            border-radius: 5px;
+            background: linear-gradient(180deg, var(--gold-dim), var(--gold));
+            border-radius: 3px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--gold-primary), var(--gold-light));
+        @media (max-width: 768px) {
+            .nav-icon-btn { width: 40px; height: 40px; }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .wiki-grid { grid-template-columns: 1fr; }
         }
     </style>
-<base target="_blank">
+    <base target="_blank">
 </head>
 <body>
+
     <div class="loader" id="loader">
-        <div class="loader-content">
-            <div class="loader-spinner"></div>
-            <div class="loader-text">LIGHTCITYSMP</div>
+        <div class="loader-inner">
+            <div class="loader-ring"></div>
+            <div class="loader-label">LightCitySMP</div>
         </div>
     </div>
 
-    <!-- Enhanced Background -->
-    <div class="bg-grid"></div>
-    <div class="bg-glow"></div>
-    <div class="particles" id="particles"></div>
+    <div class="bg-layer"></div>
+    <div class="bg-lines"></div>
 
+    <!-- Nav -->
     <nav id="navbar">
-        <a href="#" class="logo">⚡ LightCitySMP</a>
+        <a href="#" class="logo" target="_self">
+            <span class="bolt">⚡</span> LightCitySMP
+        </a>
         <div class="nav-icons">
-            <a href="#shop" class="nav-icon-btn active" title="Shop">
+            <a href="#shop" class="nav-icon-btn active" title="Shop" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                <span>Shop</span>
             </a>
-            <a href="#wiki" class="nav-icon-btn" title="Wiki">
+            <a href="#wiki" class="nav-icon-btn" title="Wiki" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                <span>Wiki</span>
             </a>
-            <a href="rules.html" class="nav-icon-btn" title="Rules">
+            <a href="rules.html" class="nav-icon-btn" title="Rules" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                <span>Rules</span>
             </a>
         </div>
     </nav>
 
+    <!-- Hero -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>LightCitySMP</h1>
-            <p>Welcome to the official website of LightCitySMP! ✨</p>
-            <div class="cta-buttons">
-                <a href="#shop" class="btn btn-primary">View Shop</a>
-                <a href="#wiki" class="btn btn-secondary">Explore Wiki</a>
-            </div>
+        <p class="hero-eyebrow">Season 5 · Official Website</p>
+        <h1 class="hero-title">
+            <span class="line1">LightCitySMP</span>
+            <span class="line2">Where empires rise and fall</span>
+        </h1>
+        <div class="hero-rule">
+            <span></span>
+            <em>✦</em>
+            <span></span>
         </div>
-        <div class="scroll-indicator" onclick="document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">
-            <span>Scroll to explore</span>
-            <div class="scroll-line"></div>
+        <p class="hero-sub">Welcome to the official portal. Browse the shop, read the wiki, and learn the laws of the land.</p>
+        <div class="hero-cta">
+            <a href="#shop" class="btn btn-primary" target="_self">View Shop</a>
+            <a href="#wiki" class="btn btn-secondary" target="_self">Ascension Wiki</a>
+        </div>
+        <div class="scroll-hint" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
+            <span class="scroll-hint-text">Scroll</span>
+            <div class="scroll-hint-line"></div>
         </div>
     </section>
 
+    <!-- Shop -->
     <section id="shop">
         <div class="container">
-            <div class="section-header reveal">
-                <h2>Shop</h2>
-                <div class="divider"></div>
-            </div>
-            <div class="reveal" style="text-align: center;">
-                <h3 style="margin-bottom: 1.5rem; font-family: 'Cinzel', serif; color: var(--gold-light);">Development Progress</h3>
-                <div class="progress-wrapper">
-                    <div class="progress-fill">38%</div>
+            <div class="section-label reveal">In Development</div>
+            <h2 class="section-title reveal">Shop</h2>
+            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+
+            <div class="progress-container reveal">
+                <div class="progress-header">
+                    <span class="progress-label">Build Progress</span>
+                    <span class="progress-pct">38%</span>
                 </div>
+                <div class="progress-track">
+                    <div class="progress-fill"></div>
+                </div>
+                <p class="progress-note">// shop coming soon</p>
             </div>
         </div>
     </section>
 
+    <!-- Wiki -->
     <section id="wiki">
         <div class="container">
-            <div class="section-header reveal">
-                <h2>Ascension Wiki</h2>
-                <div class="divider"></div>
-                <p>Everything you need to know about our new ascension plugin — Made for LightCitySMP</p>
-            </div>
-
+            <div class="section-label reveal">Plugin Documentation</div>
+            <h2 class="section-title reveal">Ascension Wiki</h2>
+            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
             <div class="wiki-grid">
-                <div class="wiki-card reveal" onclick="openModal('modal-blade')">
-                    <div class="card-icon">🗡️</div>
-                    <h3>Ascension Blade</h3>
-                    <p>Learn about the craftable scythe and how to steal rebirth levels.</p>
-                    <div class="card-arrow">→</div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-blade')">
+                    <div class="card-icon-wrap">🗡️</div>
+                    <div class="card-title">Ascension Blade</div>
+                    <p class="card-desc">The craftable scythe. Steal rebirth levels from your enemies.</p>
+                    <span class="card-arrow">›</span>
                 </div>
 
-                <div class="wiki-card reveal" onclick="openModal('modal-rebirths')">
-                    <div class="card-icon">⭐</div>
-                    <h3>Rebirths</h3>
-                    <p>Understand the Rebirth Points system and progression tiers.</p>
-                    <div class="card-arrow">→</div>
+                <div class="wiki-card reveal" onclick="openModal('m-rebirths')">
+                    <div class="card-icon-wrap">⭐</div>
+                    <div class="card-title">Rebirths</div>
+                    <p class="card-desc">Rebirth Points, progression tiers, and the broadcast system.</p>
+                    <span class="card-arrow">›</span>
                 </div>
 
-                <div class="wiki-card reveal" onclick="openModal('modal-abilities')">
-                    <div class="card-icon">⚡</div>
-                    <h3>Abilities</h3>
-                    <p>Explore the 18 custom abilities across all 6 Ascension tiers.</p>
-                    <div class="card-arrow">→</div>
+                <div class="wiki-card reveal" onclick="openModal('m-abilities')">
+                    <div class="card-icon-wrap">⚡</div>
+                    <div class="card-title">Abilities</div>
+                    <p class="card-desc">All 18 abilities across 6 Ascension tiers — fully documented.</p>
+                    <span class="card-arrow">›</span>
                 </div>
 
-                <div class="wiki-card reveal" onclick="openModal('modal-streaks')">
-                    <div class="card-icon">🔥</div>
-                    <h3>Kill Streaks</h3>
-                    <p>Master the PvP streak requirements and server-wide announcements.</p>
-                    <div class="card-arrow">→</div>
+                <div class="wiki-card reveal" onclick="openModal('m-streaks')">
+                    <div class="card-icon-wrap">🔥</div>
+                    <div class="card-title">Kill Streaks</div>
+                    <p class="card-desc">Streak requirements, display rules, and server-wide announces.</p>
+                    <span class="card-arrow">›</span>
                 </div>
 
-                <div class="wiki-card reveal" onclick="openModal('modal-concept')">
-                    <div class="card-icon">💡</div>
-                    <h3>Plugin Information</h3>
-                    <p>Fully understand the plugin's concept and information.</p>
-                    <div class="card-arrow">→</div>
+                <div class="wiki-card reveal" onclick="openModal('m-concept')">
+                    <div class="card-icon-wrap">💡</div>
+                    <div class="card-title">Plugin Information</div>
+                    <p class="card-desc">The concept behind Ascension and how it all fits together.</p>
+                    <span class="card-arrow">›</span>
                 </div>
 
-                <div class="wiki-card reveal" onclick="openModal('modal-commands')">
-                    <div class="card-icon">⌨️</div>
-                    <h3>Commands &amp; Utilities</h3>
-                    <p>Access the full list of player commands for homes, teams, combat, and chat.</p>
-                    <div class="card-arrow">→</div>
+                <div class="wiki-card reveal" onclick="openModal('m-commands')">
+                    <div class="card-icon-wrap">⌨️</div>
+                    <div class="card-title">Commands &amp; Utilities</div>
+                    <p class="card-desc">Full command reference — homes, teams, combat, chat, and more.</p>
+                    <span class="card-arrow">›</span>
                 </div>
+
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-inner">
                 <div class="footer-logo">LightCitySMP</div>
-                <p class="footer-text">Season 5</p>
-                <p class="developer-credits">Developer credits: Sam, Fanta, George767</p>
-                <p class="copyright">© 2026 LightCitySMP. Not affiliated with Mojang Studios.</p>
+                <div class="footer-season">Season 5</div>
+                <p class="footer-credits">Developer credits: Sam, Fanta, George767</p>
+                <p class="footer-copy">© 2026 LightCitySMP — Not affiliated with Mojang Studios.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Modals remain the same -->
-    <div id="modal-blade" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-blade')">&times;</span>
+    <!-- Modals -->
+    <div id="m-blade" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-blade')">×</span>
             <h2>Ascension Blade</h2>
-            <div class="divider" style="margin: 1rem 0;"></div>
+            <div class="m-rule"></div>
             <p>A craftable weapon with a custom scythe texture.</p>
             <p>Killing a player with it <strong>steals one of their rebirth levels</strong>, including the ability tied to it. The stolen ability is stored as an item in your inventory.</p>
             <p>When you activate it, your currently equipped ability is removed and replaced.</p>
-            <p>The way to acquire someone's rebirth and the tied ability using the blade, you must <strong>kill</strong> the person used the ascension blade.</p>
+            <p>To acquire someone's rebirth and their tied ability, you must <strong>kill</strong> them using the Ascension Blade.</p>
         </div>
     </div>
 
-    <div id="modal-rebirths" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-rebirths')">&times;</span>
+    <div id="m-rebirths" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-rebirths')">×</span>
             <h2>Rebirths</h2>
-            <div class="divider" style="margin: 1rem 0;"></div>
+            <div class="m-rule"></div>
             <h3>How to Rebirth</h3>
             <p>Requires 1 Rebirth Point, earned by:</p>
             <ul>
                 <li>Reaching the required kill streak without dying</li>
                 <li>Purchasing from the server store</li>
-                <li>You can also craft a rebirth point using its custom recipe</li>
+                <li>Crafting a rebirth point using its custom recipe</li>
             </ul>
             <p>Upon completing a rebirth, players are presented with a selection of three abilities, from which they may permanently choose one.</p>
-
             <h3>Rebirth Broadcast System</h3>
             <ul>
-                <li>When a player reaches Rebirth 1 for the first time, broadcast to the entire server: <strong>[username] has reached his first rebirth</strong></li>
-                <li>When a player reaches Rebirth 6, broadcast: <strong>[username] has reached his last rebirth</strong></li>
+                <li>Rebirth 1 (first time): <strong>[username] has reached his first rebirth</strong></li>
+                <li>Rebirth 6: <strong>[username] has reached his last rebirth</strong></li>
             </ul>
         </div>
     </div>
 
-    <div id="modal-abilities" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-abilities')">&times;</span>
+    <div id="m-abilities" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-abilities')">×</span>
             <h2>The 18 Abilities</h2>
-            <div class="divider" style="margin: 1rem 0;"></div>
-
+            <div class="m-rule"></div>
             <h3>Ascension I — Low Power</h3>
             <ul>
-                <li><strong>Iron Skin:</strong> Grants Resistance I and reduces incoming damage for 8 seconds. Cooldown: 40s.</li>
-                <li><strong>Dash:</strong> Launches the player forward in the direction they are looking, leaving a trail of cloud particles. Instant. Cooldown: 15s.</li>
-                <li><strong>Smokescreen:</strong> Blinds the target player (or yourself if no target is found) and surrounds them in thick campfire smoke for 3 seconds. Cooldown: 45s.</li>
+                <li><strong>Iron Skin:</strong> Grants Resistance I and reduces incoming damage for 8s. Cooldown: 40s.</li>
+                <li><strong>Dash:</strong> Launches you forward with cloud particle trail. Cooldown: 15s.</li>
+                <li><strong>Smokescreen:</strong> Blinds the target and surrounds them in smoke for 3s. Cooldown: 45s.</li>
             </ul>
-
             <h3>Ascension II — Low Power</h3>
             <ul>
-                <li><strong>Blood Rush:</strong> Passive/reactive. When you hit someone or get hit, instantly gain Speed II for 5 seconds. Cooldown: 45s.</li>
-                <li><strong>Fortify:</strong> Passive/reactive, when you get hit, it reduces 25% of incoming damage for 8 seconds, cooldown: 50 seconds.</li>
-                <li><strong>Splinter:</strong> Empowers your next attacks to deal +20% bonus damage for 10 seconds, emitting critical hit particles. Cooldown: 50s.</li>
+                <li><strong>Blood Rush:</strong> On hit/being hit — Speed II for 5s. Cooldown: 45s.</li>
+                <li><strong>Fortify:</strong> On being hit — reduces 25% incoming damage for 8s. Cooldown: 50s.</li>
+                <li><strong>Splinter:</strong> Next attacks deal +20% bonus damage for 10s. Cooldown: 50s.</li>
             </ul>
-
             <h3>Ascension III — Medium Power</h3>
             <ul>
-                <li><strong>Exposed:</strong> Curses a target, causing them to take +50% bonus damage from all sources for 4 seconds. Cooldown: 60s.</li>
-                <li><strong>Phantom Step:</strong> Grants Invisibility and emits portal particles for 4 seconds. Cooldown: 65s.</li>
-                <li><strong>Shockwave:</strong> Violently knocks back all enemies within a 5-block radius and deals 4.0 damage (2 hearts), leaving a purple dust ring. Instant. Cooldown: 55s.</li>
+                <li><strong>Exposed:</strong> Target takes +50% bonus damage for 4s. Cooldown: 60s.</li>
+                <li><strong>Phantom Step:</strong> Invisibility and portal particles for 4s. Cooldown: 65s.</li>
+                <li><strong>Shockwave:</strong> Knocks back all enemies in 5 blocks and deals 2 hearts. Cooldown: 55s.</li>
             </ul>
-
             <h3>Ascension IV — Medium Power</h3>
             <ul>
-                <li><strong>Overclock:</strong> Grants Speed II, Haste I, and complete immunity to all projectiles for 6 seconds. Cooldown: 70s.</li>
-                <li><strong>Soul Drain:</strong> Instantly strips all active potion effects from the target. A yellow ring and soul particles surround them. Cooldown: 75s.</li>
-                <li><strong>Warden's Grasp:</strong> Roots the target in place completely and applies Slowness X for 3 seconds. Can be blocked by Wraith Form. Cooldown: 80s.</li>
+                <li><strong>Overclock:</strong> Speed II, Haste I, full projectile immunity for 6s. Cooldown: 70s.</li>
+                <li><strong>Soul Drain:</strong> Strips all active potion effects from target. Cooldown: 75s.</li>
+                <li><strong>Warden's Grasp:</strong> Roots target in place with Slowness X for 3s. Cooldown: 80s.</li>
             </ul>
-
             <h3>Ascension V — High Power</h3>
             <ul>
-                <li><strong>Wraith Form:</strong> Grants Invisibility, cleanses Blindness/Nausea/Slowness, cancels all incoming damage, and blocks/removes Reaper's Call and Warden's Grasp for 5 seconds. Summons an Allay on your shoulder. Cooldown: 450s.</li>
-                <li><strong>Execution:</strong> If you hit an enemy below 25% HP within a 10-second window, deal 2x damage accompanied by lightning effects. Cooldown: 85s.</li>
-                <li><strong>Marked:</strong> Targets an enemy, causing them to take +40% bonus damage from all sources for 5 seconds. Cooldown: 95s.</li>
+                <li><strong>Wraith Form:</strong> Invisibility, cleanses debuffs, cancels all incoming damage for 5s. Blocks Reaper's Call and Warden's Grasp. Cooldown: 450s.</li>
+                <li><strong>Execution:</strong> Hit an enemy below 25% HP within 10s for 2x damage. Cooldown: 85s.</li>
+                <li><strong>Marked:</strong> Target takes +40% damage from all sources for 5s. Cooldown: 95s.</li>
             </ul>
-
             <h3>Ascension VI — High Power</h3>
             <ul>
-                <li><strong>Soul Lock:</strong> Silences the target. Strips all their potion effects and prevents them from consuming any food or items for 6 seconds. Cooldown: 115s.</li>
-                <li><strong>Warlord's Aura:</strong> Grants Resistance I and Regeneration I to yourself and all allies within 5 blocks for 8 seconds. Indicated by heart particles. Cooldown: 110s.</li>
-                <li><strong>Reaper's Call:</strong> Encases the target in 4 spinning black rings. Target is frozen, blinded, and nauseous. Their hotbar is locked with red glass panes preventing item use. Hitting the target during this phase deals True Damage ignoring all armor. Blocked by Wraith Form. Lasts 4 seconds. Cooldown: 300s.</li>
+                <li><strong>Soul Lock:</strong> Silences target — strips effects and prevents item use for 6s. Cooldown: 115s.</li>
+                <li><strong>Warlord's Aura:</strong> Resistance I and Regen I for you and all allies in 5 blocks for 8s. Cooldown: 110s.</li>
+                <li><strong>Reaper's Call:</strong> Encases target in 4 black rings — frozen, blinded, nauseous, hotbar locked for 4s. Hits deal True Damage ignoring armor. Blocked by Wraith Form. Cooldown: 300s.</li>
             </ul>
         </div>
     </div>
 
-    <div id="modal-streaks" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-streaks')">&times;</span>
+    <div id="m-streaks" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-streaks')">×</span>
             <h2>Kill Streaks</h2>
-            <div class="divider" style="margin: 1rem 0;"></div>
-
-            <table class="modal-table">
-                <tr>
-                    <th>Rebirth Level</th>
-                    <th>Kill Streak Required</th>
-                </tr>
-                <tr><td>1</td><td>5</td></tr>
-                <tr><td>2</td><td>10</td></tr>
-                <tr><td>3</td><td>15</td></tr>
-                <tr><td>4</td><td>20</td></tr>
-                <tr><td>5</td><td>25</td></tr>
-                <tr><td>6</td><td>30</td></tr>
+            <div class="m-rule"></div>
+            <table class="m-table">
+                <thead><tr><th>Rebirth Level</th><th>Kill Streak Required</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>5</td></tr>
+                    <tr><td>2</td><td>10</td></tr>
+                    <tr><td>3</td><td>15</td></tr>
+                    <tr><td>4</td><td>20</td></tr>
+                    <tr><td>5</td><td>25</td></tr>
+                    <tr><td>6</td><td>30</td></tr>
+                </tbody>
             </table>
-
             <h3>Streak Rules</h3>
             <ul>
-                <li>Killing the same player requires a 30 minute cooldown before it counts again.</li>
+                <li>Killing the same player has a 30-minute cooldown before it counts again.</li>
                 <li>Dying resets your streak to 0.</li>
                 <li>Streak does not reset on logout.</li>
-                <li>Active streaks are publicly visible to all players on the server.</li>
+                <li>Active streaks are publicly visible to all players.</li>
             </ul>
-
-            <h3>Kill Streak Display System</h3>
-            <p>Each player's current kill streak is displayed beside their name in-person only — not on the tab list. The display updates live with the exact streak number, not just milestones. A player on 21 kills shows [21 🔥], not [20 🔥].</p>
-            <p>Display rules by streak range:</p>
+            <h3>Display System</h3>
             <ul>
-                <li><strong>Under 5 kills</strong> — nothing is shown</li>
-                <li><strong>5 to 14 kills</strong> — [X 🔥] in orange</li>
-                <li><strong>15 to 24 kills</strong> — [X 🔥] in purple, symbolizing a higher tier of threat</li>
-                <li><strong>25 to 30 kills</strong> — [X 🔥] in blood red, slightly larger text, indicating elite status</li>
+                <li><strong>Under 5 kills</strong> — nothing shown</li>
+                <li><strong>5–14 kills</strong> — [X 🔥] in orange</li>
+                <li><strong>15–24 kills</strong> — [X 🔥] in purple</li>
+                <li><strong>25–30 kills</strong> — [X 🔥] in blood red, slightly larger</li>
             </ul>
         </div>
     </div>
 
-    <div id="modal-concept" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-concept')">&times;</span>
-            <h2>Plugin Concept</h2>
-            <div class="divider" style="margin: 1rem 0;"></div>
-            <p>The main idea of this plugin is for players that love the idea of pvp, wars and battles, so they can express their skill and strength,  <strong>but.. </strong>
-            its also made for the players that love grinding, try to ignore pvp, and just want to live in peace while feeling and <strong> BEING POWERFUL!</strong>  Ascension is all about ascending from being nothing, to being everything.</p>
-            <h2>Concept</h2>
-            <p>Ascension is a pvp & grinding-based plugin where players have to either get a specific amount of kill streak to <strong> earn rebirth points</strong> which lets them unlock various abilities  or grind them.
-            you can also earn rebirth points by crafting them using their custom recipe which is found in our discord server, when rebirthed you will be met with a menu and 3 abilities which you can pick 1 of them. 
-            with each rebirth, the abilities get better and better. There are 18 abilities and 6 rebirth levels which we plan on upgrading in the future.</p>
+    <div id="m-concept" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-concept')">×</span>
+            <h2>Plugin Information</h2>
+            <div class="m-rule"></div>
+            <p>The main idea of this plugin is for players that love PvP, wars and battles — so they can express skill and strength. But it's also made for players that love grinding, want to avoid PvP, and just want to live in peace while feeling <strong>and being powerful.</strong> Ascension is all about ascending from being nothing, to being everything.</p>
+            <h3>Concept</h3>
+            <p>Ascension is a PvP & grinding-based plugin where players must either reach a specific kill streak to <strong>earn Rebirth Points</strong> — unlocking various abilities — or grind for them. You can also earn Rebirth Points by crafting them using the custom recipe found in our Discord.</p>
+            <p>When rebirthed, you're presented with a menu and 3 abilities to choose 1 from. With each rebirth, the abilities get stronger. There are <strong>18 abilities</strong> and <strong>6 rebirth levels</strong>, with more planned for the future.</p>
         </div>
     </div>
 
-    <div id="modal-commands" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-commands')">&times;</span>
+    <div id="m-commands" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-commands')">×</span>
             <h2>Commands &amp; Utilities</h2>
-            <div class="divider" style="margin: 1rem 0;"></div>
-
+            <div class="m-rule"></div>
             <h3>⚔️ Combat &amp; Mechanics</h3>
-            <table class="modal-table">
-                <tr>
-                    <th>Command</th>
-                    <th>What it does</th>
-                </tr>
-                <tr><td>/streak</td><td>Opens a GUI menu showing your current kill streak and how many kills you need for the next Rebirth Point.</td></tr>
-                <tr><td>/streak-toggle</td><td>Toggles whether your streak tag (e.g., [5 🔥]) is visible above your head to other players.</td></tr>
-                <tr><td>/rebirth</td><td>Opens the Rebirth Panel to spend Rebirth Points and select new Ascension Abilities.</td></tr>
-                <tr><td>/ability-set &lt;player&gt; &lt;ability&gt;</td><td>(Admin) Forcefully sets a player's active Ascension Ability.</td></tr>
+            <table class="m-table">
+                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+                <tbody>
+                    <tr><td>/streak</td><td>Opens a GUI showing your current kill streak and progress toward the next Rebirth Point.</td></tr>
+                    <tr><td>/streak-toggle</td><td>Toggles your streak tag visibility above your head.</td></tr>
+                    <tr><td>/rebirth</td><td>Opens the Rebirth Panel to spend Rebirth Points and select abilities.</td></tr>
+                    <tr><td>/ability-set &lt;player&gt; &lt;ability&gt;</td><td>(Admin) Forcefully sets a player's active ability.</td></tr>
+                </tbody>
             </table>
-
             <h3>🏠 Teleportation &amp; Homes</h3>
-            <table class="modal-table">
-                <tr>
-                    <th>Command</th>
-                    <th>What it does</th>
-                </tr>
-                <tr><td>/home</td><td>Opens the GUI Home Panel to set, teleport to, rename, or delete your homes.</td></tr>
-                <tr><td>/tpa &lt;player&gt;</td><td>Sends a teleport request to another player.</td></tr>
-                <tr><td>/tpaccept</td><td>Accepts a pending teleport request.</td></tr>
-                <tr><td>/tpdeny</td><td>Denies a pending teleport request.</td></tr>
-                <tr><td>/rtp</td><td>Teleports you to a random safe location in the world (3000 block radius).</td></tr>
-                <tr><td>/back</td><td>Returns you to the location of your last natural death.</td></tr>
+            <table class="m-table">
+                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+                <tbody>
+                    <tr><td>/home</td><td>Opens the GUI Home Panel to manage your homes.</td></tr>
+                    <tr><td>/tpa &lt;player&gt;</td><td>Sends a teleport request to another player.</td></tr>
+                    <tr><td>/tpaccept</td><td>Accepts a pending teleport request.</td></tr>
+                    <tr><td>/tpdeny</td><td>Denies a pending teleport request.</td></tr>
+                    <tr><td>/rtp</td><td>Teleports you to a random safe location (3000 block radius).</td></tr>
+                    <tr><td>/back</td><td>Returns you to the location of your last natural death.</td></tr>
+                </tbody>
             </table>
-
             <h3>🛡️ Social &amp; Teams</h3>
-            <table class="modal-table">
-                <tr>
-                    <th>Command</th>
-                    <th>What it does</th>
-                </tr>
-                <tr><td>/team create &lt;name&gt;</td><td>Start a new team.</td></tr>
-                <tr><td>/team invite &lt;player&gt;</td><td>Invite someone to join your team.</td></tr>
-                <tr><td>/team accept &lt;team&gt;</td><td>Join a team you were invited to.</td></tr>
-                <tr><td>/team chat</td><td>Toggle between global and private team chat.</td></tr>
-                <tr><td>/team leave / disband / kick / rename / promote</td><td>Manage your team and its members.</td></tr>
-                <tr><td>/msg &lt;player&gt; &lt;message&gt;</td><td>Sends a private message to another player.</td></tr>
-                <tr><td>/reply &lt;message&gt;</td><td>Quick-reply to the last person who messaged you.</td></tr>
+            <table class="m-table">
+                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+                <tbody>
+                    <tr><td>/team create &lt;name&gt;</td><td>Start a new team.</td></tr>
+                    <tr><td>/team invite &lt;player&gt;</td><td>Invite someone to your team.</td></tr>
+                    <tr><td>/team accept &lt;team&gt;</td><td>Join a team you were invited to.</td></tr>
+                    <tr><td>/team chat</td><td>Toggle between global and team chat.</td></tr>
+                    <tr><td>/team leave / disband / kick / rename / promote</td><td>Manage your team.</td></tr>
+                    <tr><td>/msg &lt;player&gt; &lt;message&gt;</td><td>Send a private message.</td></tr>
+                    <tr><td>/reply &lt;message&gt;</td><td>Quick-reply to the last person who messaged you.</td></tr>
+                </tbody>
             </table>
         </div>
     </div>
 
     <script>
+        // Loader
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1500);
+            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1200);
         });
 
-        // Create particles with new animation
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 20 + 's';
-            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-            particlesContainer.appendChild(particle);
-        }
-
+        // Navbar scroll
         window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        const reveals = document.querySelectorAll('.reveal');
-        const revealOnScroll = () => {
-            reveals.forEach(element => {
-                const windowHeight = window.innerHeight;
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
+        // Reveal on scroll
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => revealObserver.observe(el));
 
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add('active');
-                }
-            });
-        };
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll();
-
+        // Modals
         function openModal(id) {
             document.getElementById(id).style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -1177,36 +1018,22 @@
 
         function closeModal(id) {
             document.getElementById(id).style.display = 'none';
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
         }
 
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-                document.body.style.overflow = 'auto';
+        window.addEventListener('click', e => {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+                document.body.style.overflow = '';
             }
-        }
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
         });
 
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.hero-content');
-            if (parallax) {
-                parallax.style.transform = `translateY(${scrolled * 0.4}px)`;
-                parallax.style.opacity = 1 - (scrolled / 700);
-            }
+        // Smooth anchor scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
         });
     </script>
 </body>
