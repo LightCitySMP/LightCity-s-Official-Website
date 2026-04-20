@@ -40,7 +40,6 @@
             min-height: 100vh;
         }
 
-        /* ── Background ── */
         .bg-layer {
             position: fixed; inset: 0; z-index: -2;
             background:
@@ -58,7 +57,6 @@
             mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
         }
 
-        /* ── Nav ── */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 1.2rem 5%;
@@ -132,14 +130,12 @@
 
         .nav-icon-btn:hover svg { transform: scale(1.1); }
 
-        /* ── Container ── */
         .container {
             max-width: 960px;
             margin: 0 auto;
             padding: 110px 5% 6rem;
         }
 
-        /* ── Page Header ── */
         .page-header {
             text-align: center;
             margin-bottom: 5rem;
@@ -162,14 +158,6 @@
             line-height: 1.1;
             letter-spacing: -0.01em;
             margin-bottom: 0.5rem;
-        }
-
-        .page-subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            color: var(--text-dim);
-            font-style: italic;
-            margin-bottom: 2rem;
         }
 
         .title-rule {
@@ -205,23 +193,6 @@
             line-height: 1.85;
         }
 
-        .notice {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: var(--gold-trace);
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--gold);
-            border-radius: 6px;
-            padding: 0.9rem 1.4rem;
-            font-size: 0.88rem;
-            color: var(--text-dim);
-            max-width: 580px;
-        }
-
-        .notice .ni { color: var(--gold); font-size: 1rem; }
-
-        /* ── Section Separator ── */
         .sep {
             display: flex;
             align-items: center;
@@ -241,7 +212,6 @@
             letter-spacing: 0.1em;
         }
 
-        /* ── Rule Sections ── */
         .rule-block {
             margin-bottom: 2rem;
             opacity: 0;
@@ -252,10 +222,6 @@
         .rule-block:nth-child(1) { animation-delay: 0.05s; }
         .rule-block:nth-child(2) { animation-delay: 0.1s; }
         .rule-block:nth-child(3) { animation-delay: 0.15s; }
-        .rule-block:nth-child(4) { animation-delay: 0.2s; }
-        .rule-block:nth-child(5) { animation-delay: 0.25s; }
-        .rule-block:nth-child(6) { animation-delay: 0.3s; }
-        .rule-block:nth-child(7) { animation-delay: 0.35s; }
 
         @keyframes riseIn {
             to { opacity: 1; transform: translateY(0); }
@@ -281,11 +247,7 @@
             border-left-color: var(--gold);
         }
 
-        .rh-icon {
-            font-size: 1.4rem;
-            line-height: 1;
-            filter: drop-shadow(0 0 4px rgba(212,168,67,0.4));
-        }
+        .rh-icon { font-size: 1.4rem; line-height: 1; filter: drop-shadow(0 0 4px rgba(212,168,67,0.4)); }
 
         .rh-label {
             font-family: 'Syne', sans-serif;
@@ -336,13 +298,10 @@
             user-select: none;
         }
 
-        .rule-text {
-            font-size: 0.93rem;
-            color: var(--text-dim);
-        }
+        .rule-text { font-size: 0.93rem; color: var(--text-dim); }
 
         .rule-text strong { color: var(--gold-bright); font-weight: 600; }
-
+        
         .rule-text .ban {
             color: var(--red-bright);
             font-weight: 600;
@@ -354,10 +313,7 @@
             border-radius: 3px;
         }
 
-        .rule-text .ok {
-            color: #4CAF50;
-            font-weight: 600;
-        }
+        .rule-text .ok { color: #4CAF50; font-weight: 600; }
 
         .rule-text .note {
             display: block;
@@ -367,7 +323,6 @@
             font-style: italic;
         }
 
-        /* ── Item Utilities Link Block ── */
         .item-util-link {
             display: flex;
             align-items: center;
@@ -384,18 +339,9 @@
             overflow: hidden;
         }
 
-        .item-util-link::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent 60%, rgba(212,168,67,0.05));
-            pointer-events: none;
-        }
-
         .item-util-link:hover {
             background: linear-gradient(135deg, rgba(212,168,67,0.13), rgba(212,168,67,0.05));
             border-color: var(--gold);
-            box-shadow: 0 4px 24px rgba(212,168,67,0.1);
             transform: translateX(4px);
         }
 
@@ -429,12 +375,8 @@
             transition: transform 0.2s ease, color 0.2s ease;
         }
 
-        .item-util-link:hover .iul-arrow {
-            transform: translateX(4px);
-            color: var(--gold);
-        }
+        .item-util-link:hover .iul-arrow { transform: translateX(4px); color: var(--gold); }
 
-        /* ── Footer ── */
         footer {
             text-align: center;
             padding: 3rem 0;
@@ -450,12 +392,8 @@
             margin-bottom: 1rem;
         }
 
-        .footer-text {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
+        .footer-text { font-size: 0.85rem; color: var(--text-muted); }
 
-        /* ── Scrollbar ── */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--ink); }
         ::-webkit-scrollbar-thumb {
@@ -463,7 +401,6 @@
             border-radius: 3px;
         }
 
-        /* ── Responsive ── */
         @media (max-width: 768px) {
             .nav-icon-btn { width: 40px; height: 40px; }
             .rule-item { padding: 0.9rem 1.2rem; }
@@ -477,7 +414,6 @@
     <div class="bg-layer"></div>
     <div class="bg-lines"></div>
 
-    <!-- Nav -->
     <nav id="navbar">
         <a href="index.html" class="logo" target="_self">
             <span class="bolt">⚡</span> LightCitySMP
@@ -495,31 +431,22 @@
         </div>
     </nav>
 
-    <!-- Main -->
     <div class="container">
-
-        <!-- Header -->
         <div class="page-header">
             <p class="overline">Season 5 · LightCitySMP</p>
-            <h1 class="page-title">The Constitution</h1>
-            <p class="page-subtitle">Laws of the Land</p>
+            <h1 class="page-title">LightCitySMP — Consitution</h1>
             <div class="title-rule">
                 <span></span>
                 <em>✦</em>
                 <span></span>
             </div>
             <p class="intro-text">
-                LightCitySMP runs on one principle — there are rules, and they exist for a reason. This isn't a casual server where anything goes. Every law below was put in place to make sure the SMP stays competitive, fair, and worth playing on. Ignorance is not an excuse.
+                We advise you to read all of the laws of our SMP, to make sure you never break any. consequences are severe if you ever break a <strong style="color: var(--gold);">law</strong>.
             </p>
-            <div class="notice">
-                <span class="ni">📢</span>
-                The High Council reserves the right to update, add, or remove laws at any time. It is your responsibility to stay informed.
-            </div>
         </div>
 
         <div class="sep"><div class="sep-line"></div><div class="sep-glyph">✦</div><div class="sep-line"></div></div>
 
-        <!-- PvP -->
         <div class="rule-block">
             <div class="rule-header">
                 <span class="rh-icon">⚔️</span>
@@ -560,7 +487,6 @@
 
         <div class="sep"><div class="sep-line"></div><div class="sep-glyph">◆</div><div class="sep-line"></div></div>
 
-        <!-- Building & Griefing -->
         <div class="rule-block">
             <div class="rule-header">
                 <span class="rh-icon">🏗️</span>
@@ -589,7 +515,6 @@
 
         <div class="sep"><div class="sep-line"></div><div class="sep-glyph">◆</div><div class="sep-line"></div></div>
 
-        <!-- Alliances & Wars -->
         <div class="rule-block">
             <div class="rule-header">
                 <span class="rh-icon">🤝</span>
@@ -614,7 +539,6 @@
 
         <div class="sep"><div class="sep-line"></div><div class="sep-glyph">◆</div><div class="sep-line"></div></div>
 
-        <!-- Cheating & Exploiting -->
         <div class="rule-block">
             <div class="rule-header">
                 <span class="rh-icon">🛡️</span>
@@ -647,7 +571,6 @@
 
         <div class="sep"><div class="sep-line"></div><div class="sep-glyph">◆</div><div class="sep-line"></div></div>
 
-        <!-- General Conduct -->
         <div class="rule-block">
             <div class="rule-header">
                 <span class="rh-icon">📜</span>
@@ -668,7 +591,6 @@
 
         <div class="sep"><div class="sep-line"></div><div class="sep-glyph">✦</div><div class="sep-line"></div></div>
 
-        <!-- Item Utilities Link -->
         <a href="items.html" class="item-util-link" target="_self">
             <span class="iul-icon">⚗️</span>
             <div class="iul-text">
@@ -678,13 +600,11 @@
             <span class="iul-arrow">›</span>
         </a>
 
-        <!-- Footer -->
         <footer>
             <div class="footer-glyph">✦ ─────────────── ✦</div>
             <p class="footer-text">LightCitySMP Season 5 — Constitution</p>
             <p class="footer-text" style="margin-top: 0.4rem; font-size: 0.78rem; color: var(--text-muted);">Developer credits: Sam, Fanta, George767</p>
         </footer>
-
     </div>
 
     <script>
