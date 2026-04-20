@@ -1,1 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LightCitySMP | Item Utilities</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4A843;
+            --gold-bright: #F0C060;
+            --gold-dim: #8A6B28;
+            --gold-trace: rgba(212, 168, 67, 0.12);
+            --gold-glow: rgba(212, 168, 67, 0.25);
+            --red: #C0392B;
+            --red-bright: #E74C3C;
+            --red-trace: rgba(192, 57, 43, 0.15);
+            --green: #27AE60;
+            --green-trace: rgba(39, 174, 96, 0.12);
+            --ink: #080808;
+            --ink-2: #0F0F0D;
+            --surface: rgba(255,255,255,0.025);
+            --surface-hover: rgba(255,255,255,0.045);
+            --border: rgba(212, 168, 67, 0.14);
+            --border-strong: rgba(212, 168, 67, 0.35);
+            --text: #E8E2D5;
+            --text-dim: rgba(232, 226, 213, 0.55);
+            --text-muted: rgba(232, 226, 213, 0.3);
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Syne', sans-serif;
+            background: var(--ink);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ── Background ── */
+        .bg-layer {
+            position: fixed; inset: 0; z-index: -2;
+            background:
+                radial-gradient(ellipse 70% 50% at 80% 15%, rgba(212,168,67,0.07) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 50% at 20% 85%, rgba(212,168,67,0.05) 0%, transparent 50%),
+                var(--ink);
+        }
+
+        .bg-lines {
+            position: fixed; inset: 0; z-index: -1;
+            background-image:
+                linear-gradient(rgba(212,168,67,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,168,67,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8,8,8,0.88);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            transition: padding 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.9rem 5%;
+            box-shadow: 0 4px 40px rgba(0,0,0,0.7);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .logo .bolt { filter: drop-shadow(0 0 6px var(--gold)); }
+
+        .nav-icons {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .nav-icon-btn {
+            width: 44px; height: 44px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-icon-btn:hover {
+            background: var(--gold-trace);
+            border-color: var(--border-strong);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212,168,67,0.15);
+        }
+
+        .nav-icon-btn.active {
+            background: var(--gold-trace);
+            border-color: var(--gold);
+            box-shadow: 0 0 16px rgba(212,168,67,0.2);
+        }
+
+        .nav-icon-btn svg {
+            width: 20px; height: 20px;
+            fill: var(--gold);
+            transition: transform 0.25s ease;
+        }
+
+        .nav-icon-btn:hover svg { transform: scale(1.1); }
+
+        /* ── Container ── */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 110px 5% 6rem;
+        }
+
+        /* ── Page Header ── */
+        .page-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .overline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--gold-bright);
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-dim);
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .title-rule {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .title-rule span {
+            height: 1px;
+            width: 80px;
+            background: linear-gradient(90deg, transparent, var(--gold-dim));
+        }
+
+        .title-rule span:last-child {
+            background: linear-gradient(90deg, var(--gold-dim), transparent);
+        }
+
+        .title-rule em {
+            color: var(--gold);
+            font-style: normal;
+            font-size: 0.9rem;
+        }
+
+        .intro-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.85;
+        }
+
+        /* ── Separator ── */
+        .sep {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2.5rem 0;
+        }
+
+        .sep-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+        }
+
+        .sep-glyph {
+            font-size: 0.75rem;
+            color: var(--gold-dim);
+            letter-spacing: 0.1em;
+        }
+
+        /* ── Category Block ── */
+        .cat-block {
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: riseIn 0.5s ease forwards;
+        }
+
+        .cat-block:nth-child(1) { animation-delay: 0.05s; }
+        .cat-block:nth-child(2) { animation-delay: 0.12s; }
+        .cat-block:nth-child(3) { animation-delay: 0.19s; }
+
+        @keyframes riseIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cat-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.1rem 1.6rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--gold-dim);
+            border-radius: 8px 8px 0 0;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .cat-header:hover {
+            background: var(--surface-hover);
+            border-left-color: var(--gold);
+        }
+
+        .ch-icon { font-size: 1.4rem; line-height: 1; filter: drop-shadow(0 0 4px rgba(212,168,67,0.4)); }
+
+        .ch-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--gold-bright);
+            flex: 1;
+        }
+
+        .ch-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--gold-dim);
+            background: rgba(212,168,67,0.08);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid rgba(212,168,67,0.15);
+            letter-spacing: 0.05em;
+        }
+
+        .cat-body {
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            background: rgba(255,255,255,0.012);
+            overflow: hidden;
+        }
+
+        /* ── Limit Table ── */
+        .limit-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .limit-table thead tr {
+            background: rgba(212,168,67,0.05);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .limit-table th {
+            padding: 0.8rem 1.6rem;
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
+        }
+
+        .limit-table td {
+            padding: 0.9rem 1.6rem;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: middle;
+        }
+
+        .limit-table tr:last-child td { border-bottom: none; }
+
+        .limit-table tr:hover td { background: rgba(212,168,67,0.025); }
+
+        .item-name {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .item-emoji { font-size: 1.1rem; line-height: 1; }
+
+        .item-scope {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 0.15rem;
+        }
+
+        .limit-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            font-weight: 500;
+            background: rgba(212,168,67,0.1);
+            color: var(--gold-bright);
+            border: 1px solid rgba(212,168,67,0.25);
+            padding: 0.25rem 0.7rem;
+            border-radius: 4px;
+        }
+
+        /* ── Ban Grid ── */
+        .ban-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0;
+        }
+
+        .ban-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.6rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            border-right: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.2s ease;
+        }
+
+        .ban-item:hover { background: rgba(192,57,43,0.05); }
+
+        .ban-icon { font-size: 1.1rem; line-height: 1; }
+
+        .ban-name {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .ban-pill {
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.08em;
+            color: var(--red-bright);
+            background: var(--red-trace);
+            border: 1px solid rgba(192,57,43,0.3);
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* ── Enchant Rows ── */
+        .ench-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.6rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.2s ease;
+        }
+
+        .ench-row:last-child { border-bottom: none; }
+        .ench-row:hover { background: rgba(212,168,67,0.025); }
+
+        .ench-name {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .ench-name strong { color: var(--text); }
+
+        .ench-bar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .ench-pips {
+            display: flex;
+            gap: 4px;
+        }
+
+        .pip {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: 1px solid rgba(212,168,67,0.3);
+            background: rgba(212,168,67,0.08);
+            transition: background 0.2s;
+        }
+
+        .pip.filled {
+            background: var(--gold);
+            border-color: var(--gold);
+            box-shadow: 0 0 6px rgba(212,168,67,0.4);
+        }
+
+        .ench-max {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            min-width: 28px;
+            text-align: right;
+        }
+
+        .ench-vanilla {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.04);
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        /* ── Back Link ── */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+            color: var(--gold-dim);
+            text-decoration: none;
+            margin-bottom: 3rem;
+            transition: color 0.2s ease, gap 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+            gap: 0.8rem;
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        .footer-glyph {
+            color: var(--gold-dim);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--ink); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold-dim), var(--gold));
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-icon-btn { width: 40px; height: 40px; }
+            .ban-grid { grid-template-columns: 1fr; }
+            .ench-bar-wrap { gap: 0.5rem; }
+        }
+    </style>
+    <base target="_blank">
+</head>
+<body>
+
+    <div class="bg-layer"></div>
+    <div class="bg-lines"></div>
+
+    <!-- Nav -->
+    <nav id="navbar">
+        <a href="index.html" class="logo" target="_self">
+            <span class="bolt">⚡</span> LightCitySMP
+        </a>
+        <div class="nav-icons">
+            <a href="index.html#shop" class="nav-icon-btn" title="Shop" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </a>
+            <a href="index.html#wiki" class="nav-icon-btn" title="Wiki" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </a>
+            <a href="rules.html" class="nav-icon-btn active" title="Rules" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <div class="container">
+
+        <a href="rules.html" class="back-link" target="_self">‹ Back to Constitution</a>
+
+        <!-- Header -->
+        <div class="page-header">
+            <p class="overline">Season 5 · LightCitySMP</p>
+            <h1 class="page-title">Item Utilities</h1>
+            <p class="page-subtitle">Limits, Bans &amp; Enchantment Caps</p>
+            <div class="title-rule">
+                <span></span>
+                <em>⚗️</em>
+                <span></span>
+            </div>
+            <p class="intro-text">
+                These regulations govern what items are permitted on the server, how many you can carry, and what enchantments are capped. All rules apply server-wide unless stated otherwise.
+            </p>
+        </div>
+
+        <div class="sep"><div class="sep-line"></div><div class="sep-glyph">✦</div><div class="sep-line"></div></div>
+
+        <!-- Item Limits -->
+        <div class="cat-block">
+            <div class="cat-header">
+                <span class="ch-icon">📦</span>
+                <span class="ch-label">Item Limits</span>
+                <span class="ch-tag">per player</span>
+            </div>
+            <div class="cat-body">
+                <table class="limit-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Max Allowed</th>
+                            <th>Scope</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span class="item-emoji">🪓</span>
+                                    <div>
+                                        <div>Mace</div>
+                                        <span class="item-scope">Shared limit</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="limit-badge">3 total — server-wide</span></td>
+                            <td style="font-size:0.82rem; color: var(--text-muted);">Combined across all players</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span class="item-emoji">🟢</span>
+                                    <div>
+                                        <div>Ender Pearl</div>
+                                        <span class="item-scope">Per player</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="limit-badge">×16</span></td>
+                            <td style="font-size:0.82rem; color: var(--text-muted);">In inventory at any time</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span class="item-emoji">🍎</span>
+                                    <div>
+                                        <div>Enchanted Golden Apple</div>
+                                        <span class="item-scope">Per player</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="limit-badge">×5</span></td>
+                            <td style="font-size:0.82rem; color: var(--text-muted);">In inventory at any time</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span class="item-emoji">🪬</span>
+                                    <div>
+                                        <div>Totem of Undying</div>
+                                        <span class="item-scope">Per player</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="limit-badge">×1</span></td>
+                            <td style="font-size:0.82rem; color: var(--text-muted);">In inventory at any time</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="sep"><div class="sep-line"></div><div class="sep-glyph">◆</div><div class="sep-line"></div></div>
+
+        <!-- Item Bans -->
+        <div class="cat-block">
+            <div class="cat-header">
+                <span class="ch-icon">🚫</span>
+                <span class="ch-label">Item Bans</span>
+                <span class="ch-tag">forbidden</span>
+            </div>
+            <div class="cat-body">
+                <div class="ban-grid">
+                    <div class="ban-item">
+                        <span class="ban-icon">💎</span>
+                        <span class="ban-name">End Crystals</span>
+                        <span class="ban-pill">banned</span>
+                    </div>
+                    <div class="ban-item">
+                        <span class="ban-icon">⚓</span>
+                        <span class="ban-name">Respawn Anchors</span>
+                        <span class="ban-pill">banned</span>
+                    </div>
+                    <div class="ban-item">
+                        <span class="ban-icon">🏹</span>
+                        <span class="ban-name">Debuff Arrows</span>
+                        <span class="ban-pill">banned</span>
+                    </div>
+                    <div class="ban-item">
+                        <span class="ban-icon">🧪</span>
+                        <span class="ban-name">Debuff Potions</span>
+                        <span class="ban-pill">banned</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sep"><div class="sep-line"></div><div class="sep-glyph">◆</div><div class="sep-line"></div></div>
+
+        <!-- Enchantment Caps -->
+        <div class="cat-block">
+            <div class="cat-header">
+                <span class="ch-icon">✨</span>
+                <span class="ch-label">Enchantment Caps</span>
+                <span class="ch-tag">max level</span>
+            </div>
+            <div class="cat-body">
+                <div class="ench-row">
+                    <div class="ench-name">
+                        <span>🛡️</span>
+                        <div><strong>Protection</strong></div>
+                    </div>
+                    <div class="ench-bar-wrap">
+                        <div class="ench-pips">
+                            <div class="pip filled"></div>
+                            <div class="pip filled"></div>
+                            <div class="pip filled"></div>
+                            <div class="pip"></div>
+                        </div>
+                        <span class="ench-max">III</span>
+                        <span class="ench-vanilla">vanilla IV</span>
+                    </div>
+                </div>
+                <div class="ench-row">
+                    <div class="ench-name">
+                        <span>⚔️</span>
+                        <div><strong>Sharpness</strong></div>
+                    </div>
+                    <div class="ench-bar-wrap">
+                        <div class="ench-pips">
+                            <div class="pip filled"></div>
+                            <div class="pip filled"></div>
+                            <div class="pip filled"></div>
+                            <div class="pip filled"></div>
+                            <div class="pip"></div>
+                        </div>
+                        <span class="ench-max">IV</span>
+                        <span class="ench-vanilla">vanilla V</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sep"><div class="sep-line"></div><div class="sep-glyph">✦</div><div class="sep-line"></div></div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-glyph">✦ ─────────────── ✦</div>
+            <p class="footer-text">LightCitySMP Season 5 — Item Utilities</p>
+            <p class="footer-text" style="margin-top: 0.4rem; font-size: 0.78rem; color: var(--text-muted);">Developer credits: Sam, Fanta, George767</p>
+        </footer>
+
+    </div>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>
