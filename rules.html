@@ -160,6 +160,14 @@
             margin-bottom: 0.5rem;
         }
 
+        .page-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-dim);
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
         .title-rule {
             display: flex;
             align-items: center;
@@ -193,6 +201,22 @@
             line-height: 1.85;
         }
 
+        .notice {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--gold-trace);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--gold);
+            border-radius: 6px;
+            padding: 0.9rem 1.4rem;
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            max-width: 580px;
+        }
+
+        .notice .ni { color: var(--gold); font-size: 1rem; }
+
         .sep {
             display: flex;
             align-items: center;
@@ -222,6 +246,10 @@
         .rule-block:nth-child(1) { animation-delay: 0.05s; }
         .rule-block:nth-child(2) { animation-delay: 0.1s; }
         .rule-block:nth-child(3) { animation-delay: 0.15s; }
+        .rule-block:nth-child(4) { animation-delay: 0.2s; }
+        .rule-block:nth-child(5) { animation-delay: 0.25s; }
+        .rule-block:nth-child(6) { animation-delay: 0.3s; }
+        .rule-block:nth-child(7) { animation-delay: 0.35s; }
 
         @keyframes riseIn {
             to { opacity: 1; transform: translateY(0); }
@@ -247,7 +275,11 @@
             border-left-color: var(--gold);
         }
 
-        .rh-icon { font-size: 1.4rem; line-height: 1; filter: drop-shadow(0 0 4px rgba(212,168,67,0.4)); }
+        .rh-icon {
+            font-size: 1.4rem;
+            line-height: 1;
+            filter: drop-shadow(0 0 4px rgba(212,168,67,0.4));
+        }
 
         .rh-label {
             font-family: 'Syne', sans-serif;
@@ -298,10 +330,13 @@
             user-select: none;
         }
 
-        .rule-text { font-size: 0.93rem; color: var(--text-dim); }
+        .rule-text {
+            font-size: 0.93rem;
+            color: var(--text-dim);
+        }
 
         .rule-text strong { color: var(--gold-bright); font-weight: 600; }
-        
+
         .rule-text .ban {
             color: var(--red-bright);
             font-weight: 600;
@@ -313,7 +348,10 @@
             border-radius: 3px;
         }
 
-        .rule-text .ok { color: #4CAF50; font-weight: 600; }
+        .rule-text .ok {
+            color: #4CAF50;
+            font-weight: 600;
+        }
 
         .rule-text .note {
             display: block;
@@ -339,9 +377,18 @@
             overflow: hidden;
         }
 
+        .item-util-link::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 60%, rgba(212,168,67,0.05));
+            pointer-events: none;
+        }
+
         .item-util-link:hover {
             background: linear-gradient(135deg, rgba(212,168,67,0.13), rgba(212,168,67,0.05));
             border-color: var(--gold);
+            box-shadow: 0 4px 24px rgba(212,168,67,0.1);
             transform: translateX(4px);
         }
 
@@ -375,7 +422,20 @@
             transition: transform 0.2s ease, color 0.2s ease;
         }
 
-        .item-util-link:hover .iul-arrow { transform: translateX(4px); color: var(--gold); }
+        .item-util-link:hover .iul-arrow {
+            transform: translateX(4px);
+            color: var(--gold);
+        }
+
+        .overline.Ascension {
+            color: var(--gold-bright);
+            text-shadow:
+                0 0 5px var(--red-bright),
+                0 0 10px var(--red-bright),
+                0 0 15px rgba(231, 76, 60, 0.6),
+                0 0 20px rgba(0, 0, 0, 0.8),
+                0 0 25px rgba(0, 0, 0, 0.6);
+        }
 
         footer {
             text-align: center;
@@ -392,7 +452,10 @@
             margin-bottom: 1rem;
         }
 
-        .footer-text { font-size: 0.85rem; color: var(--text-muted); }
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--ink); }
@@ -432,16 +495,17 @@
     </nav>
 
     <div class="container">
+
         <div class="page-header">
-            <p class="overline">Season 5 · LightCitySMP</p>
-            <h1 class="page-title">LightCitySMP — Consitution</h1>
+            <p class="overline Ascension">Ascension</p>
+            <h1 class="page-title">LightCitySMP  — Consitution</h1>
             <div class="title-rule">
                 <span></span>
                 <em>✦</em>
                 <span></span>
             </div>
             <p class="intro-text">
-                We advise you to read all of the laws of our SMP, to make sure you never break any. consequences are severe if you ever break a <strong style="color: var(--gold);">law</strong>.
+                We advise you to read all of the laws of our SMP, to make sure you never break any. consequences are severe if you ever break a <strong style="color: var(--gold-bright);">law</strong>.
             </p>
         </div>
 
@@ -602,9 +666,10 @@
 
         <footer>
             <div class="footer-glyph">✦ ─────────────── ✦</div>
-            <p class="footer-text">LightCitySMP Season 5 — Constitution</p>
+            <p class="footer-text">LightCitySMP — Constitution</p>
             <p class="footer-text" style="margin-top: 0.4rem; font-size: 0.78rem; color: var(--text-muted);">Developer credits: Sam, Fanta, George767</p>
         </footer>
+
     </div>
 
     <script>
