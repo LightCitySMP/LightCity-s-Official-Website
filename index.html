@@ -36,7 +36,6 @@
             line-height: 1.6;
         }
 
-        /* ── Background ── */
         .bg-layer {
             position: fixed; inset: 0; z-index: -2;
             background:
@@ -55,7 +54,6 @@
             mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
         }
 
-        /* ── Loader ── */
         .loader {
             position: fixed; inset: 0; z-index: 9999;
             background: var(--ink);
@@ -88,7 +86,6 @@
             text-transform: uppercase;
         }
 
-        /* ── Nav ── */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 1.2rem 5%;
@@ -152,7 +149,6 @@
 
         .nav-icon-btn:hover svg { transform: scale(1.1); }
 
-        /* ── Hero ── */
         .hero {
             min-height: 100vh;
             display: flex; flex-direction: column;
@@ -187,13 +183,6 @@
         .hero-title .line1 {
             display: block;
             color: var(--gold-bright);
-        }
-
-        .hero-title .line2 {
-            display: block;
-            color: var(--text-dim);
-            font-style: italic;
-            font-size: 0.55em;
         }
 
         .hero-rule {
@@ -277,37 +266,6 @@
             transform: translateY(-2px);
         }
 
-        .scroll-hint {
-            position: absolute;
-            bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-            cursor: pointer;
-            opacity: 0;
-            animation: fadeIn 1s ease 1.2s forwards;
-        }
-
-        .scroll-hint-text {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .scroll-hint-line {
-            width: 1px;
-            height: 48px;
-            background: linear-gradient(to bottom, var(--gold-dim), transparent);
-            animation: scrollPulse 1.8s ease-in-out infinite;
-        }
-
-        @keyframes scrollPulse {
-            0%, 100% { opacity: 0.4; transform: scaleY(1); }
-            50% { opacity: 1; transform: scaleY(1.1); }
-        }
-
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
@@ -318,7 +276,6 @@
             to { opacity: 1; }
         }
 
-        /* ── Sections ── */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
 
         section { padding: 8rem 0; position: relative; }
@@ -361,7 +318,6 @@
 
         .section-rule em { color: var(--gold-dim); font-style: normal; font-size: 0.7rem; }
 
-        /* ── Shop Progress ── */
         #shop {
             background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
             border-top: 1px solid var(--border);
@@ -427,16 +383,6 @@
             100% { opacity: 0; }
         }
 
-        .progress-note {
-            margin-top: 0.8rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-            text-align: center;
-        }
-
-        /* ── Wiki Grid ── */
         .wiki-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -521,7 +467,6 @@
             color: var(--gold);
         }
 
-        /* ── Modals ── */
         .modal {
             display: none;
             position: fixed; inset: 0; z-index: 2000;
@@ -621,7 +566,6 @@
         .m-table tr:last-child td { border-bottom: none; }
         .m-table tr:hover td { background: rgba(212,168,67,0.02); }
 
-        /* ── Footer ── */
         footer {
             border-top: 1px solid var(--border);
             padding: 4rem 0 2rem;
@@ -656,14 +600,6 @@
             margin-bottom: 2rem;
         }
 
-        .footer-copy {
-            font-size: 0.75rem;
-            color: rgba(232,226,213,0.2);
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.04);
-        }
-
-        /* ── Reveal ── */
         .reveal {
             opacity: 0; transform: translateY(30px);
             transition: opacity 0.7s ease, transform 0.7s ease;
@@ -671,7 +607,6 @@
 
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        /* ── Scrollbar ── */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--ink); }
         ::-webkit-scrollbar-thumb {
@@ -699,7 +634,6 @@
     <div class="bg-layer"></div>
     <div class="bg-lines"></div>
 
-    <!-- Nav -->
     <nav id="navbar">
         <a href="#" class="logo" target="_self">
             <span class="bolt">⚡</span> LightCitySMP
@@ -717,30 +651,23 @@
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="hero">
         <p class="hero-eyebrow">Season 5 · Official Website</p>
         <h1 class="hero-title">
             <span class="line1">LightCitySMP</span>
-            <span class="line2">Where empires rise and fall</span>
         </h1>
         <div class="hero-rule">
             <span></span>
             <em>✦</em>
             <span></span>
         </div>
-        <p class="hero-sub">Welcome to the official portal. Browse the shop, read the wiki, and learn the laws of the land.</p>
+        <p class="hero-sub">Welcome to the official website for LightCitySMP, supervised by LightCity's council, owned by Sam.</p>
         <div class="hero-cta">
             <a href="#shop" class="btn btn-primary" target="_self">View Shop</a>
             <a href="#wiki" class="btn btn-secondary" target="_self">Ascension Wiki</a>
         </div>
-        <div class="scroll-hint" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
-            <span class="scroll-hint-text">Scroll</span>
-            <div class="scroll-hint-line"></div>
-        </div>
     </section>
 
-    <!-- Shop -->
     <section id="shop">
         <div class="container">
             <div class="section-label reveal">In Development</div>
@@ -755,12 +682,10 @@
                 <div class="progress-track">
                     <div class="progress-fill"></div>
                 </div>
-                <p class="progress-note">// shop coming soon</p>
             </div>
         </div>
     </section>
 
-    <!-- Wiki -->
     <section id="wiki">
         <div class="container">
             <div class="section-label reveal">Plugin Documentation</div>
@@ -814,19 +739,16 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-inner">
                 <div class="footer-logo">LightCitySMP</div>
                 <div class="footer-season">Season 5</div>
                 <p class="footer-credits">Developer credits: Sam, Fanta, George767</p>
-                <p class="footer-copy">© 2026 LightCitySMP — Not affiliated with Mojang Studios.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Modals -->
     <div id="m-blade" class="modal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeModal('m-blade')">×</span>
@@ -993,24 +915,20 @@
     </div>
 
     <script>
-        // Loader
         window.addEventListener('load', () => {
             setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1200);
         });
 
-        // Navbar scroll
         window.addEventListener('scroll', () => {
             document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Reveal on scroll
         const revealEls = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
         }, { threshold: 0.12 });
         revealEls.forEach(el => revealObserver.observe(el));
 
-        // Modals
         function openModal(id) {
             document.getElementById(id).style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -1028,7 +946,6 @@
             }
         });
 
-        // Smooth anchor scroll
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
                 const target = document.querySelector(a.getAttribute('href'));
