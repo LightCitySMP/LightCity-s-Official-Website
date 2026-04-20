@@ -139,15 +139,6 @@
             margin-bottom: 5rem;
         }
 
-        .overline {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.25em;
-            color: var(--gold-dim);
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
         .page-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(2.2rem, 5vw, 3.5rem);
@@ -322,7 +313,12 @@
             color: var(--text);
         }
 
-        .item-emoji { font-size: 1.1rem; line-height: 1; }
+        .custom-emoji {
+            width: 1.3em;
+            height: 1.3em;
+            vertical-align: middle;
+            transform: translateY(-1px);
+        }
 
         .item-scope {
             font-family: 'JetBrains Mono', monospace;
@@ -363,8 +359,6 @@
         }
 
         .ban-item:hover { background: rgba(192,57,43,0.05); }
-
-        .ban-icon { font-size: 1.1rem; line-height: 1; }
 
         .ban-name {
             font-size: 0.9rem;
@@ -490,16 +484,6 @@
             color: var(--text-muted);
         }
 
-        .overline.Ascension {
-            color: var(--gold-bright);
-            text-shadow:
-                0 0 5px var(--red-bright),
-                0 0 10px var(--red-bright),
-                0 0 15px rgba(231, 76, 60, 0.6),
-                0 0 20px rgba(0, 0, 0, 0.8),
-                0 0 25px rgba(0, 0, 0, 0.6);
-        }
-
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--ink); }
         ::-webkit-scrollbar-thumb {
@@ -542,7 +526,6 @@
         <a href="rules.html" class="back-link" target="_self">‹ Back to Constitution</a>
 
         <div class="page-header">
-            <p class="overline Ascension">Ascension</p>
             <h1 class="page-title">Item Utilities</h1>
             <p class="page-subtitle">Limits, Bans &amp; Enchantment Caps</p>
             <div class="title-rule">
@@ -576,7 +559,7 @@
                         <tr>
                             <td>
                                 <div class="item-name">
-                                    <span class="item-emoji"><img src="https://cdn.discordapp.com/emojis/1495789623144878220.png" alt="mace" style="width: 1.2em; height: 1.2em; vertical-align: middle;"></span>
+                                    <img src="https://cdn.discordapp.com/emojis/1495789623144878220.png" class="custom-emoji" alt="Mace">
                                     <div>
                                         <div>Mace</div>
                                         <span class="item-scope">Shared limit</span>
@@ -589,7 +572,7 @@
                         <tr>
                             <td>
                                 <div class="item-name">
-                                    <span class="item-emoji">🟢</span>
+                                    <img src="https://cdn.discordapp.com/emojis/1495085043222057131.png" class="custom-emoji" alt="Ender Pearl">
                                     <div>
                                         <div>Ender Pearl</div>
                                         <span class="item-scope">Per player</span>
@@ -602,7 +585,7 @@
                         <tr>
                             <td>
                                 <div class="item-name">
-                                    <span class="item-emoji">🍎</span>
+                                    <img src="https://cdn.discordapp.com/emojis/1495789756955496458.png" class="custom-emoji" alt="Enchanted Golden Apple">
                                     <div>
                                         <div>Enchanted Golden Apple</div>
                                         <span class="item-scope">Per player</span>
@@ -615,7 +598,7 @@
                         <tr>
                             <td>
                                 <div class="item-name">
-                                    <span class="item-emoji">🪬</span>
+                                    <img src="https://cdn.discordapp.com/emojis/1495789702874271896.png" class="custom-emoji" alt="Totem of Undying">
                                     <div>
                                         <div>Totem of Undying</div>
                                         <span class="item-scope">Per player</span>
@@ -641,22 +624,22 @@
             <div class="cat-body">
                 <div class="ban-grid">
                     <div class="ban-item">
-                        <span class="ban-icon">💎</span>
+                        <img src="https://cdn.discordapp.com/emojis/1495798321552556213.png" class="custom-emoji" alt="End Crystal">
                         <span class="ban-name">End Crystals</span>
                         <span class="ban-pill">banned</span>
                     </div>
                     <div class="ban-item">
-                        <span class="ban-icon">⚓</span>
+                        <img src="https://cdn.discordapp.com/emojis/1495798284034248764.png" class="custom-emoji" alt="Respawn Anchor">
                         <span class="ban-name">Respawn Anchors</span>
                         <span class="ban-pill">banned</span>
                     </div>
                     <div class="ban-item">
-                        <span class="ban-icon">🏹</span>
+                        <img src="https://cdn.discordapp.com/emojis/1495798932209406097.png" class="custom-emoji" alt="Debuff Arrow">
                         <span class="ban-name">Debuff Arrows</span>
                         <span class="ban-pill">banned</span>
                     </div>
                     <div class="ban-item">
-                        <span class="ban-icon">🧪</span>
+                        <img src="https://cdn.discordapp.com/emojis/1495798991374385446.png" class="custom-emoji" alt="Debuff Potion">
                         <span class="ban-name">Debuff Potions</span>
                         <span class="ban-pill">banned</span>
                     </div>
@@ -675,7 +658,7 @@
             <div class="cat-body">
                 <div class="ench-row">
                     <div class="ench-name">
-                        <span>🛡️</span>
+                        <img src="https://cdn.discordapp.com/emojis/1495789809921294487.png" class="custom-emoji" alt="Protection">
                         <div><strong>Protection</strong></div>
                     </div>
                     <div class="ench-bar-wrap">
@@ -691,7 +674,7 @@
                 </div>
                 <div class="ench-row">
                     <div class="ench-name">
-                        <span>⚔️</span>
+                        <img src="https://cdn.discordapp.com/emojis/1495811322611241041.png" class="custom-emoji" alt="Sharpness">
                         <div><strong>Sharpness</strong></div>
                     </div>
                     <div class="ench-bar-wrap">
@@ -713,7 +696,7 @@
 
         <footer>
             <div class="footer-glyph">✦ ─────────────── ✦</div>
-            <p class="footer-text">LightCitySMP — Item Utilities</p>
+            <p class="footer-text">Item Utilities</p>
             <p class="footer-text" style="margin-top: 0.4rem; font-size: 0.78rem; color: var(--text-muted);">Developer credits: Sam, Fanta, George767</p>
         </footer>
 
