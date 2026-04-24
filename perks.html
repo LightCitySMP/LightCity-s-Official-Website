@@ -119,6 +119,38 @@
             font-size: 1.05rem;
         }
 
+        /* Static gold arrow for requirements */
+        .arrow-req {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Animated gold arrow for perks */
+        .arrow-perk {
+            display: inline-block;
+            color: var(--gold-bright);
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            animation: arrowPulse 1.4s ease-in-out infinite;
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% {
+                transform: translateX(0);
+                opacity: 1;
+                text-shadow: 0 0 4px rgba(240, 192, 96, 0.3);
+            }
+            50% {
+                transform: translateX(4px);
+                opacity: 0.7;
+                text-shadow: 0 0 10px rgba(240, 192, 96, 0.8);
+            }
+        }
+
         .coming-soon {
             text-align: center;
             padding: 6rem 0 4rem;
@@ -151,6 +183,7 @@
             border: 1px solid var(--border-strong);
             border-radius: 8px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            image-rendering: pixelated; /* keeps Minecraft UI crisp */
         }
 
         .back-btn {
@@ -193,16 +226,16 @@
             <span class="rank-divider-text">✤ ═ Requirements ═ ✤</span>
             
             <ul>
-                <li><span>:yellow_Rarrow:</span> Invite 5 <b>active</b> friends, must not be alternative accounts.</li>
-                <li><span>:yellow_Rarrow:</span> Have 5h+ of playtime on the server</li>
+                <li><span class="arrow-req">➤</span> Invite 5 <b>active</b> friends, must not be alternative accounts.</li>
+                <li><span class="arrow-req">➤</span> Have 5h+ of playtime on the server</li>
             </ul>
 
             <div class="rank-divider-line"></div>
 
             <ul>
-                <li><span>:yellow_animated_arrow:</span> Receive an in-game prefix</li>
-                <li><span>:yellow_animated_arrow:</span> 5 home limit</li>
-                <li><span>:yellow_animated_arrow:</span> Receive 1x loot drop</li>
+                <li><span class="arrow-perk">➤</span> Receive an in-game prefix</li>
+                <li><span class="arrow-perk">➤</span> 5 home limit</li>
+                <li><span class="arrow-perk">➤</span> Receive 1x loot drop</li>
             </ul>
         </div>
 
@@ -211,15 +244,15 @@
             <span class="rank-divider-text">✤ ═ Requirements ═ ✤</span>
             
             <ul>
-                <li><span>:yellow_Rarrow:</span> Boost once or more.</li>
+                <li><span class="arrow-req">➤</span> Boost once or more.</li>
             </ul>
 
             <div class="rank-divider-line"></div>
 
             <ul>
-                <li><span>:yellow_animated_arrow:</span> Receive an in-game prefix (neon pink)</li>
-                <li><span>:yellow_animated_arrow:</span> Receive 2x loot drops</li>
-                <li><span>:yellow_animated_arrow:</span> 10 home limit</li>
+                <li><span class="arrow-perk">➤</span> Receive an in-game prefix (neon pink)</li>
+                <li><span class="arrow-perk">➤</span> Receive 2x loot drops</li>
+                <li><span class="arrow-perk">➤</span> 10 home limit</li>
             </ul>
         </div>
 
@@ -228,7 +261,8 @@
         </div>
 
         <div class="loot-image-container">
-            <img src="/mnt/agents/upload/Screenshot 2026-04-24 174331.png" alt="LootBox Preview" class="loot-image">
+            <!-- Place Screenshot_2026-04-24_174331.png in the same folder as this HTML file -->
+            <img src="Screenshot_2026-04-24_174331.png" alt="LootBox Preview" class="loot-image">
         </div>
     </div>
 </body>
