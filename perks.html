@@ -55,6 +55,26 @@
             text-shadow: 0 0 10px rgba(212, 168, 67, 0.5);
         }
 
+        .nav-icons { display: flex; gap: 0.6rem; align-items: center; }
+
+        .nav-icon-btn {
+            width: 44px; height: 44px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon-btn:hover {
+            background: var(--gold-trace);
+            border-color: var(--border-strong);
+            transform: translateY(-2px);
+        }
+
+        .nav-icon-btn svg { width: 20px; height: 20px; fill: var(--gold); }
+
         .container { max-width: 900px; margin: 0 auto; padding: 0 5% 5rem; }
 
         .rank-card {
@@ -68,76 +88,69 @@
 
         .rank-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--gold-bright);
             margin-bottom: 0.5rem;
-            display: flex; align-items: center; gap: 0.8rem;
+            text-shadow: 0 0 15px rgba(212, 168, 67, 0.2);
         }
 
-        .rank-id {
+        .rank-divider-text {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
             color: var(--gold-dim);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             display: block;
+            text-align: center;
+            letter-spacing: 0.1em;
         }
 
-        .rank-divider {
+        .rank-divider-line {
             height: 1px;
-            background: linear-gradient(90deg, var(--gold-dim), transparent);
+            background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
             margin: 1.5rem 0;
-            opacity: 0.4;
-        }
-
-        .rank-section-title {
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            display: block;
+            opacity: 0.3;
         }
 
         ul { list-style: none; }
         li {
-            margin-bottom: 0.8rem;
-            display: flex; align-items: center; gap: 0.6rem;
+            margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.8rem;
             color: var(--text-dim);
+            font-size: 1.05rem;
         }
-
-        .bullet-arrow { color: var(--gold); font-size: 1.1rem; }
 
         .coming-soon {
             text-align: center;
-            padding: 4rem 0;
+            padding: 6rem 0 4rem;
         }
 
         .coming-soon h2 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--purple-glow);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            text-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
             animation: pulsePurple 3s infinite alternate;
         }
 
         @keyframes pulsePurple {
-            0% { text-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
-            100% { text-shadow: 0 0 25px rgba(168, 85, 247, 0.8); }
+            0% { text-shadow: 0 0 10px rgba(168, 85, 247, 0.4); opacity: 0.8; }
+            100% { text-shadow: 0 0 30px rgba(168, 85, 247, 0.9); opacity: 1; }
         }
 
         .loot-image-container {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-top: 3rem;
+            margin-top: 2rem;
         }
 
         .loot-image {
             max-width: 100%;
             border: 1px solid var(--border-strong);
             border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .back-btn {
@@ -159,6 +172,17 @@
 
     <nav>
         <a href="index.html" class="logo" target="_self">LightCitySMP</a>
+        <div class="nav-icons">
+            <a href="index.html#shop" class="nav-icon-btn" title="Shop" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </a>
+            <a href="index.html#wiki" class="nav-icon-btn" title="Wiki" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </a>
+            <a href="rules.html" class="nav-icon-btn" title="Rules" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            </a>
+        </div>
     </nav>
 
     <div class="container">
@@ -166,45 +190,41 @@
 
         <div class="rank-card">
             <h1 class="rank-title">VIP Rank 👑</h1>
-            <span class="rank-id">✤ ═ 1493925391679881226 ═ ✤</span>
+            <span class="rank-divider-text">✤ ═ Requirements ═ ✤</span>
             
-            <span class="rank-section-title">Requirements</span>
             <ul>
-                <li><span class="bullet-arrow">➡</span> Invite 5 active friends (no alts)</li>
-                <li><span class="bullet-arrow">➡</span> 5h+ playtime on the server</li>
+                <li><span>🟡</span> Invite 5 <b>active</b> friends, must not be alternative accounts.</li>
+                <li><span>🟡</span> Have 5h+ of playtime on the server</li>
             </ul>
 
-            <div class="rank-divider"></div>
+            <div class="rank-divider-line"></div>
 
-            <span class="rank-section-title">Perks</span>
             <ul>
-                <li><span class="bullet-arrow">➤</span> Receive an in-game prefix</li>
-                <li><span class="bullet-arrow">➤</span> 5 home limit</li>
-                <li><span class="bullet-arrow">➤</span> Receive 1x loot drop</li>
+                <li><span>▶️</span> Receive an in-game prefix</li>
+                <li><span>▶️</span> 5 home limit</li>
+                <li><span>▶️</span> Receive 1x loot drop</li>
             </ul>
         </div>
 
         <div class="rank-card">
             <h1 class="rank-title">Booster Rank 🚀</h1>
-            <span class="rank-id">✤ ═ 1333110873937412190 ═ ✤</span>
+            <span class="rank-divider-text">✤ ═ Requirements ═ ✤</span>
             
-            <span class="rank-section-title">Requirements</span>
             <ul>
-                <li><span class="bullet-arrow">➡</span> Boost once or more</li>
+                <li><span>🟡</span> Boost once or more.</li>
             </ul>
 
-            <div class="rank-divider"></div>
+            <div class="rank-divider-line"></div>
 
-            <span class="rank-section-title">Perks</span>
             <ul>
-                <li><span class="bullet-arrow">➤</span> In-game prefix (neon pink)</li>
-                <li><span class="bullet-arrow">➤</span> Receive 2x loot drops</li>
-                <li><span class="bullet-arrow">➤</span> 10 home limit</li>
+                <li><span>▶️</span> Receive an in-game prefix (neon pink)</li>
+                <li><span>▶️</span> Receive 2x loot drops</li>
+                <li><span>▶️</span> 10 home limit</li>
             </ul>
         </div>
 
         <div class="coming-soon">
-            <h2>Premium Ranks Coming Soon</h2>
+            <h2>PREMIUM RANKS COMING SOON</h2>
         </div>
 
         <div class="loot-image-container">
