@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightCitySMP | Shop</title>
+    <title>LightCitySMP | Season 5 Wiki</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -29,7 +29,6 @@
     <script>
     const SHOP_CONFIG = {
         currency: "$",
-        storeUrl: "#", // change to real store URL when ready
 
         categories: [
             { id: "homes",     name: "Homes",          icon: "🏠" },
@@ -131,7 +130,6 @@
                 isNew: true,
                 isLimited: true,
                 stock: 25,
-                // limitedUntil format: "YYYY-MM-DDTHH:MM:SS" — set a future date
                 limitedUntil: "2026-06-01T23:59:59"
             }
         ]
@@ -185,7 +183,6 @@
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
-            min-height: 100vh;
         }
 
         /* ═══ BACKGROUND ═════════════════════════════════════════════════ */
@@ -201,8 +198,8 @@
         .bg-lines {
             position: fixed; inset: 0; z-index: -2;
             background-image:
-                linear-gradient(rgba(212,168,67,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212,168,67,0.04) 1px, transparent 1px);
+                linear-gradient(rgba(212,168,67,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,168,67,0.03) 1px, transparent 1px);
             background-size: 60px 60px;
             mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
         }
@@ -310,29 +307,13 @@
         .nav-icon-btn:hover svg { transform: scale(1.1); }
 
         /* ═══ HERO ═══════════════════════════════════════════════════════ */
-        .shop-hero {
-            min-height: 60vh;
+        .hero {
+            min-height: 100vh;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             text-align: center;
-            padding: 9rem 5% 4rem;
+            padding: 2rem 5%;
             position: relative;
-        }
-
-        .shop-hero::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, var(--gold-trace) 0%, transparent 60%);
-            z-index: -1;
-            animation: pulseGlow 5s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.15); }
         }
 
         .hero-eyebrow {
@@ -348,15 +329,19 @@
 
         .hero-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3rem, 9vw, 6rem);
+            font-size: clamp(3.5rem, 10vw, 7rem);
             font-weight: 700;
             line-height: 0.95;
             letter-spacing: -0.02em;
             margin-bottom: 1rem;
-            color: var(--gold-bright);
-            text-shadow: 0 0 30px rgba(212, 168, 67, 0.4);
             opacity: 0;
             animation: fadeUp 0.8s ease 0.35s forwards;
+        }
+
+        .hero-title .line1 {
+            display: block;
+            color: var(--gold-bright);
+            text-shadow: 0 0 25px rgba(212, 168, 67, 0.3);
         }
 
         .hero-rule {
@@ -378,74 +363,156 @@
         .hero-sub {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.2rem;
-            font-style: italic;
             color: var(--text-dim);
-            max-width: 540px;
-            margin: 0 auto;
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
             line-height: 1.7;
             opacity: 0;
             animation: fadeUp 0.8s ease 0.6s forwards;
+        }
+
+        .hero-cta {
+            display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.75s forwards;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--ink);
+            border: 1px solid var(--gold);
+        }
+        .btn-primary:hover {
+            background: var(--gold-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--gold-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--border-strong);
+        }
+        .btn-secondary:hover {
+            background: var(--gold-trace);
+            color: var(--gold);
+            border-color: var(--gold);
+            transform: translateY(-2px);
         }
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-        /* ═══ CATEGORY TABS ══════════════════════════════════════════════ */
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 5%; }
+
+        section { padding: 8rem 0; position: relative; }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.25em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            color: var(--gold-bright);
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-rule {
+            display: flex; align-items: center; gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0 3.5rem;
+        }
+        .section-rule span {
+            height: 1px; width: 50px;
+            background: linear-gradient(90deg, transparent, var(--gold-dim));
+        }
+        .section-rule span:last-child {
+            background: linear-gradient(90deg, var(--gold-dim), transparent);
+        }
+        .section-rule em { color: var(--gold-dim); font-style: normal; font-size: 0.7rem; }
+
+        /* ═══ SHOP SECTION ═══════════════════════════════════════════════ */
+        #shop {
+            background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Category tabs */
         .category-bar {
             display: flex; flex-wrap: wrap;
             justify-content: center;
             gap: 0.6rem;
             max-width: 900px;
-            margin: 0 auto 4rem;
+            margin: 0 auto 3rem;
             padding: 0 5%;
-            opacity: 0;
-            animation: fadeUp 0.8s ease 0.75s forwards;
         }
 
         .cat-btn {
-            padding: 0.7rem 1.4rem;
+            padding: 0.65rem 1.3rem;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 8px;
             color: var(--text-dim);
             font-family: 'Syne', sans-serif;
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             font-weight: 600;
             letter-spacing: 0.05em;
             cursor: pointer;
             transition: all 0.3s ease;
             display: inline-flex; align-items: center; gap: 0.5rem;
         }
-
         .cat-btn:hover {
             background: var(--gold-trace);
             color: var(--text);
             border-color: var(--border-strong);
             transform: translateY(-2px);
         }
-
         .cat-btn.active {
             background: var(--gold-trace);
             color: var(--gold-bright);
             border-color: var(--gold);
             box-shadow: 0 0 16px rgba(212,168,67,0.2);
         }
-
         .cat-btn .cat-icon { font-size: 1rem; }
 
-        /* ═══ PRODUCTS GRID ══════════════════════════════════════════════ */
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 5%; }
-
+        /* Products grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
-            padding-bottom: 6rem;
         }
 
-        /* ═══ PRODUCT CARD ═══════════════════════════════════════════════ */
+        /* Product card */
         .product-card {
             position: relative;
             background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
@@ -495,7 +562,7 @@
         .product-card[data-accent="violet"]  { --card-glow: var(--violet);  --card-glow-soft: var(--violet-glow);  --card-border: var(--violet); --card-trace: var(--violet-trace); }
         .product-card[data-accent="cyan"]    { --card-glow: var(--cyan);    --card-glow-soft: var(--cyan-glow);    --card-border: var(--cyan); --card-trace: var(--cyan-trace); }
 
-        /* ─── Banner ──────────────────────────────────── */
+        /* Banner */
         .product-banner {
             position: relative;
             height: 160px;
@@ -543,7 +610,7 @@
             transform: scale(1.15) rotate(-5deg);
         }
 
-        /* ─── Floating tag (NEW / POPULAR / LIMIT) ────── */
+        /* Tag */
         .product-tag {
             position: absolute;
             top: 1rem; left: 1rem;
@@ -560,7 +627,7 @@
             font-weight: 500;
         }
 
-        /* ─── NEW badge with custom animation ─────────── */
+        /* NEW badge */
         .new-badge {
             position: absolute;
             top: 1rem; right: 1rem;
@@ -592,7 +659,7 @@
             50%, 100% { left: 200%; }
         }
 
-        /* ─── Discount badge with bounce animation ────── */
+        /* Discount badge */
         .discount-badge {
             position: absolute;
             top: 1rem; right: 1rem;
@@ -627,10 +694,9 @@
             opacity: 0.9;
         }
 
-        /* When both new + discount, stack them */
         .product-card .new-badge + .discount-badge { top: 4.2rem; }
 
-        /* ─── Body ───────────────────────────────────── */
+        /* Body */
         .product-body {
             padding: 1.5rem 1.5rem 1.6rem;
             display: flex;
@@ -660,7 +726,7 @@
             flex-grow: 1;
         }
 
-        /* ─── Stock + Timer for limited items ─────────── */
+        /* Limited info */
         .limited-info {
             background: rgba(193,56,56,0.06);
             border: 1px solid rgba(193,56,56,0.25);
@@ -683,13 +749,8 @@
         }
 
         .stock-label { color: var(--text-muted); }
-
-        .stock-count {
-            color: var(--crimson-bright);
-            font-weight: 500;
-        }
-
-        .stock-count .stock-low { color: var(--crimson-bright); animation: stockBlink 1.4s infinite; }
+        .stock-count { color: var(--crimson-bright); font-weight: 500; }
+        .stock-count.stock-low { animation: stockBlink 1.4s infinite; }
         @keyframes stockBlink { 50% { opacity: 0.4; } }
 
         .stock-bar {
@@ -715,19 +776,10 @@
             font-size: 0.72rem;
         }
 
-        .timer-label {
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
+        .timer-label { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+        .timer-display { color: var(--crimson-bright); font-weight: 500; letter-spacing: 0.05em; }
 
-        .timer-display {
-            color: var(--crimson-bright);
-            font-weight: 500;
-            letter-spacing: 0.05em;
-        }
-
-        /* ─── Price ──────────────────────────────────── */
+        /* Price */
         .price-block {
             display: flex;
             align-items: baseline;
@@ -760,7 +812,7 @@
             margin-left: -0.2rem;
         }
 
-        /* ─── CTA ────────────────────────────────────── */
+        /* CTA */
         .product-cta {
             width: 100%;
             padding: 0.85rem;
@@ -779,7 +831,6 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            text-decoration: none;
             position: relative;
             overflow: hidden;
         }
@@ -801,13 +852,10 @@
             box-shadow: 0 8px 24px var(--card-glow-soft, var(--gold-glow));
         }
 
-        .product-cta .arrow {
-            transition: transform 0.3s ease;
-        }
-
+        .product-cta .arrow { transition: transform 0.3s ease; }
         .product-cta:hover .arrow { transform: translateX(4px); }
 
-        /* Sold out state */
+        /* Sold out */
         .product-cta.sold-out {
             background: rgba(255,255,255,0.03);
             border-color: rgba(255,255,255,0.08);
@@ -821,7 +869,6 @@
         }
         .product-cta.sold-out::before { display: none; }
 
-        /* ═══ EMPTY STATE ════════════════════════════════════════════════ */
         .empty-state {
             text-align: center;
             padding: 4rem 2rem;
@@ -832,13 +879,341 @@
             grid-column: 1 / -1;
         }
 
+        /* ═══ WIKI SECTION ═══════════════════════════════════════════════ */
+        .wiki-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .wiki-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wiki-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, var(--gold-dim), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .wiki-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-strong);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(212,168,67,0.06);
+        }
+
+        .wiki-card:hover::before { opacity: 1; }
+
+        .card-icon-wrap {
+            width: 52px; height: 52px;
+            background: rgba(212,168,67,0.08);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .wiki-card:hover .card-icon-wrap {
+            background: rgba(212,168,67,0.14);
+            border-color: var(--border-strong);
+            transform: scale(1.05);
+        }
+
+        .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .card-arrow {
+            position: absolute;
+            bottom: 1.5rem; right: 1.5rem;
+            color: var(--gold-dim);
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: all 0.3s ease;
+        }
+
+        .wiki-card:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(0);
+            color: var(--gold);
+        }
+
+        /* ═══ MODALS (wiki + purchase share same base) ═══════════════════ */
+        .modal {
+            display: none;
+            position: fixed; inset: 0; z-index: 2000;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
+            overflow-y: auto;
+            padding: 4rem 1rem;
+        }
+
+        .modal-box {
+            background: var(--ink-2);
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+            width: 100%; max-width: 760px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(-16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.2rem; right: 1.5rem;
+            color: var(--gold-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--gold); }
+
+        .modal-box h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--gold-bright);
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-box .m-rule {
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold-dim), transparent);
+            margin: 1rem 0 1.5rem;
+        }
+
+        .modal-box h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin: 1.8rem 0 0.8rem;
+        }
+
+        .modal-box p, .modal-box li {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 0.6rem;
+        }
+
+        .modal-box ul { padding-left: 1.2rem; margin-bottom: 1rem; }
+        .modal-box strong { color: var(--gold-bright); font-weight: 600; }
+
+        .m-table {
+            width: 100%; border-collapse: collapse;
+            margin: 0.5rem 0 1rem;
+            border-radius: 8px; overflow: hidden;
+        }
+
+        .m-table th {
+            padding: 0.7rem 1rem;
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
+            background: rgba(212,168,67,0.05);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .m-table td {
+            padding: 0.7rem 1rem;
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .m-table tr:last-child td { border-bottom: none; }
+        .m-table tr:hover td { background: rgba(212,168,67,0.02); }
+
+        .recipe-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold-bright);
+            margin: 2rem 0 0.8rem;
+        }
+
+        .recipe-img {
+            display: block;
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            image-rendering: pixelated;
+        }
+
+        /* ═══ PURCHASE MODAL (special styling) ═══════════════════════════ */
+        #m-purchase .modal-box {
+            max-width: 540px;
+            text-align: center;
+            padding: 3rem 2.5rem;
+            background:
+                radial-gradient(ellipse at top, rgba(212,168,67,0.08), transparent 60%),
+                var(--ink-2);
+            border-color: var(--gold);
+            box-shadow: 0 0 60px rgba(212,168,67,0.15);
+        }
+
+        .purchase-icon {
+            width: 80px; height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--gold-trace), rgba(212,168,67,0.04));
+            border: 1px solid var(--gold);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 0 30px var(--gold-glow);
+            animation: iconPulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { box-shadow: 0 0 20px var(--gold-glow); transform: scale(1); }
+            50% { box-shadow: 0 0 40px var(--gold-glow); transform: scale(1.04); }
+        }
+
+        .purchase-icon svg {
+            width: 38px; height: 38px;
+            fill: var(--gold-bright);
+        }
+
+        #m-purchase h2 {
+            text-align: center;
+            font-size: 2.1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .purchase-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.3em;
+            color: var(--gold-dim);
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .purchase-product {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--gold-bright);
+            margin-bottom: 0.3rem;
+        }
+
+        .purchase-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        #m-purchase .m-rule {
+            margin: 1.5rem auto;
+            background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+            max-width: 200px;
+        }
+
+        .purchase-instructions {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .purchase-steps {
+            background: rgba(212,168,67,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.4rem 1.6rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .purchase-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            margin-bottom: 0.9rem;
+            font-size: 0.88rem;
+            color: var(--text-dim);
+        }
+
+        .purchase-step:last-child { margin-bottom: 0; }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 26px; height: 26px;
+            background: var(--gold);
+            color: var(--ink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .purchase-footer-note {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
         /* ═══ FOOTER ═════════════════════════════════════════════════════ */
         footer {
             border-top: 1px solid var(--border);
             padding: 4rem 0 2rem;
-            margin-top: 2rem;
         }
-        .footer-inner { max-width: 500px; margin: 0 auto; text-align: center; }
+
+        .footer-inner {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
 
         .ascension-glow {
             font-family: 'Cormorant Garamond', serif;
@@ -879,6 +1254,13 @@
             margin-bottom: 2rem;
         }
 
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--ink); }
         ::-webkit-scrollbar-thumb {
@@ -888,13 +1270,16 @@
 
         @media (max-width: 768px) {
             .nav-icon-btn { width: 40px; height: 40px; }
-            .shop-hero { padding: 7rem 5% 3rem; min-height: 50vh; }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .wiki-grid { grid-template-columns: 1fr; }
             .products-grid { grid-template-columns: 1fr; gap: 1.2rem; }
             .product-banner { height: 140px; }
             .banner-emoji { font-size: 3.8rem; }
             .price-current { font-size: 1.8rem; }
+            #m-purchase .modal-box { padding: 2.2rem 1.5rem; }
         }
     </style>
+    <base target="_blank">
 </head>
 <body>
 
@@ -910,35 +1295,106 @@
     <div class="bg-particles" id="particles"></div>
 
     <nav id="navbar">
-        <a href="index.html" class="logo">LightCitySMP</a>
+        <a href="#" class="logo" target="_self">LightCitySMP</a>
         <div class="nav-icons">
-            <a href="shop.html" class="nav-icon-btn active" title="Shop">
+            <a href="#shop" class="nav-icon-btn" title="Shop" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
             </a>
-            <a href="perks.html" class="nav-icon-btn" title="Rank Perks">
+            <a href="perks.html" class="nav-icon-btn" title="Rank Perks" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             </a>
-            <a href="index.html#wiki" class="nav-icon-btn" title="Wiki">
+            <a href="#wiki" class="nav-icon-btn" title="Wiki" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
             </a>
-            <a href="rules.html" class="nav-icon-btn" title="Rules">
+            <a href="rules.html" class="nav-icon-btn" title="Rules" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
             </a>
         </div>
     </nav>
 
-    <section class="shop-hero">
-        <p class="hero-eyebrow">Season 5 · Official Store</p>
-        <h1 class="hero-title">Ascend Faster</h1>
-        <div class="hero-rule"><span></span><em>✦</em><span></span></div>
-        <p class="hero-sub">Skip the grind, claim the power. Every purchase fuels the server's future.</p>
+    <section class="hero">
+        <p class="hero-eyebrow">Season 5 · Official Website</p>
+        <h1 class="hero-title">
+            <span class="line1">LightCitySMP</span>
+        </h1>
+        <div class="hero-rule">
+            <span></span>
+            <em>✦</em>
+            <span></span>
+        </div>
+        <p class="hero-sub">Welcome to the official website for LightCitySMP, supervised by LightCity's council, owned by Sam.</p>
+        <div class="hero-cta">
+            <a href="#shop" class="btn btn-primary" target="_self">Visit Shop</a>
+            <a href="#wiki" class="btn btn-secondary" target="_self">Ascension Wiki</a>
+        </div>
     </section>
 
-    <div class="category-bar" id="categoryBar"></div>
+    <!-- ═══ SHOP SECTION ═══════════════════════════════════════════════════ -->
+    <section id="shop">
+        <div class="container">
+            <div class="section-label reveal">Official Store</div>
+            <h2 class="section-title reveal">Shop</h2>
+            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
 
-    <div class="container">
-        <div class="products-grid" id="productsGrid"></div>
-    </div>
+            <div class="category-bar reveal" id="categoryBar"></div>
+
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </section>
+
+    <!-- ═══ WIKI SECTION (unchanged from yours) ════════════════════════════ -->
+    <section id="wiki">
+        <div class="container">
+            <div class="section-label reveal">Plugin Documentation</div>
+            <h2 class="section-title reveal">Ascension Wiki</h2>
+            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+            <div class="wiki-grid">
+
+                <div class="wiki-card reveal" onclick="openModal('m-blade')">
+                    <div class="card-icon-wrap">🗡️</div>
+                    <div class="card-title">Ascension Blade</div>
+                    <p class="card-desc">The craftable scythe. Steal rebirth levels from your enemies.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-rebirths')">
+                    <div class="card-icon-wrap">⭐</div>
+                    <div class="card-title">Rebirths</div>
+                    <p class="card-desc">Rebirth Points, progression tiers, and the broadcast system.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-abilities')">
+                    <div class="card-icon-wrap">⚡</div>
+                    <div class="card-title">Abilities</div>
+                    <p class="card-desc">All 18 abilities across 6 Ascension tiers — fully documented.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-streaks')">
+                    <div class="card-icon-wrap">🔥</div>
+                    <div class="card-title">Kill Streaks</div>
+                    <p class="card-desc">Streak requirements, display rules, and server-wide announces.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-concept')">
+                    <div class="card-icon-wrap">💡</div>
+                    <div class="card-title">Plugin Information</div>
+                    <p class="card-desc">The concept behind Ascension and how it all fits together.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-commands')">
+                    <div class="card-icon-wrap">⌨️</div>
+                    <div class="card-title">Commands &amp; Utilities</div>
+                    <p class="card-desc">Full command reference — homes, teams, combat, chat, and more.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <footer>
         <div class="container">
@@ -949,9 +1405,210 @@
         </div>
     </footer>
 
+    <!-- ═══ WIKI MODALS ════════════════════════════════════════════════════ -->
+    <div id="m-blade" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-blade')">×</span>
+            <h2>Ascension Blade</h2>
+            <div class="m-rule"></div>
+            <p>A craftable custom weapon.</p>
+            <p>Killing a player with it <strong>steals one of their rebirth levels</strong>, including the ability tied to it. The stolen ability is stored as an item in your inventory.</p>
+            <p>When you activate it, your currently equipped ability is removed and replaced.</p>
+            <p>To acquire someone's rebirth and their tied ability, you must <strong>kill</strong> them using the Ascension Blade.</p>
+            <p class="recipe-label">Ascension Blade's Recipe</p>
+            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231529.png" alt="Ascension Blade Crafting Recipe">
+        </div>
+    </div>
+
+    <div id="m-rebirths" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-rebirths')">×</span>
+            <h2>Rebirths</h2>
+            <div class="m-rule"></div>
+            <h3>How to Rebirth</h3>
+            <p>Requires 1 Rebirth Point, earned by:</p>
+            <ul>
+                <li>Reaching the required kill streak without dying</li>
+                <li>Purchasing from the server store</li>
+                <li>Crafting a rebirth point using its custom recipe</li>
+            </ul>
+            <p>Upon completing a rebirth, players are presented with a selection of three abilities, from which they may permanently choose one.</p>
+            <p class="recipe-label">Rebirth Point Recipe</p>
+            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231638.png" alt="Rebirth Point Crafting Recipe">
+        </div>
+    </div>
+
+    <div id="m-abilities" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-abilities')">×</span>
+            <h2>The 18 Abilities</h2>
+            <div class="m-rule"></div>
+            <h3>Ascension I — Low Power</h3>
+            <ul>
+                <li><strong>Iron Skin:</strong> Grants Resistance I and reduces incoming damage for 8s. Cooldown: 40s.</li>
+                <li><strong>Dash:</strong> Launches you forward with cloud particle trail. Cooldown: 15s.</li>
+                <li><strong>Smokescreen:</strong> Blinds the target and surrounds them in smoke for 3s. Cooldown: 45s.</li>
+            </ul>
+            <h3>Ascension II — Low Power</h3>
+            <ul>
+                <li><strong>Blood Rush:</strong> On hit/being hit — Speed II for 5s. Cooldown: 45s.</li>
+                <li><strong>Fortify:</strong> On being hit — reduces 25% incoming damage for 8s. Cooldown: 50s.</li>
+                <li><strong>Splinter:</strong> Next attacks deal +8% bonus damage for 8s. Cooldown: 50s.</li>
+            </ul>
+            <h3>Ascension III — Medium Power</h3>
+            <ul>
+                <li><strong>Exposed:</strong> Target takes +10% bonus damage for 4s. Cooldown: 60s.</li>
+                <li><strong>Phantom Step:</strong> Invisibility and portal particles for 4s. Cooldown: 65s.</li>
+                <li><strong>Shockwave:</strong> Knocks back all enemies in 5 blocks and deals 2 hearts. Cooldown: 55s.</li>
+            </ul>
+            <h3>Ascension IV — Medium Power</h3>
+            <ul>
+                <li><strong>Overclock:</strong> Speed III, Haste II for 30s. Cooldown: 120s.</li>
+                <li><strong>Soul Drain:</strong> Strips all active potion effects from target. Cooldown: 75s.</li>
+                <li><strong>Warden's Grasp:</strong> Roots target in place for 3s then when it's over, player gets slowness X for 5s. Cooldown: 80s.</li>
+            </ul>
+            <h3>Ascension V — High Power</h3>
+            <ul>
+                <li><strong>Wraith Form:</strong> Invisibility, cleanses debuffs, cancels all incoming damage for 5s. Blocks Reaper's Call and Warden's Grasp. Cooldown: 150s.</li>
+                <li><strong>Execution:</strong> Hit an enemy below 25% HP within 10s for 2x damage. Cooldown: 85s.</li>
+                <li><strong>Marked:</strong> Target takes +15% damage from all sources for 5s. Cooldown: 95s.</li>
+            </ul>
+            <h3>Ascension VI — High Power</h3>
+            <ul>
+                <li><strong>Soul Lock:</strong> Silences target — strips effects and prevents item use for 6s. Cooldown: 115s.</li>
+                <li><strong>Warlord's Aura:</strong> Strength III and Speed III for 8s, cooldown: 300s.</li>
+                <li><strong>Reaper's Call:</strong> Encases target in black rings — frozen, blinded, nauseous, hotbar locked for 4s. Deals 20% bonus damage. Blocked by Wraith Form. Cooldown: 600s.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="m-streaks" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-streaks')">×</span>
+            <h2>Kill Streaks</h2>
+            <div class="m-rule"></div>
+            <p>In order to gain rebirth points, you must reach 5 kill streak for your first rebirth point! every 5+ kill streak = 1 rebirth point, for example, if you have 3 kill streak, you won't gain any rebirth points, if you have a 5 kill streak you will gain 1 rebirth point as soon as you reach 5 kill streak, then 1+ rebirth point at 10 kill streak, then 1+ at 15 kill streak, get the concept? maximum is 30 kill streak, but you can also craft them, head over to rebirths category!</p>
+
+            <h3>Streak Rules</h3>
+            <ul>
+                <li>Killing the same player has a 30-minute cooldown before it counts again.</li>
+                <li>Dying resets your streak to 0.</li>
+                <li>Streak does not reset on logout.</li>
+                <li>Active streaks are publicly visible.</li>
+            </ul>
+            <h3>Display System</h3>
+            <ul>
+                <li><strong>Under 5 kills</strong> — nothing shown</li>
+                <li><strong>5–14 kills</strong> — [X 🔥] in orange</li>
+                <li><strong>15–24 kills</strong> — [X 🔥] in purple</li>
+                <li><strong>25–30 kills</strong> — [X 🔥] in blood red, slightly larger</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="m-concept" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-concept')">×</span>
+            <h2>Plugin Information</h2>
+            <div class="m-rule"></div>
+            <p>The main idea of this plugin is for players that love PvP, wars and battles — so they can express skill and strength. But it's also made for players that love grinding, want to avoid PvP, and just want to live in peace while feeling <strong>and being powerful.</strong> Ascension is all about ascending from being nothing, to being everything.</p>
+            <h3>Concept</h3>
+            <p>Ascension is a PvP & grinding-based plugin where players must either reach a specific kill streak to <strong>earn Rebirth Points</strong> — unlocking various abilities — or grind for them. You can also earn Rebirth Points by crafting them using the custom recipe found in our Discord.</p>
+            <p>When rebirthed, you're presented with a menu and 3 abilities to choose 1 from. With each rebirth, the abilities get stronger. There are <strong>18 abilities</strong> and <strong>6 rebirth levels,</strong> with more planned for the future.</p>
+        </div>
+    </div>
+
+    <div id="m-commands" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-commands')">×</span>
+            <h2>Commands &amp; Utilities</h2>
+            <div class="m-rule"></div>
+            <h3>⚔️ Combat &amp; Mechanics</h3>
+            <table class="m-table">
+                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+                <tbody>
+                    <tr><td>/streak</td><td>Opens a GUI showing your current kill streak and progress toward the next Rebirth Point.</td></tr>
+                    <tr><td>/streak-toggle</td><td>Toggles your streak tag visibility above your head.</td></tr>
+                    <tr><td>/rebirth</td><td>Opens the Rebirth Panel to spend Rebirth Points and select abilities.</td></tr>
+                    <tr><td>/rebirthpoint-gift &lt;number&gt; &lt;player&gt;</td><td>Gift a rebirth point of yours to another player.</td></tr>
+                </tbody>
+            </table>
+            <h3>🏠 Teleportation &amp; Homes</h3>
+            <table class="m-table">
+                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+                <tbody>
+                    <tr><td>/home</td><td>Opens the GUI Home Panel to manage your homes.</td></tr>
+                    <tr><td>/tpa &lt;player&gt;</td><td>Sends a teleport request to another player.</td></tr>
+                    <tr><td>/tpaccept</td><td>Accepts a pending teleport request.</td></tr>
+                    <tr><td>/tpdeny</td><td>Denies a pending teleport request.</td></tr>
+                    <tr><td>/tpahere</td><td>Sends a teleport request to a player to teleport to you.</td></tr>
+                    <tr><td>/rtp</td><td>Teleports you to a random safe location (3000 block radius).</td></tr>
+                    <tr><td>/back</td><td>Returns you to the location of your last natural death.</td></tr>
+                </tbody>
+            </table>
+            <h3>🛡️ Social &amp; Teams</h3>
+            <table class="m-table">
+                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+                <tbody>
+                    <tr><td>/team create &lt;name&gt;</td><td>Start a new team.</td></tr>
+                    <tr><td>/team invite &lt;player&gt;</td><td>Invite someone to your team.</td></tr>
+                    <tr><td>/team accept &lt;team&gt;</td><td>Join a team you were invited to.</td></tr>
+                    <tr><td>/team chat</td><td>Toggle between global and team chat.</td></tr>
+                    <tr><td>/team home set</td><td>Sets a home for the whole team</td></tr>
+                    <tr><td>/team leave / disband / kick / rename / promote</td><td>Manage your team.</td></tr>
+                    <tr><td>/msg &lt;player&gt; &lt;message&gt;</td><td>Send a private message.</td></tr>
+                    <tr><td>/reply &lt;message&gt;</td><td>Quick-reply to the last person who messaged you.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══ PURCHASE MODAL ═════════════════════════════════════════════════ -->
+    <div id="m-purchase" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('m-purchase')">×</span>
+
+            <div class="purchase-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--gold-bright); fill: rgba(212,168,67,0.08);"/></svg>
+            </div>
+
+            <p class="purchase-eyebrow">Order Confirmation</p>
+            <h2>Complete Your Purchase</h2>
+            <p class="purchase-product" id="purchaseProductName">—</p>
+            <p class="purchase-price" id="purchaseProductPrice">—</p>
+
+            <div class="m-rule"></div>
+
+            <p class="purchase-instructions">
+                To finalize your purchase, please open a support ticket on our Discord server. Our staff will process your order, verify payment, and deliver your items in-game promptly.
+            </p>
+
+            <div class="purchase-steps">
+                <div class="purchase-step">
+                    <div class="step-num">1</div>
+                    <div>Head over to the LightCitySMP Discord server.</div>
+                </div>
+                <div class="purchase-step">
+                    <div class="step-num">2</div>
+                    <div>Navigate to the <strong>support</strong> or <strong>tickets</strong> channel and open a new ticket.</div>
+                </div>
+                <div class="purchase-step">
+                    <div class="step-num">3</div>
+                    <div>Mention the item you'd like to purchase along with your in-game username.</div>
+                </div>
+                <div class="purchase-step">
+                    <div class="step-num">4</div>
+                    <div>A staff member will assist you with payment and delivery.</div>
+                </div>
+            </div>
+
+            <p class="purchase-footer-note">Thank you for supporting LightCitySMP — every purchase helps fuel the server's future.</p>
+        </div>
+    </div>
+
     <script>
     // ═══════════════════════════════════════════════════════════════════
-    //   PARTICLE GENERATION (background ambience)
+    //   PARTICLES
     // ═══════════════════════════════════════════════════════════════════
     (function spawnParticles() {
         const wrap = document.getElementById('particles');
@@ -970,10 +1627,10 @@
     })();
 
     // ═══════════════════════════════════════════════════════════════════
-    //   LOADER
+    //   LOADER + NAV
     // ═══════════════════════════════════════════════════════════════════
     window.addEventListener('load', () => {
-        setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000);
+        setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1200);
     });
 
     window.addEventListener('scroll', () => {
@@ -981,12 +1638,57 @@
     });
 
     // ═══════════════════════════════════════════════════════════════════
-    //   SHOP STATE
+    //   REVEAL OBSERVER
+    // ═══════════════════════════════════════════════════════════════════
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ═══════════════════════════════════════════════════════════════════
+    //   MODALS
+    // ═══════════════════════════════════════════════════════════════════
+    function openModal(id) {
+        document.getElementById(id).style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    window.addEventListener('click', e => {
+        if (e.target.classList.contains('modal')) {
+            e.target.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Open purchase modal with item info
+    function openPurchaseModal(productId) {
+        const product = SHOP_CONFIG.products.find(p => p.id === productId);
+        if (!product) return;
+        document.getElementById('purchaseProductName').textContent = product.name;
+        const priceText = SHOP_CONFIG.currency + product.price.toFixed(2)
+            + (product.perUnit ? ' ' + product.perUnit : '');
+        document.getElementById('purchaseProductPrice').textContent = priceText;
+        openModal('m-purchase');
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+        });
+    });
+
+    // ═══════════════════════════════════════════════════════════════════
+    //   SHOP RENDER
     // ═══════════════════════════════════════════════════════════════════
     let activeCategory = 'all';
-    const timers = {}; // id → interval handle so we can clear on filter
+    const timers = {};
 
-    // ─── Render category bar ──────────────────────────────────────────
     function renderCategories() {
         const bar = document.getElementById('categoryBar');
         const allBtn = `<button class="cat-btn active" data-cat="all"><span class="cat-icon">✦</span>All Items</button>`;
@@ -1004,19 +1706,16 @@
         });
     }
 
-    // ─── Format price ─────────────────────────────────────────────────
     function fmt(n) {
         return SHOP_CONFIG.currency + n.toFixed(2);
     }
 
-    // ─── Build a single product card ──────────────────────────────────
     function buildCard(p) {
         const accent = p.accent || 'gold';
         const hasDiscount = p.discount && p.discount.percent;
         const hasNew = p.isNew === true;
         const hasTag = p.tag && !hasDiscount && !hasNew;
 
-        // Banner content
         let bannerHTML = '';
         if (p.banner) {
             bannerHTML = `<img src="${p.banner}" alt="${p.name}">`;
@@ -1026,7 +1725,6 @@
             bannerHTML = `<div class="banner-emoji">✦</div>`;
         }
 
-        // Badges
         let badgesHTML = '';
         if (hasNew) {
             badgesHTML += `<div class="new-badge">★ New</div>`;
@@ -1037,11 +1735,9 @@
         if (hasTag) {
             badgesHTML += `<div class="product-tag">${p.tag}</div>`;
         } else if ((hasNew || hasDiscount) && p.tag) {
-            // Tag still shown when there are other badges, just placed bottom-left of banner
             badgesHTML += `<div class="product-tag" style="top: auto; bottom: 1rem;">${p.tag}</div>`;
         }
 
-        // Limited stock + timer
         let limitedHTML = '';
         let isSoldOut = false;
         if (p.isLimited) {
@@ -1071,7 +1767,6 @@
             limitedHTML = `<div class="limited-info">${stockBlock}${timerBlock}</div>`;
         }
 
-        // Price block
         let priceHTML = '';
         if (hasDiscount && p.discount.originalPrice) {
             priceHTML = `
@@ -1090,10 +1785,9 @@
             `;
         }
 
-        // CTA
         const ctaHTML = isSoldOut
             ? `<button class="product-cta sold-out" disabled>Sold Out</button>`
-            : `<a href="${SHOP_CONFIG.storeUrl}" class="product-cta">Purchase <span class="arrow">→</span></a>`;
+            : `<button class="product-cta" onclick="openPurchaseModal('${p.id}')">Purchase <span class="arrow">→</span></button>`;
 
         return `
             <div class="product-card" data-accent="${accent}" data-id="${p.id}">
@@ -1112,9 +1806,7 @@
         `;
     }
 
-    // ─── Render products ──────────────────────────────────────────────
     function renderProducts() {
-        // Clear all running countdown timers before re-render
         Object.values(timers).forEach(clearInterval);
         for (const k in timers) delete timers[k];
 
@@ -1130,13 +1822,11 @@
 
         grid.innerHTML = filtered.map(buildCard).join('');
 
-        // Stagger reveal animation
         const cards = grid.querySelectorAll('.product-card');
         cards.forEach((card, i) => {
             setTimeout(() => card.classList.add('visible'), i * 80);
         });
 
-        // Start countdown timers for limited items
         filtered.forEach(p => {
             if (p.isLimited && p.limitedUntil) {
                 startCountdown(p.id, p.limitedUntil);
@@ -1144,7 +1834,6 @@
         });
     }
 
-    // ─── Countdown timer ──────────────────────────────────────────────
     function startCountdown(id, deadlineStr) {
         const el = document.getElementById(`timer-${id}`);
         if (!el) return;
@@ -1172,9 +1861,6 @@
         timers[id] = setInterval(tick, 1000);
     }
 
-    // ═══════════════════════════════════════════════════════════════════
-    //   INIT
-    // ═══════════════════════════════════════════════════════════════════
     renderCategories();
     renderProducts();
     </script>
