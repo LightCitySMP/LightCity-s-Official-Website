@@ -1,1956 +1,1183 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>LightCitySMP | Season 5 Wiki</title>
-
+    <title>LightCitySMP | Shop</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
+    <!-- ═══════════════════════════════════════════════════════════════════
+         ★ SHOP CONFIG ★ — Edit products here. Everything is live-driven.
+         ───────────────────────────────────────────────────────────────────
+         REQUIRED fields:  id, name, price, category
+         OPTIONAL fields:
+           description    — short product blurb (string)
+           banner         — image URL displayed at top of card (string)
+           bannerEmoji    — emoji fallback if no banner image (string)
+           accent         — card accent: "gold" | "crimson" | "violet" | "cyan"
+           discount       — { percent: 25, originalPrice: 9.99 }   (omit if none)
+           isNew          — true/false (toggles the NEW tag animation)
+           isLimited      — true/false (turns on stock + timer)
+           stock          — number (only used if isLimited true)
+           limitedUntil   — ISO date string for countdown timer (only if isLimited)
+           tag            — small label e.g. "BEST VALUE", "STARTER"
+           perUnit        — string shown next to price e.g. "/ home"
+           popular        — true/false (highlights card)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <script>
+    const SHOP_CONFIG = {
+        currency: "$",
+        storeUrl: "#", // change to real store URL when ready
+
+        categories: [
+            { id: "homes",     name: "Homes",          icon: "🏠" },
+            { id: "rebirth",   name: "Rebirth Points", icon: "⭐" },
+            { id: "slots",     name: "Ability Slots",  icon: "🎰" },
+            { id: "abilities", name: "Abilities",      icon: "⚡" }
+        ],
+
+        products: [
+            // ─── HOMES ───────────────────────────────────────────────────
+            {
+                id: "home-extra",
+                name: "Extra Home Slot",
+                description: "Unlock an additional /home location. Stack as many as you want — each slot is permanent.",
+                price: 1.00,
+                perUnit: "/ slot",
+                category: "homes",
+                accent: "gold",
+                bannerEmoji: "🏠",
+                tag: "STARTER"
+            },
+
+            // ─── REBIRTH POINTS ──────────────────────────────────────────
+            {
+                id: "rebirth-single",
+                name: "Rebirth Point",
+                description: "A single Rebirth Point — spend it to ascend and unlock one ability of your choosing.",
+                price: 0.50,
+                perUnit: "/ point",
+                category: "rebirth",
+                accent: "violet",
+                bannerEmoji: "✦"
+            },
+            {
+                id: "rebirth-5pack",
+                name: "5x Rebirth Bundle",
+                description: "Five Rebirth Points delivered instantly. Skip the grind, claim the ascension.",
+                price: 4.99,
+                category: "rebirth",
+                accent: "violet",
+                bannerEmoji: "✦✦✦",
+                popular: true,
+                tag: "POPULAR"
+            },
+            {
+                id: "rebirth-15pack",
+                name: "15x Rebirth Bundle",
+                description: "Fifteen Rebirth Points — the deepest discount available. Reach max ascension faster.",
+                price: 10.99,
+                category: "rebirth",
+                accent: "violet",
+                bannerEmoji: "✦✦✦✦✦",
+                discount: { percent: 27, originalPrice: 14.99 },
+                tag: "BEST VALUE"
+            },
+
+            // ─── ABILITY SLOTS ───────────────────────────────────────────
+            {
+                id: "slot-extra",
+                name: "Extra Ability Slot",
+                description: "Equip one more ability simultaneously. Maximum of 3 additional slots per player.",
+                price: 10.00,
+                perUnit: "/ slot · max 3",
+                category: "slots",
+                accent: "cyan",
+                bannerEmoji: "◈",
+                tag: "LIMIT 3"
+            },
+
+            // ─── ABILITIES ───────────────────────────────────────────────
+            {
+                id: "ability-clone",
+                name: "Clone",
+                description: "Spawn a temporary clone that mirrors your movement and confuses your enemies in combat.",
+                price: 4.99,
+                category: "abilities",
+                accent: "cyan",
+                bannerEmoji: "👥",
+                isNew: true
+            },
+            {
+                id: "ability-guardian",
+                name: "Guardian",
+                description: "Summon a warding aura that intercepts incoming damage. The shield of the ascended.",
+                price: 7.99,
+                category: "abilities",
+                accent: "gold",
+                bannerEmoji: "🛡️",
+                isNew: true
+            },
+            {
+                id: "ability-poltergeist",
+                name: "Poltergeist",
+                description: "Phase between dimensions, leaving spectral echoes that haunt and disorient your target.",
+                price: 11.99,
+                category: "abilities",
+                accent: "crimson",
+                bannerEmoji: "👻",
+                isNew: true,
+                isLimited: true,
+                stock: 25,
+                // limitedUntil format: "YYYY-MM-DDTHH:MM:SS" — set a future date
+                limitedUntil: "2026-06-01T23:59:59"
+            }
+        ]
+    };
+    </script>
+
     <style>
-
         :root {
-
             --gold: #D4A843;
-
             --gold-bright: #F0C060;
-
             --gold-dim: #8A6B28;
-
             --gold-trace: rgba(212, 168, 67, 0.12);
-
             --gold-glow: rgba(212, 168, 67, 0.22);
 
+            --crimson: #C13838;
+            --crimson-bright: #E85555;
+            --crimson-dim: #7A1F1F;
+            --crimson-trace: rgba(193, 56, 56, 0.12);
+            --crimson-glow: rgba(193, 56, 56, 0.25);
+
+            --violet: #9D5BD2;
+            --violet-bright: #B87AF0;
+            --violet-dim: #5E2D85;
+            --violet-trace: rgba(157, 91, 210, 0.12);
+            --violet-glow: rgba(157, 91, 210, 0.25);
+
+            --cyan: #4FC3D9;
+            --cyan-bright: #6FE0F5;
+            --cyan-dim: #2A6E80;
+            --cyan-trace: rgba(79, 195, 217, 0.12);
+            --cyan-glow: rgba(79, 195, 217, 0.25);
+
             --ink: #080808;
-
             --ink-2: #0F0F0D;
-
+            --ink-3: #141412;
             --surface: rgba(255,255,255,0.025);
-
             --surface-hover: rgba(255,255,255,0.045);
-
             --border: rgba(212, 168, 67, 0.14);
-
             --border-strong: rgba(212, 168, 67, 0.35);
-
             --text: #E8E2D5;
-
             --text-dim: rgba(232, 226, 213, 0.55);
-
             --text-muted: rgba(232, 226, 213, 0.3);
-
         }
-
-
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
-
-
         body {
-
             font-family: 'Syne', sans-serif;
-
             background: var(--ink);
-
             color: var(--text);
-
             overflow-x: hidden;
-
             line-height: 1.6;
-
+            min-height: 100vh;
         }
 
-
-
+        /* ═══ BACKGROUND ═════════════════════════════════════════════════ */
         .bg-layer {
-
-            position: fixed; inset: 0; z-index: -2;
-
+            position: fixed; inset: 0; z-index: -3;
             background:
-
-                radial-gradient(ellipse 80% 60% at 20% 15%, rgba(212,168,67,0.08) 0%, transparent 55%),
-
-                radial-gradient(ellipse 60% 50% at 80% 85%, rgba(212,168,67,0.06) 0%, transparent 50%),
-
-                radial-gradient(ellipse 40% 40% at 50% 50%, rgba(212,168,67,0.03) 0%, transparent 60%),
-
+                radial-gradient(ellipse 80% 60% at 20% 15%, rgba(212,168,67,0.10) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 50% at 80% 85%, rgba(157,91,210,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(193,56,56,0.04) 0%, transparent 60%),
                 var(--ink);
-
         }
-
-
 
         .bg-lines {
-
-            position: fixed; inset: 0; z-index: -1;
-
+            position: fixed; inset: 0; z-index: -2;
             background-image:
-
-                linear-gradient(rgba(212,168,67,0.03) 1px, transparent 1px),
-
-                linear-gradient(90deg, rgba(212,168,67,0.03) 1px, transparent 1px);
-
+                linear-gradient(rgba(212,168,67,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,168,67,0.04) 1px, transparent 1px);
             background-size: 60px 60px;
-
             mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
-
         }
 
-
-
-        .loader {
-
-            position: fixed; inset: 0; z-index: 9999;
-
-            background: var(--ink);
-
-            display: flex; justify-content: center; align-items: center;
-
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-
+        .bg-particles {
+            position: fixed; inset: 0; z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
         }
 
-
-
-        .loader.hidden { opacity: 0; visibility: hidden; }
-
-
-
-        .loader-inner {
-
-            text-align: center;
-
-        }
-
-
-
-        .loader-ring {
-
-            width: 64px; height: 64px;
-
-            border: 2px solid rgba(212,168,67,0.1);
-
-            border-top-color: var(--gold);
-
+        .particle {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: var(--gold);
             border-radius: 50%;
+            box-shadow: 0 0 6px var(--gold), 0 0 12px var(--gold-glow);
+            opacity: 0;
+            animation: floatUp linear infinite;
+        }
 
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* ═══ LOADER ═════════════════════════════════════════════════════ */
+        .loader {
+            position: fixed; inset: 0; z-index: 9999;
+            background: var(--ink);
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-inner { text-align: center; }
+        .loader-ring {
+            width: 64px; height: 64px;
+            border: 2px solid rgba(212,168,67,0.1);
+            border-top-color: var(--gold);
+            border-radius: 50%;
             animation: spin 0.9s linear infinite;
-
             margin: 0 auto 1.2rem;
-
         }
-
-
-
         @keyframes spin { to { transform: rotate(360deg); } }
-
-
-
         .loader-label {
-
             font-family: 'JetBrains Mono', monospace;
-
             font-size: 0.72rem;
-
             letter-spacing: 0.3em;
-
             color: var(--gold-dim);
-
             text-transform: uppercase;
-
         }
 
-
-
+        /* ═══ NAV ════════════════════════════════════════════════════════ */
         nav {
-
             position: fixed; top: 0; width: 100%; z-index: 1000;
-
             padding: 1.2rem 5%;
-
             display: flex; justify-content: space-between; align-items: center;
-
             background: rgba(8,8,8,0.88);
-
             backdrop-filter: blur(24px);
-
             border-bottom: 1px solid var(--border);
-
             transition: padding 0.3s ease, box-shadow 0.3s ease;
-
         }
-
-
-
         nav.scrolled {
-
             padding: 0.9rem 5%;
-
             box-shadow: 0 4px 40px rgba(0,0,0,0.7);
-
         }
-
-
-
         .logo {
-
             font-family: 'Cormorant Garamond', serif;
-
             font-size: 1.5rem;
-
             font-weight: 700;
-
             color: var(--gold);
-
             text-decoration: none;
-
             letter-spacing: 0.03em;
-
             display: flex; align-items: center; gap: 0.4rem;
-
             text-shadow: 0 0 10px rgba(212, 168, 67, 0.5);
-
         }
-
-
-
-        .nav-icons {
-
-            display: flex; gap: 0.6rem; align-items: center;
-
-        }
-
-
-
+        .nav-icons { display: flex; gap: 0.6rem; align-items: center; }
         .nav-icon-btn {
-
             width: 44px; height: 44px;
-
             background: var(--surface);
-
             border: 1px solid var(--border);
-
             border-radius: 10px;
-
             display: flex; align-items: center; justify-content: center;
-
             cursor: pointer;
-
             transition: all 0.3s ease;
-
             text-decoration: none;
-
         }
-
-
-
         .nav-icon-btn:hover {
-
             background: var(--gold-trace);
-
             border-color: var(--border-strong);
-
             transform: translateY(-2px);
-
             box-shadow: 0 6px 20px rgba(212,168,67,0.15);
-
         }
-
-
-
         .nav-icon-btn.active {
-
             background: var(--gold-trace);
-
             border-color: var(--gold);
-
             box-shadow: 0 0 16px rgba(212,168,67,0.2);
-
         }
-
-
-
         .nav-icon-btn svg {
-
             width: 20px; height: 20px;
-
             fill: var(--gold);
-
             transition: transform 0.25s ease;
-
         }
-
-
-
         .nav-icon-btn:hover svg { transform: scale(1.1); }
 
-
-
-        .hero {
-
-            min-height: 100vh;
-
+        /* ═══ HERO ═══════════════════════════════════════════════════════ */
+        .shop-hero {
+            min-height: 60vh;
             display: flex; flex-direction: column;
-
             justify-content: center; align-items: center;
-
             text-align: center;
-
-            padding: 2rem 5%;
-
+            padding: 9rem 5% 4rem;
             position: relative;
-
         }
 
+        .shop-hero::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--gold-trace) 0%, transparent 60%);
+            z-index: -1;
+            animation: pulseGlow 5s ease-in-out infinite;
+        }
 
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.15); }
+        }
 
         .hero-eyebrow {
-
             font-family: 'JetBrains Mono', monospace;
-
             font-size: 0.7rem;
-
             letter-spacing: 0.3em;
-
             color: var(--gold-dim);
-
             text-transform: uppercase;
-
             margin-bottom: 1.5rem;
-
             opacity: 0;
-
             animation: fadeUp 0.8s ease 0.2s forwards;
-
         }
-
-
 
         .hero-title {
-
             font-family: 'Cormorant Garamond', serif;
-
-            font-size: clamp(3.5rem, 10vw, 7rem);
-
+            font-size: clamp(3rem, 9vw, 6rem);
             font-weight: 700;
-
             line-height: 0.95;
-
             letter-spacing: -0.02em;
-
             margin-bottom: 1rem;
-
-            opacity: 0;
-
-            animation: fadeUp 0.8s ease 0.35s forwards;
-
-        }
-
-
-
-        .hero-title .line1 {
-
-            display: block;
-
             color: var(--gold-bright);
-
-            text-shadow: 0 0 25px rgba(212, 168, 67, 0.3);
-
+            text-shadow: 0 0 30px rgba(212, 168, 67, 0.4);
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.35s forwards;
         }
-
-
 
         .hero-rule {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 1rem;
-
+            display: flex; align-items: center; gap: 1rem;
             justify-content: center;
-
             margin: 1.5rem 0;
-
             opacity: 0;
-
             animation: fadeUp 0.8s ease 0.5s forwards;
-
         }
-
-
-
         .hero-rule span {
-
-            height: 1px;
-
-            width: 60px;
-
+            height: 1px; width: 60px;
             background: linear-gradient(90deg, transparent, var(--gold-dim));
-
         }
-
-
-
         .hero-rule span:last-child {
-
             background: linear-gradient(90deg, var(--gold-dim), transparent);
-
         }
-
-
-
-        .hero-rule em {
-
-            color: var(--gold);
-
-            font-style: normal;
-
-            font-size: 0.85rem;
-
-        }
-
-
+        .hero-rule em { color: var(--gold); font-style: normal; font-size: 0.85rem; }
 
         .hero-sub {
-
             font-family: 'Cormorant Garamond', serif;
-
             font-size: 1.2rem;
-
+            font-style: italic;
             color: var(--text-dim);
-
-            max-width: 500px;
-
-            margin: 0 auto 2.5rem;
-
+            max-width: 540px;
+            margin: 0 auto;
             line-height: 1.7;
-
             opacity: 0;
-
             animation: fadeUp 0.8s ease 0.6s forwards;
-
         }
-
-
-
-        .hero-cta {
-
-            display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
-
-            opacity: 0;
-
-            animation: fadeUp 0.8s ease 0.75s forwards;
-
-        }
-
-
-
-        .btn {
-
-            padding: 0.75rem 2rem;
-
-            border-radius: 6px;
-
-            font-family: 'Syne', sans-serif;
-
-            font-size: 0.85rem;
-
-            font-weight: 600;
-
-            letter-spacing: 0.05em;
-
-            text-decoration: none;
-
-            transition: all 0.3s ease;
-
-            cursor: pointer;
-
-            display: inline-flex; align-items: center; gap: 0.4rem;
-
-        }
-
-
-
-        .btn-primary {
-
-            background: var(--gold);
-
-            color: var(--ink);
-
-            border: 1px solid var(--gold);
-
-        }
-
-
-
-        .btn-primary:hover {
-
-            background: var(--gold-bright);
-
-            transform: translateY(-2px);
-
-            box-shadow: 0 8px 24px var(--gold-glow);
-
-        }
-
-
-
-        .btn-secondary {
-
-            background: transparent;
-
-            color: var(--text-dim);
-
-            border: 1px solid var(--border-strong);
-
-        }
-
-
-
-        .btn-secondary:hover {
-
-            background: var(--gold-trace);
-
-            color: var(--gold);
-
-            border-color: var(--gold);
-
-            transform: translateY(-2px);
-
-        }
-
-
 
         @keyframes fadeUp {
-
             from { opacity: 0; transform: translateY(24px); }
-
             to { opacity: 1; transform: translateY(0); }
-
         }
 
-
-
-        @keyframes fadeIn {
-
-            from { opacity: 0; }
-
-            to { opacity: 1; }
-
-        }
-
-
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
-
-
-
-        section { padding: 8rem 0; position: relative; }
-
-
-
-        .section-label {
-
-            font-family: 'JetBrains Mono', monospace;
-
-            font-size: 0.68rem;
-
-            letter-spacing: 0.25em;
-
-            color: var(--gold-dim);
-
-            text-transform: uppercase;
-
-            text-align: center;
-
-            margin-bottom: 0.8rem;
-
-        }
-
-
-
-        .section-title {
-
-            font-family: 'Cormorant Garamond', serif;
-
-            font-size: clamp(2rem, 4vw, 3rem);
-
-            font-weight: 700;
-
-            text-align: center;
-
-            color: var(--gold-bright);
-
-            letter-spacing: -0.01em;
-
-            margin-bottom: 0.5rem;
-
-        }
-
-
-
-        .section-rule {
-
-            display: flex; align-items: center; gap: 1rem;
-
+        /* ═══ CATEGORY TABS ══════════════════════════════════════════════ */
+        .category-bar {
+            display: flex; flex-wrap: wrap;
             justify-content: center;
-
-            margin: 1rem 0 3.5rem;
-
+            gap: 0.6rem;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            padding: 0 5%;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.75s forwards;
         }
 
-
-
-        .section-rule span {
-
-            height: 1px;
-
-            width: 50px;
-
-            background: linear-gradient(90deg, transparent, var(--gold-dim));
-
-        }
-
-
-
-        .section-rule span:last-child {
-
-            background: linear-gradient(90deg, var(--gold-dim), transparent);
-
-        }
-
-
-
-        .section-rule em { color: var(--gold-dim); font-style: normal; font-size: 0.7rem; }
-
-
-
-        #shop {
-
-            background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
-
-            border-top: 1px solid var(--border);
-
-            border-bottom: 1px solid var(--border);
-
-        }
-
-
-
-        .progress-container {
-
-            max-width: 560px;
-
-            margin: 0 auto;
-
-        }
-
-
-
-        .progress-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: baseline;
-
-            margin-bottom: 0.8rem;
-
-        }
-
-
-
-        .progress-label {
-
-            font-family: 'JetBrains Mono', monospace;
-
-            font-size: 0.75rem;
-
-            letter-spacing: 0.1em;
-
-            color: var(--text-muted);
-
-            text-transform: uppercase;
-
-        }
-
-
-
-        .progress-pct {
-
-            font-family: 'Cormorant Garamond', serif;
-
-            font-size: 2rem;
-
-            font-weight: 600;
-
-            color: var(--gold);
-
-        }
-
-
-
-        .progress-track {
-
-            height: 6px;
-
-            background: rgba(255,255,255,0.06);
-
-            border-radius: 3px;
-
-            overflow: hidden;
-
-            border: 1px solid var(--border);
-
-        }
-
-
-
-        .progress-fill {
-
-            height: 100%;
-
-            width: 38%;
-
-            background: linear-gradient(90deg, var(--gold-dim), var(--gold-bright));
-
-            border-radius: 3px;
-
-            position: relative;
-
-            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-        }
-
-
-
-        .progress-fill::after {
-
-            content: '';
-
-            position: absolute;
-
-            top: 0; right: 0;
-
-            width: 20px; height: 100%;
-
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4));
-
-            animation: shimmer 2s infinite;
-
-        }
-
-
-
-        @keyframes shimmer {
-
-            0% { opacity: 0; }
-
-            50% { opacity: 1; }
-
-            100% { opacity: 0; }
-
-        }
-
-
-
-        .wiki-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-
-            gap: 1.2rem;
-
-        }
-
-
-
-        .wiki-card {
-
+        .cat-btn {
+            padding: 0.7rem 1.4rem;
             background: var(--surface);
-
             border: 1px solid var(--border);
-
-            border-radius: 10px;
-
-            padding: 2rem;
-
-            cursor: pointer;
-
-            transition: all 0.3s ease;
-
-            position: relative;
-
-            overflow: hidden;
-
-        }
-
-
-
-        .wiki-card::before {
-
-            content: '';
-
-            position: absolute;
-
-            top: 0; left: 0;
-
-            width: 3px; height: 100%;
-
-            background: linear-gradient(180deg, var(--gold-dim), transparent);
-
-            opacity: 0;
-
-            transition: opacity 0.3s ease;
-
-        }
-
-
-
-        .wiki-card:hover {
-
-            background: var(--surface-hover);
-
-            border-color: var(--border-strong);
-
-            transform: translateY(-4px);
-
-            box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(212,168,67,0.06);
-
-        }
-
-
-
-        .wiki-card:hover::before { opacity: 1; }
-
-
-
-        .card-icon-wrap {
-
-            width: 52px; height: 52px;
-
-            background: rgba(212,168,67,0.08);
-
-            border: 1px solid var(--border);
-
-            border-radius: 10px;
-
-            display: flex; align-items: center; justify-content: center;
-
-            font-size: 1.5rem;
-
-            margin-bottom: 1.2rem;
-
-            transition: all 0.3s ease;
-
-        }
-
-
-
-        .wiki-card:hover .card-icon-wrap {
-
-            background: rgba(212,168,67,0.14);
-
-            border-color: var(--border-strong);
-
-            transform: scale(1.05);
-
-        }
-
-
-
-        .card-title {
-
-            font-family: 'Syne', sans-serif;
-
-            font-size: 0.95rem;
-
-            font-weight: 700;
-
-            color: var(--text);
-
-            margin-bottom: 0.5rem;
-
-            letter-spacing: 0.02em;
-
-        }
-
-
-
-        .card-desc {
-
-            font-size: 0.85rem;
-
-            color: var(--text-muted);
-
-            line-height: 1.6;
-
-        }
-
-
-
-        .card-arrow {
-
-            position: absolute;
-
-            bottom: 1.5rem; right: 1.5rem;
-
-            color: var(--gold-dim);
-
-            font-size: 0.9rem;
-
-            opacity: 0;
-
-            transform: translateX(-6px);
-
-            transition: all 0.3s ease;
-
-        }
-
-
-
-        .wiki-card:hover .card-arrow {
-
-            opacity: 1;
-
-            transform: translateX(0);
-
-            color: var(--gold);
-
-        }
-
-
-
-        .modal {
-
-            display: none;
-
-            position: fixed; inset: 0; z-index: 2000;
-
-            background: rgba(0,0,0,0.85);
-
-            backdrop-filter: blur(12px);
-
-            overflow-y: auto;
-
-            padding: 4rem 1rem;
-
-        }
-
-
-
-        .modal-box {
-
-            background: var(--ink-2);
-
-            border: 1px solid var(--border-strong);
-
-            border-radius: 12px;
-
-            width: 100%; max-width: 760px;
-
-            margin: 0 auto;
-
-            padding: 2.5rem;
-
-            position: relative;
-
-            animation: modalIn 0.3s ease;
-
-        }
-
-
-
-        @keyframes modalIn {
-
-            from { opacity: 0; transform: translateY(-16px); }
-
-            to { opacity: 1; transform: translateY(0); }
-
-        }
-
-
-
-        .modal-close {
-
-            position: absolute;
-
-            top: 1.2rem; right: 1.5rem;
-
-            color: var(--gold-dim);
-
-            font-size: 1.5rem;
-
-            cursor: pointer;
-
-            line-height: 1;
-
-            transition: color 0.2s;
-
-        }
-
-
-
-        .modal-close:hover { color: var(--gold); }
-
-
-
-        .modal-box h2 {
-
-            font-family: 'Cormorant Garamond', serif;
-
-            font-size: 1.9rem;
-
-            font-weight: 700;
-
-            color: var(--gold-bright);
-
-            margin-bottom: 0.3rem;
-
-        }
-
-
-
-        .modal-box .m-rule {
-
-            height: 1px;
-
-            background: linear-gradient(90deg, var(--gold-dim), transparent);
-
-            margin: 1rem 0 1.5rem;
-
-        }
-
-
-
-        .modal-box h3 {
-
-            font-family: 'Syne', sans-serif;
-
-            font-size: 0.8rem;
-
-            font-weight: 700;
-
-            letter-spacing: 0.1em;
-
-            text-transform: uppercase;
-
-            color: var(--gold);
-
-            margin: 1.8rem 0 0.8rem;
-
-        }
-
-
-
-        .modal-box p, .modal-box li {
-
-            font-size: 0.9rem;
-
-            color: var(--text-dim);
-
-            line-height: 1.8;
-
-            margin-bottom: 0.6rem;
-
-        }
-
-
-
-        .modal-box ul { padding-left: 1.2rem; margin-bottom: 1rem; }
-
-        .modal-box strong { color: var(--gold-bright); font-weight: 600; }
-
-
-
-        .m-table {
-
-            width: 100%; border-collapse: collapse;
-
-            margin: 0.5rem 0 1rem;
-
-            border-radius: 8px; overflow: hidden;
-
-        }
-
-
-
-        .m-table th {
-
-            padding: 0.7rem 1rem;
-
-            text-align: left;
-
-            font-family: 'JetBrains Mono', monospace;
-
-            font-size: 0.68rem;
-
-            letter-spacing: 0.1em;
-
-            color: var(--gold-dim);
-
-            text-transform: uppercase;
-
-            background: rgba(212,168,67,0.05);
-
-            border-bottom: 1px solid var(--border);
-
-        }
-
-
-
-        .m-table td {
-
-            padding: 0.7rem 1rem;
-
-            font-size: 0.88rem;
-
-            color: var(--text-dim);
-
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-
-        }
-
-
-
-        .m-table tr:last-child td { border-bottom: none; }
-
-        .m-table tr:hover td { background: rgba(212,168,67,0.02); }
-
-
-
-        .recipe-label {
-
-            font-family: 'Cormorant Garamond', serif;
-
-            font-size: 1.4rem;
-
-            font-weight: 700;
-
-            color: var(--gold-bright);
-
-            margin: 2rem 0 0.8rem;
-
-        }
-
-
-
-        .recipe-img {
-
-            display: block;
-
-            max-width: 100%;
-
             border-radius: 8px;
+            color: var(--text-dim);
+            font-family: 'Syne', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
 
+        .cat-btn:hover {
+            background: var(--gold-trace);
+            color: var(--text);
+            border-color: var(--border-strong);
+            transform: translateY(-2px);
+        }
+
+        .cat-btn.active {
+            background: var(--gold-trace);
+            color: var(--gold-bright);
+            border-color: var(--gold);
+            box-shadow: 0 0 16px rgba(212,168,67,0.2);
+        }
+
+        .cat-btn .cat-icon { font-size: 1rem; }
+
+        /* ═══ PRODUCTS GRID ══════════════════════════════════════════════ */
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 5%; }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding-bottom: 6rem;
+        }
+
+        /* ═══ PRODUCT CARD ═══════════════════════════════════════════════ */
+        .product-card {
+            position: relative;
+            background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
             border: 1px solid var(--border);
-
-            image-rendering: pixelated;
-
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            display: flex;
+            flex-direction: column;
         }
 
-
-
-        footer {
-
-            border-top: 1px solid var(--border);
-
-            padding: 4rem 0 2rem;
-
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
+        .product-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            padding: 1px;
+            background: linear-gradient(135deg, transparent 30%, var(--card-glow, var(--gold)) 50%, transparent 70%);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
 
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--card-border, var(--border-strong));
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.6),
+                0 0 30px var(--card-glow-soft, rgba(212,168,67,0.15));
+        }
 
-        .footer-inner {
+        .product-card:hover::before { opacity: 1; }
 
-            max-width: 500px;
+        /* Accent variants */
+        .product-card[data-accent="gold"]    { --card-glow: var(--gold);    --card-glow-soft: var(--gold-glow);    --card-border: var(--gold); --card-trace: var(--gold-trace); }
+        .product-card[data-accent="crimson"] { --card-glow: var(--crimson); --card-glow-soft: var(--crimson-glow); --card-border: var(--crimson); --card-trace: var(--crimson-trace); }
+        .product-card[data-accent="violet"]  { --card-glow: var(--violet);  --card-glow-soft: var(--violet-glow);  --card-border: var(--violet); --card-trace: var(--violet-trace); }
+        .product-card[data-accent="cyan"]    { --card-glow: var(--cyan);    --card-glow-soft: var(--cyan-glow);    --card-border: var(--cyan); --card-trace: var(--cyan-trace); }
 
-            margin: 0 auto;
+        /* ─── Banner ──────────────────────────────────── */
+        .product-banner {
+            position: relative;
+            height: 160px;
+            background: linear-gradient(135deg,
+                var(--card-trace, var(--gold-trace)) 0%,
+                rgba(255,255,255,0.02) 50%,
+                var(--card-trace, var(--gold-trace)) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
 
+        .product-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 30% 30%, var(--card-glow-soft, var(--gold-glow)) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, var(--card-glow-soft, var(--gold-glow)) 0%, transparent 50%);
+            opacity: 0.6;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-card:hover .product-banner::before { opacity: 1; }
+
+        .product-banner img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            position: relative; z-index: 1;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-banner img { transform: scale(1.08); }
+
+        .banner-emoji {
+            font-size: 4.5rem;
+            position: relative; z-index: 1;
+            filter: drop-shadow(0 0 20px var(--card-glow, var(--gold)));
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .product-card:hover .banner-emoji {
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        /* ─── Floating tag (NEW / POPULAR / LIMIT) ────── */
+        .product-tag {
+            position: absolute;
+            top: 1rem; left: 1rem;
+            padding: 0.35rem 0.8rem;
+            background: var(--ink);
+            border: 1px solid var(--card-border, var(--gold));
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.15em;
+            color: var(--card-glow, var(--gold-bright));
+            text-transform: uppercase;
+            z-index: 3;
+            font-weight: 500;
+        }
+
+        /* ─── NEW badge with custom animation ─────────── */
+        .new-badge {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            padding: 0.4rem 0.85rem;
+            background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-bright) 100%);
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            border-radius: 4px;
+            z-index: 3;
+            text-transform: uppercase;
+            box-shadow: 0 4px 16px rgba(193,56,56,0.5);
+            overflow: hidden;
+        }
+
+        .new-badge::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: newShimmer 2.5s infinite;
+        }
+
+        @keyframes newShimmer {
+            0% { left: -100%; }
+            50%, 100% { left: 200%; }
+        }
+
+        /* ─── Discount badge with bounce animation ────── */
+        .discount-badge {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-bright) 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            box-shadow: 0 6px 20px rgba(193,56,56,0.6);
+            z-index: 4;
+            animation: discountPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes discountPulse {
+            0%, 100% { transform: scale(1) rotate(-8deg); }
+            50% { transform: scale(1.1) rotate(8deg); }
+        }
+
+        .discount-badge .pct-num {
+            font-size: 1.05rem;
+            line-height: 1;
+        }
+        .discount-badge .pct-off {
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
+            margin-top: 2px;
+            opacity: 0.9;
+        }
+
+        /* When both new + discount, stack them */
+        .product-card .new-badge + .discount-badge { top: 4.2rem; }
+
+        /* ─── Body ───────────────────────────────────── */
+        .product-body {
+            padding: 1.5rem 1.5rem 1.6rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .product-card:hover .product-name {
+            color: var(--card-glow, var(--gold-bright));
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+        }
+
+        /* ─── Stock + Timer for limited items ─────────── */
+        .limited-info {
+            background: rgba(193,56,56,0.06);
+            border: 1px solid rgba(193,56,56,0.25);
+            border-radius: 6px;
+            padding: 0.7rem 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .stock-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .stock-label { color: var(--text-muted); }
+
+        .stock-count {
+            color: var(--crimson-bright);
+            font-weight: 500;
+        }
+
+        .stock-count .stock-low { color: var(--crimson-bright); animation: stockBlink 1.4s infinite; }
+        @keyframes stockBlink { 50% { opacity: 0.4; } }
+
+        .stock-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .stock-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--crimson-dim), var(--crimson-bright));
+            border-radius: 2px;
+            transition: width 0.8s ease;
+        }
+
+        .timer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+        }
+
+        .timer-label {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .timer-display {
+            color: var(--crimson-bright);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        /* ─── Price ──────────────────────────────────── */
+        .price-block {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+            margin-bottom: 1.1rem;
+            flex-wrap: wrap;
+        }
+
+        .price-current {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--card-glow, var(--gold-bright));
+            line-height: 1;
+            letter-spacing: -0.01em;
+        }
+
+        .price-original {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            text-decoration-color: var(--crimson);
+        }
+
+        .price-unit {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-left: -0.2rem;
+        }
+
+        /* ─── CTA ────────────────────────────────────── */
+        .product-cta {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--card-trace, var(--gold-trace));
+            border: 1px solid var(--card-border, var(--gold));
+            border-radius: 8px;
+            color: var(--card-glow, var(--gold-bright));
+            font-family: 'Syne', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-cta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, var(--card-glow-soft, var(--gold-glow)), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .product-cta:hover::before { left: 100%; }
+
+        .product-cta:hover {
+            background: var(--card-glow, var(--gold));
+            color: var(--ink);
+            box-shadow: 0 8px 24px var(--card-glow-soft, var(--gold-glow));
+        }
+
+        .product-cta .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .product-cta:hover .arrow { transform: translateX(4px); }
+
+        /* Sold out state */
+        .product-cta.sold-out {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.08);
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+        .product-cta.sold-out:hover {
+            background: rgba(255,255,255,0.03);
+            color: var(--text-muted);
+            box-shadow: none;
+        }
+        .product-cta.sold-out::before { display: none; }
+
+        /* ═══ EMPTY STATE ════════════════════════════════════════════════ */
+        .empty-state {
             text-align: center;
-
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
         }
 
-
+        /* ═══ FOOTER ═════════════════════════════════════════════════════ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 4rem 0 2rem;
+            margin-top: 2rem;
+        }
+        .footer-inner { max-width: 500px; margin: 0 auto; text-align: center; }
 
         .ascension-glow {
-
             font-family: 'Cormorant Garamond', serif;
-
             font-size: 2.2rem;
-
             font-weight: 700;
-
             color: #ff2a2a;
-
             text-transform: uppercase;
-
             letter-spacing: 0.15em;
-
             margin-bottom: 0.5rem;
-
             text-shadow:
-
                 0 0 10px rgba(255, 0, 0, 0.8),
-
                 0 -5px 15px rgba(200, 0, 0, 0.6),
-
                 0 -10px 20px rgba(100, 0, 0, 0.5),
-
                 0 -15px 30px rgba(0, 0, 0, 0.9);
-
             animation: pulseSmoke 3s infinite alternate;
-
         }
-
-
 
         @keyframes pulseSmoke {
-
             0% {
-
                 text-shadow:
-
                     0 0 10px rgba(255, 0, 0, 0.8),
-
                     0 -5px 15px rgba(200, 0, 0, 0.6),
-
                     0 -10px 20px rgba(100, 0, 0, 0.5),
-
                     0 -15px 30px rgba(0, 0, 0, 0.9);
-
             }
-
             100% {
-
                 text-shadow:
-
                     0 0 15px rgba(255, 50, 50, 0.9),
-
                     0 -8px 20px rgba(220, 20, 20, 0.7),
-
                     0 -12px 25px rgba(120, 0, 0, 0.7),
-
                     0 -20px 40px rgba(0, 0, 0, 1);
-
             }
-
         }
-
-
 
         .footer-credits {
-
             font-size: 0.82rem;
-
             color: var(--text-muted);
-
             margin-bottom: 2rem;
-
         }
-
-
-
-        .reveal {
-
-            opacity: 0; transform: translateY(30px);
-
-            transition: opacity 0.7s ease, transform 0.7s ease;
-
-        }
-
-
-
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-
-
 
         ::-webkit-scrollbar { width: 6px; }
-
         ::-webkit-scrollbar-track { background: var(--ink); }
-
         ::-webkit-scrollbar-thumb {
-
             background: linear-gradient(180deg, var(--gold-dim), var(--gold));
-
             border-radius: 3px;
-
         }
-
-
 
         @media (max-width: 768px) {
-
             .nav-icon-btn { width: 40px; height: 40px; }
-
-            .hero-cta { flex-direction: column; align-items: center; }
-
-            .wiki-grid { grid-template-columns: 1fr; }
-
+            .shop-hero { padding: 7rem 5% 3rem; min-height: 50vh; }
+            .products-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .product-banner { height: 140px; }
+            .banner-emoji { font-size: 3.8rem; }
+            .price-current { font-size: 1.8rem; }
         }
-
     </style>
-
-    <base target="_blank">
-
 </head>
-
 <body>
 
-
-
     <div class="loader" id="loader">
-
         <div class="loader-inner">
-
             <div class="loader-ring"></div>
-
             <div class="loader-label">LightCitySMP</div>
-
         </div>
-
     </div>
-
-
 
     <div class="bg-layer"></div>
-
     <div class="bg-lines"></div>
-
-
+    <div class="bg-particles" id="particles"></div>
 
     <nav id="navbar">
-
-        <a href="#" class="logo" target="_self">
-
-            LightCitySMP
-
-        </a>
-
+        <a href="index.html" class="logo">LightCitySMP</a>
         <div class="nav-icons">
-
-            <a href="#shop" class="nav-icon-btn" title="Shop" target="_self">
-
+            <a href="shop.html" class="nav-icon-btn active" title="Shop">
                 <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-
             </a>
-
-            <a href="perks.html" class="nav-icon-btn" title="Rank Perks" target="_self">
-
+            <a href="perks.html" class="nav-icon-btn" title="Rank Perks">
                 <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-
             </a>
-
-            <a href="#wiki" class="nav-icon-btn" title="Wiki" target="_self">
-
+            <a href="index.html#wiki" class="nav-icon-btn" title="Wiki">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-
             </a>
-
-            <a href="rules.html" class="nav-icon-btn" title="Rules" target="_self">
-
+            <a href="rules.html" class="nav-icon-btn" title="Rules">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-
             </a>
-
         </div>
-
     </nav>
 
-
-
-    <section class="hero">
-
-        <p class="hero-eyebrow">Season 5 · Official Website</p>
-
-        <h1 class="hero-title">
-
-            <span class="line1">LightCitySMP</span>
-
-        </h1>
-
-        <div class="hero-rule">
-
-            <span></span>
-
-            <em>✦</em>
-
-            <span></span>
-
-        </div>
-
-        <p class="hero-sub">Welcome to the official website for LightCitySMP, supervised by LightCity's council, owned by Sam.</p>
-
-        <div class="hero-cta">
-
-         
-
-            <a href="#wiki" class="btn btn-secondary" target="_self">Ascension Wiki</a>
-
-        </div>
-
+    <section class="shop-hero">
+        <p class="hero-eyebrow">Season 5 · Official Store</p>
+        <h1 class="hero-title">Ascend Faster</h1>
+        <div class="hero-rule"><span></span><em>✦</em><span></span></div>
+        <p class="hero-sub">Skip the grind, claim the power. Every purchase fuels the server's future.</p>
     </section>
 
-
-
-    <section id="shop">
-
-        <div class="container">
-
-            <div class="section-label reveal">In Development</div>
-
-            <h2 class="section-title reveal">Shop</h2>
-
-            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
-
-
-
-            <div class="progress-container reveal">
-
-                <div class="progress-header">
-
-                    <span class="progress-label">Build Progress</span>
-
-                    <span class="progress-pct">65%</span>
-
-                </div>
-
-                <div class="progress-track">
-
-                    <div class="progress-fill"></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <section id="wiki">
-
-        <div class="container">
-
-            <div class="section-label reveal">Plugin Documentation</div>
-
-            <h2 class="section-title reveal">Ascension Wiki</h2>
-
-            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
-
-            <div class="wiki-grid">
-
-
-
-                <div class="wiki-card reveal" onclick="openModal('m-blade')">
-
-                    <div class="card-icon-wrap">🗡️</div>
-
-                    <div class="card-title">Ascension Blade</div>
-
-                    <p class="card-desc">The craftable scythe. Steal rebirth levels from your enemies.</p>
-
-                    <span class="card-arrow">›</span>
-
-                </div>
-
-
-
-                <div class="wiki-card reveal" onclick="openModal('m-rebirths')">
-
-                    <div class="card-icon-wrap">⭐</div>
-
-                    <div class="card-title">Rebirths</div>
-
-                    <p class="card-desc">Rebirth Points, progression tiers, and the broadcast system.</p>
-
-                    <span class="card-arrow">›</span>
-
-                </div>
-
-
-
-                <div class="wiki-card reveal" onclick="openModal('m-abilities')">
-
-                    <div class="card-icon-wrap">⚡</div>
-
-                    <div class="card-title">Abilities</div>
-
-                    <p class="card-desc">All 18 abilities across 6 Ascension tiers — fully documented.</p>
-
-                    <span class="card-arrow">›</span>
-
-                </div>
-
-
-
-                <div class="wiki-card reveal" onclick="openModal('m-streaks')">
-
-                    <div class="card-icon-wrap">🔥</div>
-
-                    <div class="card-title">Kill Streaks</div>
-
-                    <p class="card-desc">Streak requirements, display rules, and server-wide announces.</p>
-
-                    <span class="card-arrow">›</span>
-
-                </div>
-
-
-
-                <div class="wiki-card reveal" onclick="openModal('m-concept')">
-
-                    <div class="card-icon-wrap">💡</div>
-
-                    <div class="card-title">Plugin Information</div>
-
-                    <p class="card-desc">The concept behind Ascension and how it all fits together.</p>
-
-                    <span class="card-arrow">›</span>
-
-                </div>
-
-
-
-                <div class="wiki-card reveal" onclick="openModal('m-commands')">
-
-                    <div class="card-icon-wrap">⌨️</div>
-
-                    <div class="card-title">Commands &amp; Utilities</div>
-
-                    <p class="card-desc">Full command reference — homes, teams, combat, chat, and more.</p>
-
-                    <span class="card-arrow">›</span>
-
-                </div>
-
-
-
-            </div>
-
-        </div>
-
-    </section>
-
-
+    <div class="category-bar" id="categoryBar"></div>
+
+    <div class="container">
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
 
     <footer>
-
         <div class="container">
-
             <div class="footer-inner">
-
                 <div class="ascension-glow">Ascension</div>
-
                 <p class="footer-credits">Developer credits: Sam, Fanta, George767</p>
-
             </div>
-
         </div>
-
     </footer>
 
-
-
-    <div id="m-blade" class="modal">
-
-        <div class="modal-box">
-
-            <span class="modal-close" onclick="closeModal('m-blade')">×</span>
-
-            <h2>Ascension Blade</h2>
-
-            <div class="m-rule"></div>
-
-            <p>A craftable custom weapon.</p>
-
-            <p>Killing a player with it <strong>steals one of their rebirth levels</strong>, including the ability tied to it. The stolen ability is stored as an item in your inventory.</p>
-
-            <p>When you activate it, your currently equipped ability is removed and replaced.</p>
-
-            <p>To acquire someone's rebirth and their tied ability, you must <strong>kill</strong> them using the Ascension Blade.</p>
-
-            <p class="recipe-label">Ascension Blade's Recipe</p>
-
-            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231529.png" alt="Ascension Blade Crafting Recipe">
-
-        </div>
-
-    </div>
-
-
-
-    <div id="m-rebirths" class="modal">
-
-        <div class="modal-box">
-
-            <span class="modal-close" onclick="closeModal('m-rebirths')">×</span>
-
-            <h2>Rebirths</h2>
-
-            <div class="m-rule"></div>
-
-            <h3>How to Rebirth</h3>
-
-            <p>Requires 1 Rebirth Point, earned by:</p>
-
-            <ul>
-
-                <li>Reaching the required kill streak without dying</li>
-
-                <li>Purchasing from the server store</li>
-
-                <li>Crafting a rebirth point using its custom recipe</li>
-
-            </ul>
-
-            <p>Upon completing a rebirth, players are presented with a selection of three abilities, from which they may permanently choose one.</p>
-
-            <p class="recipe-label">Rebirth Point Recipe</p>
-
-            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231638.png" alt="Rebirth Point Crafting Recipe">
-
-        </div>
-
-    </div>
-
-
-
-    <div id="m-abilities" class="modal">
-
-        <div class="modal-box">
-
-            <span class="modal-close" onclick="closeModal('m-abilities')">×</span>
-
-            <h2>The 18 Abilities</h2>
-
-            <div class="m-rule"></div>
-
-            <h3>Ascension I — Low Power</h3>
-
-            <ul>
-
-                <li><strong>Iron Skin:</strong> Grants Resistance I and reduces incoming damage for 8s. Cooldown: 40s.</li>
-
-                <li><strong>Dash:</strong> Launches you forward with cloud particle trail. Cooldown: 15s.</li>
-
-                <li><strong>Smokescreen:</strong> Blinds the target and surrounds them in smoke for 3s. Cooldown: 45s.</li>
-
-            </ul>
-
-            <h3>Ascension II — Low Power</h3>
-
-            <ul>
-
-                <li><strong>Blood Rush:</strong> On hit/being hit — Speed II for 5s. Cooldown: 45s.</li>
-
-                <li><strong>Fortify:</strong> On being hit — reduces 25% incoming damage for 8s. Cooldown: 50s.</li>
-
-                <li><strong>Splinter:</strong> Next attacks deal +8% bonus damage for 8s. Cooldown: 50s.</li>
-
-            </ul>
-
-            <h3>Ascension III — Medium Power</h3>
-
-            <ul>
-
-                <li><strong>Exposed:</strong> Target takes +10% bonus damage for 4s. Cooldown: 60s.</li>
-
-                <li><strong>Phantom Step:</strong> Invisibility and portal particles for 4s. Cooldown: 65s.</li>
-
-                <li><strong>Shockwave:</strong> Knocks back all enemies in 5 blocks and deals 2 hearts. Cooldown: 55s.</li>
-
-            </ul>
-
-            <h3>Ascension IV — Medium Power</h3>
-
-            <ul>
-
-                <li><strong>Overclock:</strong> Speed III, Haste II for 30s. Cooldown: 120s.</li>
-
-                <li><strong>Soul Drain:</strong> Strips all active potion effects from target. Cooldown: 75s.</li>
-
-                <li><strong>Warden's Grasp:</strong> Roots target in place for 3s then when it's over, player gets slowness X for 5s. Cooldown: 80s.</li>
-
-            </ul>
-
-            <h3>Ascension V — High Power</h3>
-
-            <ul>
-
-                <li><strong>Wraith Form:</strong> Invisibility, cleanses debuffs, cancels all incoming damage for 5s. Blocks Reaper's Call and Warden's Grasp. Cooldown: 150s.</li>
-
-                <li><strong>Execution:</strong> Hit an enemy below 25% HP within 10s for 2x damage. Cooldown: 85s.</li>
-
-                <li><strong>Marked:</strong> Target takes +15% damage from all sources for 5s. Cooldown: 95s.</li>
-
-            </ul>
-
-            <h3>Ascension VI — High Power</h3>
-
-            <ul>
-
-                <li><strong>Soul Lock:</strong> Silences target — strips effects and prevents item use for 6s. Cooldown: 115s.</li>
-
-                <li><strong>Warlord's Aura:</strong> Strength III and Speed III for 8s, cooldown: 300s.</li>
-
-                <li><strong>Reaper's Call:</strong> Encases target in black rings — frozen, blinded, nauseous, hotbar locked for 4s. Deals 20% bonus damage. Blocked by Wraith Form. Cooldown: 600s.</li>
-
-            </ul>
-
-        </div>
-
-    </div>
-
-
-
-    <div id="m-streaks" class="modal">
-
-        <div class="modal-box">
-
-            <span class="modal-close" onclick="closeModal('m-streaks')">×</span>
-
-            <h2>Kill Streaks</h2>
-
-            <div class="m-rule"></div>
-            <body> In order to gain rebirth points, you must reach 5 kill streak for your first rebirth point! every 5+ kill streak = 1 rebirth point, for example, 
-                if you have 3 kill streak, you won't gain any rebirth points, if you have a 5 kill streak you will gain 1 rebirth point as soon as you reach 5 kill streak, then 1+ rebirth point
-                at 10 kill streak, then 1+ at 15 kill streak, get the concept? maximum is 30 kill streak, but you can also craft them, head over to rebirths category!
-
-            <h3>Streak Rules</h3>
-       
-            <ul>
-                <li>Killing the same player has a 30-minute cooldown before it counts again.</li>
-
-                <li>Dying resets your streak to 0.</li>
-
-                <li>Streak does not reset on logout.</li>
-
-                <li>Active streaks are publicly visible.</li>
-
-            </ul>
-            <h3>Display System</h3>
-
-            <ul>
-
-                <li><strong>Under 5 kills</strong> — nothing shown</li>
-
-                <li><strong>5–14 kills</strong> — [X 🔥] in orange</li>
-
-                <li><strong>15–24 kills</strong> — [X 🔥] in purple</li>
-
-                <li><strong>25–30 kills</strong> — [X 🔥] in blood red, slightly larger</li>
-
-            </ul>
-
-        </div>
-
-    </div>
-
-    <div id="m-concept" class="modal">
-
-        <div class="modal-box">
-
-            <span class="modal-close" onclick="closeModal('m-concept')">×</span>
-
-            <h2>Plugin Information</h2>
-
-            <div class="m-rule"></div>
-
-            <p>The main idea of this plugin is for players that love PvP, wars and battles — so they can express skill and strength. But it's also made for players that love grinding, want to avoid PvP, and just want to live in peace while feeling <strong>and being powerful.</strong> Ascension is all about ascending from being nothing, to being everything.</p>
-
-            <h3>Concept</h3>
-
-            <p>Ascension is a PvP & grinding-based plugin where players must either reach a specific kill streak to <strong>earn Rebirth Points</strong> — unlocking various abilities — or grind for them. You can also earn Rebirth Points by crafting them using the custom recipe found in our Discord.</p>
-
-            <p>When rebirthed, you're presented with a menu and 3 abilities to choose 1 from. With each rebirth, the abilities get stronger. There are <strong>18 abilities</strong> and <strong>6 rebirth levels,</strong> with more planned for the future.</p>
-
-        </div>
-
-    </div>
-
-    <div id="m-commands" class="modal">
-
-        <div class="modal-box">
-
-            <span class="modal-close" onclick="closeModal('m-commands')">×</span>
-
-            <h2>Commands &amp; Utilities</h2>
-
-            <div class="m-rule"></div>
-
-            <h3>⚔️ Combat &amp; Mechanics</h3>
-
-            <table class="m-table">
-
-                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
-
-                <tbody>
-
-                    <tr><td>/streak</td><td>Opens a GUI showing your current kill streak and progress toward the next Rebirth Point.</td></tr>
-
-                    <tr><td>/streak-toggle</td><td>Toggles your streak tag visibility above your head.</td></tr>
-
-                    <tr><td>/rebirth</td><td>Opens the Rebirth Panel to spend Rebirth Points and select abilities.</td></tr>
-
-                    <tr><td>/rebirthpoint-gift &lt;number&gt; &lt;player&gt;</td><td>Gift a rebirth point of yours to another player.</td></tr>
-
-                </tbody>
-
-            </table>
-
-            <h3>🏠 Teleportation &amp; Homes</h3>
-
-            <table class="m-table">
-
-                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
-
-                <tbody>
-
-                    <tr><td>/home</td><td>Opens the GUI Home Panel to manage your homes.</td></tr>
-
-                    <tr><td>/tpa &lt;player&gt;</td><td>Sends a teleport request to another player.</td></tr>
-
-                    <tr><td>/tpaccept</td><td>Accepts a pending teleport request.</td></tr>
-
-                    <tr><td>/tpdeny</td><td>Denies a pending teleport request.</td></tr>
-
-                    <tr><td>/tpahere</td><td>Sends a teleport request to a player to teleport to you.</td></tr>
-
-                    <tr><td>/rtp</td><td>Teleports you to a random safe location (3000 block radius).</td></tr>
-
-                    <tr><td>/back</td><td>Returns you to the location of your last natural death.</td></tr>
-
-                </tbody>
-
-            </table>
-
-            <h3>🛡️ Social &amp; Teams</h3>
-
-            <table class="m-table">
-
-                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
-
-                <tbody>
-
-                    <tr><td>/team create &lt;name&gt;</td><td>Start a new team.</td></tr>
-
-                    <tr><td>/team invite &lt;player&gt;</td><td>Invite someone to your team.</td></tr>
-
-                    <tr><td>/team accept &lt;team&gt;</td><td>Join a team you were invited to.</td></tr>
-
-                    <tr><td>/team chat</td><td>Toggle between global and team chat.</td></tr>
-
-                    <tr><td>/team home set</td><td>Sets a home for the whole team</td></tr>
-
-                    <tr><td>/team leave / disband / kick / rename / promote</td><td>Manage your team.</td></tr>
-
-                    <tr><td>/msg &lt;player&gt; &lt;message&gt;</td><td>Send a private message.</td></tr>
-
-                    <tr><td>/reply &lt;message&gt;</td><td>Quick-reply to the last person who messaged you.</td></tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
     <script>
+    // ═══════════════════════════════════════════════════════════════════
+    //   PARTICLE GENERATION (background ambience)
+    // ═══════════════════════════════════════════════════════════════════
+    (function spawnParticles() {
+        const wrap = document.getElementById('particles');
+        const count = 18;
+        for (let i = 0; i < count; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (12 + Math.random() * 14) + 's';
+            p.style.animationDelay = (Math.random() * 14) + 's';
+            const size = 1 + Math.random() * 2.5;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            wrap.appendChild(p);
+        }
+    })();
 
-        window.addEventListener('load', () => {
+    // ═══════════════════════════════════════════════════════════════════
+    //   LOADER
+    // ═══════════════════════════════════════════════════════════════════
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000);
+    });
 
-            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1200);
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
 
+    // ═══════════════════════════════════════════════════════════════════
+    //   SHOP STATE
+    // ═══════════════════════════════════════════════════════════════════
+    let activeCategory = 'all';
+    const timers = {}; // id → interval handle so we can clear on filter
+
+    // ─── Render category bar ──────────────────────────────────────────
+    function renderCategories() {
+        const bar = document.getElementById('categoryBar');
+        const allBtn = `<button class="cat-btn active" data-cat="all"><span class="cat-icon">✦</span>All Items</button>`;
+        const cats = SHOP_CONFIG.categories.map(c =>
+            `<button class="cat-btn" data-cat="${c.id}"><span class="cat-icon">${c.icon}</span>${c.name}</button>`
+        ).join('');
+        bar.innerHTML = allBtn + cats;
+        bar.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                bar.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeCategory = btn.dataset.cat;
+                renderProducts();
+            });
         });
+    }
 
+    // ─── Format price ─────────────────────────────────────────────────
+    function fmt(n) {
+        return SHOP_CONFIG.currency + n.toFixed(2);
+    }
 
+    // ─── Build a single product card ──────────────────────────────────
+    function buildCard(p) {
+        const accent = p.accent || 'gold';
+        const hasDiscount = p.discount && p.discount.percent;
+        const hasNew = p.isNew === true;
+        const hasTag = p.tag && !hasDiscount && !hasNew;
 
-        window.addEventListener('scroll', () => {
-
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-
-        });
-
-
-
-        const revealEls = document.querySelectorAll('.reveal');
-
-        const revealObserver = new IntersectionObserver((entries) => {
-
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-
-        }, { threshold: 0.12 });
-
-        revealEls.forEach(el => revealObserver.observe(el));
-
-
-
-        function openModal(id) {
-
-            document.getElementById(id).style.display = 'block';
-
-            document.body.style.overflow = 'hidden';
-
+        // Banner content
+        let bannerHTML = '';
+        if (p.banner) {
+            bannerHTML = `<img src="${p.banner}" alt="${p.name}">`;
+        } else if (p.bannerEmoji) {
+            bannerHTML = `<div class="banner-emoji">${p.bannerEmoji}</div>`;
+        } else {
+            bannerHTML = `<div class="banner-emoji">✦</div>`;
         }
 
-
-
-        function closeModal(id) {
-
-            document.getElementById(id).style.display = 'none';
-
-            document.body.style.overflow = '';
-
+        // Badges
+        let badgesHTML = '';
+        if (hasNew) {
+            badgesHTML += `<div class="new-badge">★ New</div>`;
+        }
+        if (hasDiscount) {
+            badgesHTML += `<div class="discount-badge"><span class="pct-num">-${p.discount.percent}%</span><span class="pct-off">OFF</span></div>`;
+        }
+        if (hasTag) {
+            badgesHTML += `<div class="product-tag">${p.tag}</div>`;
+        } else if ((hasNew || hasDiscount) && p.tag) {
+            // Tag still shown when there are other badges, just placed bottom-left of banner
+            badgesHTML += `<div class="product-tag" style="top: auto; bottom: 1rem;">${p.tag}</div>`;
         }
 
+        // Limited stock + timer
+        let limitedHTML = '';
+        let isSoldOut = false;
+        if (p.isLimited) {
+            const stock = typeof p.stock === 'number' ? p.stock : 0;
+            isSoldOut = stock <= 0;
+            const lowStock = stock > 0 && stock <= 5;
+            const stockPct = Math.max(0, Math.min(100, (stock / Math.max(stock, 25)) * 100));
 
+            let stockBlock = `
+                <div class="stock-row">
+                    <span class="stock-label">Stock Left</span>
+                    <span class="stock-count ${lowStock ? 'stock-low' : ''}">${isSoldOut ? 'SOLD OUT' : stock + ' units'}</span>
+                </div>
+                <div class="stock-bar"><div class="stock-bar-fill" style="width: ${stockPct}%"></div></div>
+            `;
 
-        window.addEventListener('click', e => {
-
-            if (e.target.classList.contains('modal')) {
-
-                e.target.style.display = 'none';
-
-                document.body.style.overflow = '';
-
+            let timerBlock = '';
+            if (p.limitedUntil) {
+                timerBlock = `
+                    <div class="timer-row">
+                        <span class="timer-label">Ends In</span>
+                        <span class="timer-display" data-deadline="${p.limitedUntil}" id="timer-${p.id}">--:--:--</span>
+                    </div>
+                `;
             }
 
+            limitedHTML = `<div class="limited-info">${stockBlock}${timerBlock}</div>`;
+        }
+
+        // Price block
+        let priceHTML = '';
+        if (hasDiscount && p.discount.originalPrice) {
+            priceHTML = `
+                <div class="price-block">
+                    <span class="price-current">${fmt(p.price)}</span>
+                    <span class="price-original">${fmt(p.discount.originalPrice)}</span>
+                    ${p.perUnit ? `<span class="price-unit">${p.perUnit}</span>` : ''}
+                </div>
+            `;
+        } else {
+            priceHTML = `
+                <div class="price-block">
+                    <span class="price-current">${fmt(p.price)}</span>
+                    ${p.perUnit ? `<span class="price-unit">${p.perUnit}</span>` : ''}
+                </div>
+            `;
+        }
+
+        // CTA
+        const ctaHTML = isSoldOut
+            ? `<button class="product-cta sold-out" disabled>Sold Out</button>`
+            : `<a href="${SHOP_CONFIG.storeUrl}" class="product-cta">Purchase <span class="arrow">→</span></a>`;
+
+        return `
+            <div class="product-card" data-accent="${accent}" data-id="${p.id}">
+                <div class="product-banner">
+                    ${bannerHTML}
+                    ${badgesHTML}
+                </div>
+                <div class="product-body">
+                    <h3 class="product-name">${p.name}</h3>
+                    ${p.description ? `<p class="product-desc">${p.description}</p>` : ''}
+                    ${limitedHTML}
+                    ${priceHTML}
+                    ${ctaHTML}
+                </div>
+            </div>
+        `;
+    }
+
+    // ─── Render products ──────────────────────────────────────────────
+    function renderProducts() {
+        // Clear all running countdown timers before re-render
+        Object.values(timers).forEach(clearInterval);
+        for (const k in timers) delete timers[k];
+
+        const grid = document.getElementById('productsGrid');
+        const filtered = activeCategory === 'all'
+            ? SHOP_CONFIG.products
+            : SHOP_CONFIG.products.filter(p => p.category === activeCategory);
+
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="empty-state">No items in this category yet — check back soon.</div>`;
+            return;
+        }
+
+        grid.innerHTML = filtered.map(buildCard).join('');
+
+        // Stagger reveal animation
+        const cards = grid.querySelectorAll('.product-card');
+        cards.forEach((card, i) => {
+            setTimeout(() => card.classList.add('visible'), i * 80);
         });
 
-
-
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-
-            a.addEventListener('click', e => {
-
-                const target = document.querySelector(a.getAttribute('href'));
-
-                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-
-            });
-
+        // Start countdown timers for limited items
+        filtered.forEach(p => {
+            if (p.isLimited && p.limitedUntil) {
+                startCountdown(p.id, p.limitedUntil);
+            }
         });
+    }
 
+    // ─── Countdown timer ──────────────────────────────────────────────
+    function startCountdown(id, deadlineStr) {
+        const el = document.getElementById(`timer-${id}`);
+        if (!el) return;
+        const deadline = new Date(deadlineStr).getTime();
+
+        const tick = () => {
+            const now = Date.now();
+            const diff = deadline - now;
+            if (diff <= 0) {
+                el.textContent = 'EXPIRED';
+                clearInterval(timers[id]);
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / (1000 * 60)) % 60);
+            const secs = Math.floor((diff / 1000) % 60);
+            const pad = n => String(n).padStart(2, '0');
+
+            el.textContent = days > 0
+                ? `${days}d ${pad(hours)}h ${pad(mins)}m`
+                : `${pad(hours)}:${pad(mins)}:${pad(secs)}`;
+        };
+        tick();
+        timers[id] = setInterval(tick, 1000);
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    //   INIT
+    // ═══════════════════════════════════════════════════════════════════
+    renderCategories();
+    renderProducts();
     </script>
 
 </body>
-
 </html>
