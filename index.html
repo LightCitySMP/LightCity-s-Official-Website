@@ -34,7 +34,8 @@
             { id: "homes",     name: "Homes",          icon: "🏠" },
             { id: "rebirth",   name: "Rebirth Points", icon: "⭐" },
             { id: "slots",     name: "Ability Slots",  icon: "🎰" },
-            { id: "abilities", name: "Abilities",      icon: "⚡" }
+            { id: "abilities", name: "Abilities",      icon: "⚡" },
+            { id: "crates",    name: "Crates",         icon: "📦" }
         ],
 
         products: [
@@ -1236,6 +1237,387 @@
             border-radius: 3px;
         }
 
+                /* Coming Soon Box */
+        .coming-soon-box {
+            background: linear-gradient(135deg, var(--ink-3) 0%, var(--ink-2) 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(212,168,67,0.06) 0%, transparent 70%);
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: crateFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(212,168,67,0.3));
+        }
+
+        @keyframes crateFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .coming-soon-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold-bright);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coming-soon-text {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coming-soon-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coming-soon-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: dotPulse 1.4s ease-in-out infinite;
+        }
+
+        .coming-soon-dot:nth-child(2) { animation-delay: 0.2s; }
+        .coming-soon-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.5); opacity: 1; }
+        }
+
+        /* Updates Section */
+        #updates {
+            background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .updates-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .update-card {
+            background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            margin-bottom: 2rem;
+        }
+
+        .update-card:hover {
+            border-color: var(--border-strong);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(212,168,67,0.08);
+            transform: translateY(-4px);
+        }
+
+        .update-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .update-badge {
+            padding: 0.35rem 0.9rem;
+            background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-bright) 100%);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            border-radius: 4px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(193,56,56,0.4);
+        }
+
+        .update-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .update-title-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-left: auto;
+        }
+
+        .update-body {
+            padding: 2rem;
+        }
+
+        .update-desc {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--ink-2);
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(212,168,67,0.2);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .play-button:hover {
+            background: rgba(212,168,67,0.4);
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(212,168,67,0.4);
+        }
+
+        .play-button svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--gold-bright);
+            margin-left: 4px;
+        }
+
+        /* Ascension Guide Section */
+        #ascension-guide {
+            background: linear-gradient(180deg, transparent, rgba(157,91,210,0.03), transparent);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .guide-video-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .guide-video-wrapper video {
+            width: 100%;
+            display: block;
+        }
+
+        .guide-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .guide-info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .guide-info-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-strong);
+            transform: translateY(-4px);
+        }
+
+        .guide-info-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .guide-info-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.05em;
+        }
+
+        .guide-info-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Enhanced Abilities Section */
+        #abilities-section {
+            background: linear-gradient(180deg, transparent, rgba(79,195,217,0.02), transparent);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .ability-card {
+            background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .ability-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-bright), var(--gold));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ability-card:hover {
+            border-color: var(--border-strong);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(212,168,67,0.1);
+        }
+
+        .ability-card:hover::before {
+            opacity: 1;
+        }
+
+        .ability-tier {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--gold-trace);
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--gold-bright);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .ability-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.6rem;
+        }
+
+        .ability-card:hover .ability-name {
+            color: var(--gold-bright);
+        }
+
+        .ability-desc {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .ability-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .ability-tag {
+            padding: 0.25rem 0.7rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .ability-tag.cooldown { border-color: rgba(79,195,217,0.3); color: var(--cyan-bright); }
+        .ability-tag.power { border-color: rgba(193,56,56,0.3); color: var(--crimson-bright); }
+        .ability-tag.defense { border-color: rgba(168,230,207,0.3); color: #a8e6cf; }
+
+        @media (max-width: 768px) {
+            .abilities-grid { grid-template-columns: 1fr; }
+            .update-header { flex-direction: column; text-align: center; gap: 0.8rem; }
+            .update-title-text { margin-left: 0; }
+            .guide-info { grid-template-columns: 1fr; }
+        }
+
         @media (max-width: 768px) {
             .nav-icon-btn { width: 40px; height: 40px; }
             .hero-cta { flex-direction: column; align-items: center; }
@@ -1245,9 +1627,14 @@
             .banner-emoji { font-size: 3.8rem; }
             .price-current { font-size: 1.8rem; }
             #m-purchase .modal-box { padding: 2.2rem 1.5rem; }
+            .abilities-grid { grid-template-columns: 1fr; }
+            .update-header { flex-direction: column; text-align: center; gap: 0.8rem; }
+            .update-title-text { margin-left: 0; }
+            .guide-info { grid-template-columns: 1fr; }
         }
     </style>
     <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 
@@ -1267,9 +1654,6 @@
         <div class="nav-icons">
             <a href="#shop" class="nav-icon-btn" title="Shop" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-            </a>
-            <a href="perks.html" class="nav-icon-btn" title="Rank Perks" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             </a>
             <a href="#wiki" class="nav-icon-btn" title="Wiki" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
@@ -1364,14 +1748,333 @@
         </div>
     </section>
 
-    <footer>
+    <!-- ═══ UPDATES SECTION ═══════════════════════════════════════════════ -->
+    <section id="updates">
         <div class="container">
-            <div class="footer-inner">
-                <div class="ascension-glow">Ascension</div>
-                <p class="footer-credits">Developer credits: Sam, Fanta, George767</p>
+            <div class="section-label reveal">What's New</div>
+            <h2 class="section-title reveal">Latest Updates</h2>
+            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+
+            <div class="updates-container">
+                <!-- ═══ EDIT UPDATE TITLE & VIDEO PATH HERE ═══ -->
+                <div class="update-card reveal">
+                    <div class="update-header">
+                        <div class="update-badge">NEW</div>
+                        <div class="update-date">Season 5 Launch</div>
+                        <div class="update-title-text">The Ascension Update</div>
+                    </div>
+                    <div class="update-body">
+                        <p class="update-desc">
+                            Season 5 introduces the Ascension system — a complete overhaul of combat and progression. 
+                            Rebirth through kill streaks, unlock 18 unique abilities across 6 tiers, and forge your path 
+                            from nothing to everything. The Ascension Blade awaits those brave enough to claim it.
+                        </p>
+                        <!-- ═══ EDIT VIDEO PATH HERE ═══ -->
+                        <div class="video-container">
+                            <video id="updateVideo" poster="./videos/update-thumbnail.jpg">
+                                <source src="./videos/season5-update.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-overlay" id="videoOverlay" onclick="playUpdateVideo()">
+                                <div class="play-button">
+                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+    </section>
+
+    <!-- ═══ ASCENSION GUIDE VIDEO SECTION ════════════════════════════════ -->
+    <section id="ascension-guide">
+        <div class="container">
+            <div class="section-label reveal">Tutorial</div>
+            <h2 class="section-title reveal">Ascension Guide</h2>
+            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+
+            <div class="guide-container reveal">
+                <!-- ═══ EDIT GUIDE VIDEO PATH HERE ═══ -->
+                <div class="guide-video-wrapper">
+                    <video id="guideVideo" controls poster="./videos/guide-thumbnail.jpg">
+                        <source src="./videos/ascension-guide.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="guide-info">
+                    <div class="guide-info-card">
+                        <div class="guide-info-icon">⚔️</div>
+                        <div class="guide-info-title">Combat Focused</div>
+                        <div class="guide-info-text">Master PvP with abilities and kill streaks</div>
+                    </div>
+                    <div class="guide-info-card">
+                        <div class="guide-info-icon">⭐</div>
+                        <div class="guide-info-title">6 Ascension Tiers</div>
+                        <div class="guide-info-text">Progress from Iron Skin to Reaper's Call</div>
+                    </div>
+                    <div class="guide-info-card">
+                        <div class="guide-info-icon">🔄</div>
+                        <div class="guide-info-title">Rebirth System</div>
+                        <div class="guide-info-text">Earn points through streaks or crafting</div>
+                    </div>
+                    <div class="guide-info-card">
+                        <div class="guide-info-icon">🗡️</div>
+                        <div class="guide-info-title">Ascension Blade</div>
+                        <div class="guide-info-text">Steal abilities from fallen enemies</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ABILITIES SECTION (Enhanced) ═════════════════════════════════ -->
+    <section id="abilities-section">
+        <div class="container">
+            <div class="section-label reveal">Combat System</div>
+            <h2 class="section-title reveal">All Abilities</h2>
+            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+
+            <div class="abilities-grid">
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension I</div>
+                    <div class="ability-name">Iron Skin</div>
+                    <div class="ability-desc">Grants Resistance I and reduces incoming damage for 8 seconds. Your first step toward invulnerability.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag defense">Defense</span>
+                        <span class="ability-tag cooldown">40s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension I</div>
+                    <div class="ability-name">Dash</div>
+                    <div class="ability-desc">Launches you forward with a cloud particle trail. Perfect for closing gaps or escaping danger.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Mobility</span>
+                        <span class="ability-tag cooldown">15s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension I</div>
+                    <div class="ability-name">Smokescreen</div>
+                    <div class="ability-desc">Blinds the target and surrounds them in smoke for 3 seconds. Disorient and destroy.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Control</span>
+                        <span class="ability-tag cooldown">45s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension II</div>
+                    <div class="ability-name">Blood Rush</div>
+                    <div class="ability-desc">On hit or being hit — gain Speed II for 5 seconds. The more you fight, the faster you become.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Passive</span>
+                        <span class="ability-tag cooldown">45s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension II</div>
+                    <div class="ability-name">Fortify</div>
+                    <div class="ability-desc">On being hit — reduces 25% incoming damage for 8 seconds. Turn their strength against them.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag defense">Defense</span>
+                        <span class="ability-tag cooldown">50s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension II</div>
+                    <div class="ability-name">Splinter</div>
+                    <div class="ability-desc">Next attacks deal +8% bonus damage for 8 seconds. Every strike cuts deeper.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Damage</span>
+                        <span class="ability-tag cooldown">50s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension III</div>
+                    <div class="ability-name">Exposed</div>
+                    <div class="ability-desc">Target takes +10% bonus damage for 4 seconds. Reveal their weakness and exploit it.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Debuff</span>
+                        <span class="ability-tag cooldown">60s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension III</div>
+                    <div class="ability-name">Phantom Step</div>
+                    <div class="ability-desc">Invisibility and portal particles for 4 seconds. Vanish from sight, strike from shadow.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Stealth</span>
+                        <span class="ability-tag cooldown">65s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension III</div>
+                    <div class="ability-name">Shockwave</div>
+                    <div class="ability-desc">Knocks back all enemies in 5 blocks and deals 2 hearts. Control the battlefield.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">AoE</span>
+                        <span class="ability-tag cooldown">55s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension IV</div>
+                    <div class="ability-name">Overclock</div>
+                    <div class="ability-desc">Speed III and Haste II for 30 seconds. Push your body beyond its limits.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Buff</span>
+                        <span class="ability-tag cooldown">120s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension IV</div>
+                    <div class="ability-name">Soul Drain</div>
+                    <div class="ability-desc">Strips all active potion effects from target. Strip them bare of their enhancements.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Control</span>
+                        <span class="ability-tag cooldown">75s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension IV</div>
+                    <div class="ability-name">Warden's Grasp</div>
+                    <div class="ability-desc">Roots target for 3 seconds, then applies Slowness X for 5 seconds. None escape the deep.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Control</span>
+                        <span class="ability-tag cooldown">80s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension V</div>
+                    <div class="ability-name">Wraith Form</div>
+                    <div class="ability-desc">Invisibility, cleanses debuffs, cancels all incoming damage for 5 seconds. Become untouchable.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag defense">Ultimate Defense</span>
+                        <span class="ability-tag cooldown">150s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension V</div>
+                    <div class="ability-name">Execution</div>
+                    <div class="ability-desc">Hit an enemy below 25% HP within 10 seconds for 2x damage. The finisher's art.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Execute</span>
+                        <span class="ability-tag cooldown">85s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension V</div>
+                    <div class="ability-name">Marked</div>
+                    <div class="ability-desc">Target takes +15% damage from all sources for 5 seconds. Marked for death.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Debuff</span>
+                        <span class="ability-tag cooldown">95s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension VI</div>
+                    <div class="ability-name">Soul Lock</div>
+                    <div class="ability-desc">Silences target — strips effects and prevents item use for 6 seconds. Total domination.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Silence</span>
+                        <span class="ability-tag cooldown">115s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension VI</div>
+                    <div class="ability-name">Warlord's Aura</div>
+                    <div class="ability-desc">Strength III and Speed III for 8 seconds. The aura of a true conqueror.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Ultimate Buff</span>
+                        <span class="ability-tag cooldown">300s CD</span>
+                    </div>
+                </div>
+
+                <div class="ability-card reveal" onclick="openModal('m-abilities')">
+                    <div class="ability-tier">Ascension VI</div>
+                    <div class="ability-name">Reaper's Call</div>
+                    <div class="ability-desc">Encases target in black rings — frozen, blinded, nauseous, hotbar locked for 4 seconds. Death incarnate.</div>
+                    <div class="ability-meta">
+                        <span class="ability-tag power">Ultimate</span>
+                        <span class="ability-tag cooldown">600s CD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ WIKI SECTION ═══════════════════════════════════════════════════ -->
+    <section id="wiki">
+        <div class="container">
+            <div class="section-label reveal">Plugin Documentation</div>
+            <h2 class="section-title reveal">Ascension Wiki</h2>
+            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+            <div class="wiki-grid">
+
+                <div class="wiki-card reveal" onclick="openModal('m-blade')">
+                    <div class="card-icon-wrap">🗡️</div>
+                    <div class="card-title">Ascension Blade</div>
+                    <p class="card-desc">The craftable scythe. Steal rebirth levels from your enemies.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-rebirths')">
+                    <div class="card-icon-wrap">⭐</div>
+                    <div class="card-title">Rebirths</div>
+                    <p class="card-desc">Rebirth Points, progression tiers, and the broadcast system.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-abilities')">
+                    <div class="card-icon-wrap">⚡</div>
+                    <div class="card-title">Abilities</div>
+                    <p class="card-desc">All 18 abilities across 6 Ascension tiers — fully documented.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-streaks')">
+                    <div class="card-icon-wrap">🔥</div>
+                    <div class="card-title">Kill Streaks</div>
+                    <p class="card-desc">Streak requirements, display rules, and server-wide announces.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-concept')">
+                    <div class="card-icon-wrap">💡</div>
+                    <div class="card-title">Plugin Information</div>
+                    <p class="card-desc">The concept behind Ascension and how it all fits together.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+                <div class="wiki-card reveal" onclick="openModal('m-commands')">
+                    <div class="card-icon-wrap">⌨️</div>
+                    <div class="card-title">Commands &amp; Utilities</div>
+                    <p class="card-desc">Full command reference — homes, teams, combat, chat, and more.</p>
+                    <span class="card-arrow">›</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
 
     <!-- ═══ WIKI MODALS ════════════════════════════════════════════════════ -->
     <div id="m-blade" class="modal">
@@ -1828,6 +2531,61 @@
         tick();
         timers[id] = setInterval(tick, 1000);
     }
+
+        function playUpdateVideo() {
+        const video = document.getElementById('updateVideo');
+        const overlay = document.getElementById('videoOverlay');
+        video.play();
+        overlay.classList.add('hidden');
+    }
+
+    // Handle Crates category - show Coming Soon
+    const originalRenderProducts = renderProducts;
+    renderProducts = function() {
+        Object.values(timers).forEach(clearInterval);
+        for (const k in timers) delete timers[k];
+
+        const grid = document.getElementById('productsGrid');
+
+        // Show Coming Soon for Crates
+        if (activeCategory === 'crates') {
+            grid.innerHTML = `
+                <div class="coming-soon-box reveal visible">
+                    <div class="coming-soon-icon">📦</div>
+                    <div class="coming-soon-title">Coming Soon</div>
+                    <div class="coming-soon-text">Mystery crates filled with rare items, abilities, and exclusive cosmetics are on their way. Stay tuned for the grand opening.</div>
+                    <div class="coming-soon-dots">
+                        <div class="coming-soon-dot"></div>
+                        <div class="coming-soon-dot"></div>
+                        <div class="coming-soon-dot"></div>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        const filtered = activeCategory === 'all'
+            ? SHOP_CONFIG.products
+            : SHOP_CONFIG.products.filter(p => p.category === activeCategory);
+
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="empty-state">No items in this category yet — check back soon.</div>`;
+            return;
+        }
+
+        grid.innerHTML = filtered.map(buildCard).join('');
+
+        const cards = grid.querySelectorAll('.product-card');
+        cards.forEach((card, i) => {
+            setTimeout(() => card.classList.add('visible'), i * 80);
+        });
+
+        filtered.forEach(p => {
+            if (p.isLimited && p.limitedUntil) {
+                startCountdown(p.id, p.limitedUntil);
+            }
+        });
+    };
 
     renderCategories();
     renderProducts();
