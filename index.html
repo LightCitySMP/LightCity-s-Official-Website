@@ -9,100 +9,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
     <!-- ═══════════════════════════════════════════════════════════════════
-         ★ SHOP CONFIG ★ — Edit products here. Everything is live-driven.
+         ★ ABILITIES CONFIG ★ — Edit abilities here. Super easy to add.
          ───────────────────────────────────────────────────────────────────
-         REQUIRED fields:  id, name, price, category
-         OPTIONAL fields:
-           description    — short product blurb (string)
-           banner         — image URL displayed at top of card (string)
-           bannerEmoji    — emoji fallback if no banner image (string)
-           accent         — card accent: "gold" | "crimson" | "violet" | "cyan"
-           discount       — { percent: 25, originalPrice: 9.99 }   (omit if none)
-           isNew          — true/false (toggles the NEW tag animation)
-           isLimited      — true/false (turns on stock + timer)
-           stock          — number (only used if isLimited true)
-           limitedUntil   — ISO date string for countdown timer (only if isLimited)
-           tag            — small label e.g. "BEST VALUE", "STARTER"
-           perUnit        — string shown next to price e.g. "/ home"
-           popular        — true/false (highlights card)
+         Just copy an object block and paste it. Fields:
+           tier       — "Ascension I" through "Ascension VI"
+           name       — ability name
+           desc       — description
+           duration   — how long it lasts (e.g. "8s", "5s", "Instant")
+           cooldown   — cooldown time (e.g. "40s", "15s")
          ═══════════════════════════════════════════════════════════════════ -->
     <script>
-    const SHOP_CONFIG = {
-        currency: "$",
+    const ABILITIES_CONFIG = [
+        // ═══ ASCENSION I ════════════════════════════════════════════════
+        { tier: "Ascension I", name: "Iron Skin",     desc: "Grants Resistance I and reduces incoming damage for 8 seconds. Your first step toward invulnerability.", duration: "8s", cooldown: "40s" },
+        { tier: "Ascension I", name: "Dash",          desc: "Launches you forward with a cloud particle trail. Perfect for closing gaps or escaping danger.", duration: "Instant", cooldown: "15s" },
+        { tier: "Ascension I", name: "Smokescreen",   desc: "Blinds the target and surrounds them in smoke for 3 seconds. Disorient and destroy.", duration: "3s", cooldown: "45s" },
 
-        categories: [
-            { id: "homes",     name: "Homes",          icon: "🏠" },
-            { id: "rebirth",   name: "Rebirth Points", icon: "⭐" },
-            { id: "slots",     name: "Ability Slots",  icon: "🎰" },
-            { id: "abilities", name: "Abilities",      icon: "⚡" },
-            { id: "crates",    name: "Crates",         icon: "📦" }
-        ],
+        // ═══ ASCENSION II ═══════════════════════════════════════════════
+        { tier: "Ascension II", name: "Blood Rush",   desc: "On hit or being hit — gain Speed II for 5 seconds. The more you fight, the faster you become.", duration: "5s", cooldown: "45s" },
+        { tier: "Ascension II", name: "Fortify",      desc: "On being hit — reduces 25% incoming damage for 8 seconds. Turn their strength against them.", duration: "8s", cooldown: "50s" },
+        { tier: "Ascension II", name: "Splinter",     desc: "Next attacks deal +8% bonus damage for 8 seconds. Every strike cuts deeper.", duration: "8s", cooldown: "50s" },
 
-        products: [
-            // ─── HOMES ───────────────────────────────────────────────────
-            {
-                id: "home-extra",
-                name: "Extra Home Slot",
-                description: "Unlock an additional /home location. Stack as many as you want — each slot is permanent.",
-                price: 1.00,
-                perUnit: "/ slot",
-                category: "homes",
-                accent: "gold",
-                bannerEmoji: "🏠",
-                tag: "STARTER"
-            },
+        // ═══ ASCENSION III ══════════════════════════════════════════════
+        { tier: "Ascension III", name: "Exposed",     desc: "Target takes +10% bonus damage for 4 seconds. Reveal their weakness and exploit it.", duration: "4s", cooldown: "60s" },
+        { tier: "Ascension III", name: "Phantom Step",desc: "Invisibility and portal particles for 4 seconds. Vanish from sight, strike from shadow.", duration: "4s", cooldown: "65s" },
+        { tier: "Ascension III", name: "Shockwave",   desc: "Knocks back all enemies in 5 blocks and deals 2 hearts. Control the battlefield.", duration: "Instant", cooldown: "55s" },
 
-            // ─── REBIRTH POINTS ──────────────────────────────────────────
-            {
-                id: "rebirth-single",
-                name: "Rebirth Point",
-                description: "A single Rebirth Point — spend it to ascend and unlock one ability of your choosing.",
-                price: 0.50,
-                perUnit: "/ point",
-                category: "rebirth",
-                accent: "violet",
-                bannerEmoji: "✦"
-            },
-            {
-                id: "rebirth-5pack",
-                name: "5x Rebirth Bundle",
-                description: "Five Rebirth Points delivered instantly. Skip the grind, claim the ascension.",
-                price: 4.99,
-                category: "rebirth",
-                accent: "violet",
-                bannerEmoji: "✦✦✦",
-                popular: true,
-                tag: "POPULAR"
-            },
-            {
-                id: "rebirth-15pack",
-                name: "15x Rebirth Bundle",
-                description: "Fifteen Rebirth Points — the deepest discount available. Reach max ascension faster.",
-                price: 10.99,
-                category: "rebirth",
-                accent: "violet",
-                bannerEmoji: "✦✦✦✦✦",
-                discount: { percent: 27, originalPrice: 14.99 },
-                tag: "BEST VALUE"
-            },
+        // ═══ ASCENSION IV ═══════════════════════════════════════════════
+        { tier: "Ascension IV", name: "Overclock",    desc: "Speed III and Haste II for 30 seconds. Push your body beyond its limits.", duration: "30s", cooldown: "120s" },
+        { tier: "Ascension IV", name: "Soul Drain",   desc: "Strips all active potion effects from target. Strip them bare of their enhancements.", duration: "Instant", cooldown: "75s" },
+        { tier: "Ascension IV", name: "Warden's Grasp",desc: "Roots target for 3 seconds, then applies Slowness X for 5 seconds. None escape the deep.", duration: "3s + 5s", cooldown: "80s" },
 
-            // ─── ABILITY SLOTS ───────────────────────────────────────────
-            {
-                id: "slot-extra",
-                name: "Extra Ability Slot",
-                description: "Equip one more ability simultaneously. Maximum of 3 additional slots per player.",
-                price: 10.00,
-                perUnit: "/ slot · max 3",
-                category: "slots",
-                accent: "cyan",
-                bannerEmoji: "◈",
-                tag: "LIMIT 3"
-            },
+        // ═══ ASCENSION V ════════════════════════════════════════════════
+        { tier: "Ascension V", name: "Wraith Form",   desc: "Invisibility, cleanses debuffs, cancels all incoming damage for 5 seconds. Become untouchable.", duration: "5s", cooldown: "150s" },
+        { tier: "Ascension V", name: "Execution",     desc: "Hit an enemy below 25% HP within 10 seconds for 2x damage. The finisher's art.", duration: "10s window", cooldown: "85s" },
+        { tier: "Ascension V", name: "Marked",        desc: "Target takes +15% damage from all sources for 5 seconds. Marked for death.", duration: "5s", cooldown: "95s" },
 
-            // ─── ABILITIES ───────────────────────────────────────────────
-    
-        ]
-    };
+        // ═══ ASCENSION VI ═══════════════════════════════════════════════
+        { tier: "Ascension VI", name: "Soul Lock",    desc: "Silences target — strips effects and prevents item use for 6 seconds. Total domination.", duration: "6s", cooldown: "115s" },
+        { tier: "Ascension VI", name: "Warlord's Aura",desc: "Strength III and Speed III for 8 seconds. The aura of a true conqueror.", duration: "8s", cooldown: "300s" },
+        { tier: "Ascension VI", name: "Reaper's Call",desc: "Encases target in black rings — frozen, blinded, nauseous, hotbar locked for 4 seconds. Death incarnate.", duration: "4s", cooldown: "600s" },
+    ];
     </script>
 
     <style>
@@ -112,25 +59,21 @@
             --gold-dim: #8A6B28;
             --gold-trace: rgba(212, 168, 67, 0.12);
             --gold-glow: rgba(212, 168, 67, 0.22);
-
             --crimson: #C13838;
             --crimson-bright: #E85555;
             --crimson-dim: #7A1F1F;
             --crimson-trace: rgba(193, 56, 56, 0.12);
             --crimson-glow: rgba(193, 56, 56, 0.25);
-
             --violet: #9D5BD2;
             --violet-bright: #B87AF0;
             --violet-dim: #5E2D85;
             --violet-trace: rgba(157, 91, 210, 0.12);
             --violet-glow: rgba(157, 91, 210, 0.25);
-
             --cyan: #4FC3D9;
             --cyan-bright: #6FE0F5;
             --cyan-dim: #2A6E80;
             --cyan-trace: rgba(79, 195, 217, 0.12);
             --cyan-glow: rgba(79, 195, 217, 0.25);
-
             --ink: #080808;
             --ink-2: #0F0F0D;
             --ink-3: #141412;
@@ -154,7 +97,6 @@
             line-height: 1.6;
         }
 
-        /* ═══ BACKGROUND ═════════════════════════════════════════════════ */
         .bg-layer {
             position: fixed; inset: 0; z-index: -3;
             background:
@@ -196,7 +138,6 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* ═══ LOADER ═════════════════════════════════════════════════════ */
         .loader {
             position: fixed; inset: 0; z-index: 9999;
             background: var(--ink);
@@ -222,7 +163,6 @@
             text-transform: uppercase;
         }
 
-        /* ═══ NAV ════════════════════════════════════════════════════════ */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 1.2rem 5%;
@@ -275,7 +215,6 @@
         }
         .nav-icon-btn:hover svg { transform: scale(1.1); }
 
-        /* ═══ HERO ═══════════════════════════════════════════════════════ */
         .hero {
             min-height: 100vh;
             display: flex; flex-direction: column;
@@ -429,426 +368,6 @@
         }
         .section-rule em { color: var(--gold-dim); font-style: normal; font-size: 0.7rem; }
 
-        /* ═══ SHOP SECTION ═══════════════════════════════════════════════ */
-        #shop {
-            background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* Category tabs */
-        .category-bar {
-            display: flex; flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.6rem;
-            max-width: 900px;
-            margin: 0 auto 3rem;
-            padding: 0 5%;
-        }
-
-        .cat-btn {
-            padding: 0.65rem 1.3rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text-dim);
-            font-family: 'Syne', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex; align-items: center; gap: 0.5rem;
-        }
-        .cat-btn:hover {
-            background: var(--gold-trace);
-            color: var(--text);
-            border-color: var(--border-strong);
-            transform: translateY(-2px);
-        }
-        .cat-btn.active {
-            background: var(--gold-trace);
-            color: var(--gold-bright);
-            border-color: var(--gold);
-            box-shadow: 0 0 16px rgba(212,168,67,0.2);
-        }
-        .cat-btn .cat-icon { font-size: 1rem; }
-
-        /* Products grid */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        /* Product card */
-        .product-card {
-            position: relative;
-            background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            transform: translateY(30px);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 14px;
-            padding: 1px;
-            background: linear-gradient(135deg, transparent 30%, var(--card-glow, var(--gold)) 50%, transparent 70%);
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--card-border, var(--border-strong));
-            box-shadow:
-                0 20px 60px rgba(0,0,0,0.6),
-                0 0 30px var(--card-glow-soft, rgba(212,168,67,0.15));
-        }
-
-        .product-card:hover::before { opacity: 1; }
-
-        /* Accent variants */
-        .product-card[data-accent="gold"]    { --card-glow: var(--gold);    --card-glow-soft: var(--gold-glow);    --card-border: var(--gold); --card-trace: var(--gold-trace); }
-        .product-card[data-accent="crimson"] { --card-glow: var(--crimson); --card-glow-soft: var(--crimson-glow); --card-border: var(--crimson); --card-trace: var(--crimson-trace); }
-        .product-card[data-accent="violet"]  { --card-glow: var(--violet);  --card-glow-soft: var(--violet-glow);  --card-border: var(--violet); --card-trace: var(--violet-trace); }
-        .product-card[data-accent="cyan"]    { --card-glow: var(--cyan);    --card-glow-soft: var(--cyan-glow);    --card-border: var(--cyan); --card-trace: var(--cyan-trace); }
-
-        /* Banner */
-        .product-banner {
-            position: relative;
-            height: 160px;
-            background: linear-gradient(135deg,
-                var(--card-trace, var(--gold-trace)) 0%,
-                rgba(255,255,255,0.02) 50%,
-                var(--card-trace, var(--gold-trace)) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .product-banner::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 30% 30%, var(--card-glow-soft, var(--gold-glow)) 0%, transparent 50%),
-                radial-gradient(circle at 70% 70%, var(--card-glow-soft, var(--gold-glow)) 0%, transparent 50%);
-            opacity: 0.6;
-            transition: opacity 0.4s ease;
-        }
-
-        .product-card:hover .product-banner::before { opacity: 1; }
-
-        .product-banner img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            position: relative; z-index: 1;
-            transition: transform 0.5s ease;
-        }
-
-        .product-card:hover .product-banner img { transform: scale(1.08); }
-
-        .banner-emoji {
-            font-size: 4.5rem;
-            position: relative; z-index: 1;
-            filter: drop-shadow(0 0 20px var(--card-glow, var(--gold)));
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .product-card:hover .banner-emoji {
-            transform: scale(1.15) rotate(-5deg);
-        }
-
-        /* Tag */
-        .product-tag {
-            position: absolute;
-            top: 1rem; left: 1rem;
-            padding: 0.35rem 0.8rem;
-            background: var(--ink);
-            border: 1px solid var(--card-border, var(--gold));
-            border-radius: 4px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.62rem;
-            letter-spacing: 0.15em;
-            color: var(--card-glow, var(--gold-bright));
-            text-transform: uppercase;
-            z-index: 3;
-            font-weight: 500;
-        }
-
-        /* NEW badge */
-        .new-badge {
-            position: absolute;
-            top: 1rem; right: 1rem;
-            padding: 0.4rem 0.85rem;
-            background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-bright) 100%);
-            color: #fff;
-            font-family: 'Syne', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 0.18em;
-            border-radius: 4px;
-            z-index: 3;
-            text-transform: uppercase;
-            box-shadow: 0 4px 16px rgba(193,56,56,0.5);
-            overflow: hidden;
-        }
-
-        .new-badge::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-            animation: newShimmer 2.5s infinite;
-        }
-
-        @keyframes newShimmer {
-            0% { left: -100%; }
-            50%, 100% { left: 200%; }
-        }
-
-        /* Discount badge */
-        .discount-badge {
-            position: absolute;
-            top: 1rem; right: 1rem;
-            width: 60px; height: 60px;
-            background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-bright) 100%);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            box-shadow: 0 6px 20px rgba(193,56,56,0.6);
-            z-index: 4;
-            animation: discountPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes discountPulse {
-            0%, 100% { transform: scale(1) rotate(-8deg); }
-            50% { transform: scale(1.1) rotate(8deg); }
-        }
-
-        .discount-badge .pct-num {
-            font-size: 1.05rem;
-            line-height: 1;
-        }
-        .discount-badge .pct-off {
-            font-size: 0.55rem;
-            letter-spacing: 0.1em;
-            margin-top: 2px;
-            opacity: 0.9;
-        }
-
-        .product-card .new-badge + .discount-badge { top: 4.2rem; }
-
-        /* Body */
-        .product-body {
-            padding: 1.5rem 1.5rem 1.6rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.55rem;
-            font-weight: 700;
-            color: var(--text);
-            line-height: 1.2;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.01em;
-        }
-
-        .product-card:hover .product-name {
-            color: var(--card-glow, var(--gold-bright));
-        }
-
-        .product-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 1.25rem;
-            flex-grow: 1;
-        }
-
-        /* Limited info */
-        .limited-info {
-            background: rgba(193,56,56,0.06);
-            border: 1px solid rgba(193,56,56,0.25);
-            border-radius: 6px;
-            padding: 0.7rem 0.9rem;
-            margin-bottom: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.45rem;
-        }
-
-        .stock-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .stock-label { color: var(--text-muted); }
-        .stock-count { color: var(--crimson-bright); font-weight: 500; }
-        .stock-count.stock-low { animation: stockBlink 1.4s infinite; }
-        @keyframes stockBlink { 50% { opacity: 0.4; } }
-
-        .stock-bar {
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .stock-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--crimson-dim), var(--crimson-bright));
-            border-radius: 2px;
-            transition: width 0.8s ease;
-        }
-
-        .timer-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-        }
-
-        .timer-label { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
-        .timer-display { color: var(--crimson-bright); font-weight: 500; letter-spacing: 0.05em; }
-
-        /* Price */
-        .price-block {
-            display: flex;
-            align-items: baseline;
-            gap: 0.6rem;
-            margin-bottom: 1.1rem;
-            flex-wrap: wrap;
-        }
-
-        .price-current {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.1rem;
-            font-weight: 700;
-            color: var(--card-glow, var(--gold-bright));
-            line-height: 1;
-            letter-spacing: -0.01em;
-        }
-
-        .price-original {
-            font-size: 1rem;
-            color: var(--text-muted);
-            text-decoration: line-through;
-            text-decoration-color: var(--crimson);
-        }
-
-        .price-unit {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-            margin-left: -0.2rem;
-        }
-
-        /* CTA */
-        .product-cta {
-            width: 100%;
-            padding: 0.85rem;
-            background: var(--card-trace, var(--gold-trace));
-            border: 1px solid var(--card-border, var(--gold));
-            border-radius: 8px;
-            color: var(--card-glow, var(--gold-bright));
-            font-family: 'Syne', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-cta::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, var(--card-glow-soft, var(--gold-glow)), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .product-cta:hover::before { left: 100%; }
-
-        .product-cta:hover {
-            background: var(--card-glow, var(--gold));
-            color: var(--ink);
-            box-shadow: 0 8px 24px var(--card-glow-soft, var(--gold-glow));
-        }
-
-        .product-cta .arrow { transition: transform 0.3s ease; }
-        .product-cta:hover .arrow { transform: translateX(4px); }
-
-        /* Sold out */
-        .product-cta.sold-out {
-            background: rgba(255,255,255,0.03);
-            border-color: rgba(255,255,255,0.08);
-            color: var(--text-muted);
-            cursor: not-allowed;
-        }
-        .product-cta.sold-out:hover {
-            background: rgba(255,255,255,0.03);
-            color: var(--text-muted);
-            box-shadow: none;
-        }
-        .product-cta.sold-out::before { display: none; }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-muted);
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.2rem;
-            grid-column: 1 / -1;
-        }
-
-        /* ═══ WIKI SECTION ═══════════════════════════════════════════════ */
         .wiki-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -933,7 +452,6 @@
             color: var(--gold);
         }
 
-        /* ═══ MODALS (wiki + purchase share same base) ═══════════════════ */
         .modal {
             display: none;
             position: fixed; inset: 0; z-index: 2000;
@@ -1048,272 +566,6 @@
             image-rendering: pixelated;
         }
 
-        /* ═══ PURCHASE MODAL (special styling) ═══════════════════════════ */
-        #m-purchase .modal-box {
-            max-width: 540px;
-            text-align: center;
-            padding: 3rem 2.5rem;
-            background:
-                radial-gradient(ellipse at top, rgba(212,168,67,0.08), transparent 60%),
-                var(--ink-2);
-            border-color: var(--gold);
-            box-shadow: 0 0 60px rgba(212,168,67,0.15);
-        }
-
-        .purchase-icon {
-            width: 80px; height: 80px;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, var(--gold-trace), rgba(212,168,67,0.04));
-            border: 1px solid var(--gold);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            box-shadow: 0 0 30px var(--gold-glow);
-            animation: iconPulse 2.4s ease-in-out infinite;
-        }
-
-        @keyframes iconPulse {
-            0%, 100% { box-shadow: 0 0 20px var(--gold-glow); transform: scale(1); }
-            50% { box-shadow: 0 0 40px var(--gold-glow); transform: scale(1.04); }
-        }
-
-        .purchase-icon svg {
-            width: 38px; height: 38px;
-            fill: var(--gold-bright);
-        }
-
-        #m-purchase h2 {
-            text-align: center;
-            font-size: 2.1rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .purchase-eyebrow {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.3em;
-            color: var(--gold-dim);
-            text-transform: uppercase;
-            margin-bottom: 0.8rem;
-        }
-
-        .purchase-product {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.15rem;
-            color: var(--gold-bright);
-            margin-bottom: 0.3rem;
-        }
-
-        .purchase-price {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
-        }
-
-        #m-purchase .m-rule {
-            margin: 1.5rem auto;
-            background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-            max-width: 200px;
-        }
-
-        .purchase-instructions {
-            font-size: 0.95rem;
-            color: var(--text-dim);
-            line-height: 1.8;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .purchase-steps {
-            background: rgba(212,168,67,0.04);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.4rem 1.6rem;
-            margin: 1.5rem 0;
-            text-align: left;
-        }
-
-        .purchase-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.9rem;
-            margin-bottom: 0.9rem;
-            font-size: 0.88rem;
-            color: var(--text-dim);
-        }
-
-        .purchase-step:last-child { margin-bottom: 0; }
-
-        .step-num {
-            flex-shrink: 0;
-            width: 26px; height: 26px;
-            background: var(--gold);
-            color: var(--ink);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            font-weight: 700;
-        }
-
-        .purchase-footer-note {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 1.5rem;
-            line-height: 1.6;
-        }
-
-        /* ═══ FOOTER ═════════════════════════════════════════════════════ */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 4rem 0 2rem;
-        }
-
-        .footer-inner {
-            max-width: 500px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .ascension-glow {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #ff2a2a;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 0.5rem;
-            text-shadow:
-                0 0 10px rgba(255, 0, 0, 0.8),
-                0 -5px 15px rgba(200, 0, 0, 0.6),
-                0 -10px 20px rgba(100, 0, 0, 0.5),
-                0 -15px 30px rgba(0, 0, 0, 0.9);
-            animation: pulseSmoke 3s infinite alternate;
-        }
-
-        @keyframes pulseSmoke {
-            0% {
-                text-shadow:
-                    0 0 10px rgba(255, 0, 0, 0.8),
-                    0 -5px 15px rgba(200, 0, 0, 0.6),
-                    0 -10px 20px rgba(100, 0, 0, 0.5),
-                    0 -15px 30px rgba(0, 0, 0, 0.9);
-            }
-            100% {
-                text-shadow:
-                    0 0 15px rgba(255, 50, 50, 0.9),
-                    0 -8px 20px rgba(220, 20, 20, 0.7),
-                    0 -12px 25px rgba(120, 0, 0, 0.7),
-                    0 -20px 40px rgba(0, 0, 0, 1);
-            }
-        }
-
-        .footer-credits {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        .reveal {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--ink); }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--gold-dim), var(--gold));
-            border-radius: 3px;
-        }
-
-                /* Coming Soon Box */
-        .coming-soon-box {
-            background: linear-gradient(135deg, var(--ink-3) 0%, var(--ink-2) 100%);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 4rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .coming-soon-box::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(212,168,67,0.06) 0%, transparent 70%);
-        }
-
-        .coming-soon-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            animation: crateFloat 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(212,168,67,0.3));
-        }
-
-        @keyframes crateFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
-        }
-
-        .coming-soon-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--gold-bright);
-            margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .coming-soon-text {
-            font-size: 0.95rem;
-            color: var(--text-dim);
-            max-width: 400px;
-            margin: 0 auto;
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
-        }
-
-        .coming-soon-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .coming-soon-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--gold);
-            border-radius: 50%;
-            animation: dotPulse 1.4s ease-in-out infinite;
-        }
-
-        .coming-soon-dot:nth-child(2) { animation-delay: 0.2s; }
-        .coming-soon-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(1); opacity: 0.4; }
-            50% { transform: scale(1.5); opacity: 1; }
-        }
-
-        /* Updates Section */
         #updates {
             background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
             border-top: 1px solid var(--border);
@@ -1445,7 +697,6 @@
             margin-left: 4px;
         }
 
-        /* Ascension Guide Section */
         #ascension-guide {
             background: linear-gradient(180deg, transparent, rgba(157,91,210,0.03), transparent);
             border-top: 1px solid var(--border);
@@ -1512,7 +763,6 @@
             line-height: 1.6;
         }
 
-        /* Enhanced Abilities Section */
         #abilities-section {
             background: linear-gradient(180deg, transparent, rgba(79,195,217,0.02), transparent);
             border-top: 1px solid var(--border);
@@ -1607,27 +857,103 @@
             letter-spacing: 0.05em;
         }
 
+        .ability-tag.duration { border-color: rgba(212,168,67,0.3); color: var(--gold-bright); }
         .ability-tag.cooldown { border-color: rgba(79,195,217,0.3); color: var(--cyan-bright); }
-        .ability-tag.power { border-color: rgba(193,56,56,0.3); color: var(--crimson-bright); }
-        .ability-tag.defense { border-color: rgba(168,230,207,0.3); color: #a8e6cf; }
 
-        @media (max-width: 768px) {
-            .abilities-grid { grid-template-columns: 1fr; }
-            .update-header { flex-direction: column; text-align: center; gap: 0.8rem; }
-            .update-title-text { margin-left: 0; }
-            .guide-info { grid-template-columns: 1fr; }
+        #commands-section {
+            background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .command-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, var(--gold-dim), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .command-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-strong);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+        }
+
+        .command-card:hover::before { opacity: 1; }
+
+        .command-card-icon {
+            width: 48px; height: 48px;
+            background: rgba(212,168,67,0.08);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover .command-card-icon {
+            background: rgba(212,168,67,0.14);
+            border-color: var(--border-strong);
+            transform: scale(1.05);
+        }
+
+        .command-card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.02em;
+        }
+
+        .command-card-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--ink); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold-dim), var(--gold));
+            border-radius: 3px;
         }
 
         @media (max-width: 768px) {
             .nav-icon-btn { width: 40px; height: 40px; }
             .hero-cta { flex-direction: column; align-items: center; }
             .wiki-grid { grid-template-columns: 1fr; }
-            .products-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-            .product-banner { height: 140px; }
-            .banner-emoji { font-size: 3.8rem; }
-            .price-current { font-size: 1.8rem; }
-            #m-purchase .modal-box { padding: 2.2rem 1.5rem; }
             .abilities-grid { grid-template-columns: 1fr; }
+            .commands-grid { grid-template-columns: 1fr; }
             .update-header { flex-direction: column; text-align: center; gap: 0.8rem; }
             .update-title-text { margin-left: 0; }
             .guide-info { grid-template-columns: 1fr; }
@@ -1652,11 +978,20 @@
     <nav id="navbar">
         <a href="#" class="logo" target="_self">LightCitySMP</a>
         <div class="nav-icons">
-            <a href="#shop" class="nav-icon-btn" title="Shop" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-            </a>
             <a href="#wiki" class="nav-icon-btn" title="Wiki" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </a>
+            <a href="#updates" class="nav-icon-btn" title="Updates" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            </a>
+            <a href="#ascension-guide" class="nav-icon-btn" title="Guide" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </a>
+            <a href="#abilities-section" class="nav-icon-btn" title="Abilities" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/></svg>
+            </a>
+            <a href="#commands-section" class="nav-icon-btn" title="Item Utilities" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M22 7h-9v2h9V7zm1 7v-2h-11v2h11zm-9 5v-2H2v2h12zm-4-16l-2 2h3v2h-3l2 2h-2l-3-3 3-3h2zm8 14l-2 2h3v2h-3l2 2h-2l-3-3 3-3h2z"/></svg>
             </a>
             <a href="rules.html" class="nav-icon-btn" title="Rules" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
@@ -1665,98 +1000,75 @@
     </nav>
 
     <section class="hero">
-        <p class="hero-eyebrow">Season 5 · Official Website</p>
+        <p class="hero-eyebrow">Season 5 &middot; Official Website</p>
         <h1 class="hero-title">
             <span class="line1">LightCitySMP</span>
         </h1>
         <div class="hero-rule">
             <span></span>
-            <em>✦</em>
+            <em>&#10022;</em>
             <span></span>
         </div>
         <p class="hero-sub">Welcome to the official website for LightCitySMP, supervised by LightCity's council, owned by Sam.</p>
         <div class="hero-cta">
-            <a href="#shop" class="btn btn-primary" target="_self">Visit Shop</a>
-            <a href="#wiki" class="btn btn-secondary" target="_self">Ascension Wiki</a>
+            <a href="#wiki" class="btn btn-primary" target="_self">Ascension Wiki</a>
+            <a href="#ascension-guide" class="btn btn-secondary" target="_self">Ascension Guide</a>
         </div>
     </section>
 
-    <!-- ═══ SHOP SECTION ═══════════════════════════════════════════════════ -->
-    <section id="shop">
-        <div class="container">
-            <div class="section-label reveal">Official Store</div>
-            <h2 class="section-title reveal">Shop</h2>
-            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
-
-            <div class="category-bar reveal" id="categoryBar"></div>
-
-            <div class="products-grid" id="productsGrid"></div>
-        </div>
-    </section>
-
-    <!-- ═══ WIKI SECTION (unchanged from yours) ════════════════════════════ -->
     <section id="wiki">
         <div class="container">
             <div class="section-label reveal">Plugin Documentation</div>
             <h2 class="section-title reveal">Ascension Wiki</h2>
-            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
             <div class="wiki-grid">
 
                 <div class="wiki-card reveal" onclick="openModal('m-blade')">
-                    <div class="card-icon-wrap">🗡️</div>
+                    <div class="card-icon-wrap">&#128481;&#65039;</div>
                     <div class="card-title">Ascension Blade</div>
                     <p class="card-desc">The craftable scythe. Steal rebirth levels from your enemies.</p>
-                    <span class="card-arrow">›</span>
+                    <span class="card-arrow">&rsaquo;</span>
                 </div>
 
                 <div class="wiki-card reveal" onclick="openModal('m-rebirths')">
-                    <div class="card-icon-wrap">⭐</div>
+                    <div class="card-icon-wrap">&#11088;</div>
                     <div class="card-title">Rebirths</div>
                     <p class="card-desc">Rebirth Points, progression tiers, and the broadcast system.</p>
-                    <span class="card-arrow">›</span>
+                    <span class="card-arrow">&rsaquo;</span>
                 </div>
 
                 <div class="wiki-card reveal" onclick="openModal('m-abilities')">
-                    <div class="card-icon-wrap">⚡</div>
+                    <div class="card-icon-wrap">&#9889;</div>
                     <div class="card-title">Abilities</div>
-                    <p class="card-desc">All 18 abilities across 6 Ascension tiers — fully documented.</p>
-                    <span class="card-arrow">›</span>
+                    <p class="card-desc">All 18 abilities across 6 Ascension tiers &mdash; fully documented.</p>
+                    <span class="card-arrow">&rsaquo;</span>
                 </div>
 
                 <div class="wiki-card reveal" onclick="openModal('m-streaks')">
-                    <div class="card-icon-wrap">🔥</div>
+                    <div class="card-icon-wrap">&#128293;</div>
                     <div class="card-title">Kill Streaks</div>
                     <p class="card-desc">Streak requirements, display rules, and server-wide announces.</p>
-                    <span class="card-arrow">›</span>
+                    <span class="card-arrow">&rsaquo;</span>
                 </div>
 
                 <div class="wiki-card reveal" onclick="openModal('m-concept')">
-                    <div class="card-icon-wrap">💡</div>
+                    <div class="card-icon-wrap">&#128161;</div>
                     <div class="card-title">Plugin Information</div>
                     <p class="card-desc">The concept behind Ascension and how it all fits together.</p>
-                    <span class="card-arrow">›</span>
-                </div>
-
-                <div class="wiki-card reveal" onclick="openModal('m-commands')">
-                    <div class="card-icon-wrap">⌨️</div>
-                    <div class="card-title">Commands &amp; Utilities</div>
-                    <p class="card-desc">Full command reference — homes, teams, combat, chat, and more.</p>
-                    <span class="card-arrow">›</span>
+                    <span class="card-arrow">&rsaquo;</span>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- ═══ UPDATES SECTION ═══════════════════════════════════════════════ -->
     <section id="updates">
         <div class="container">
             <div class="section-label reveal">What's New</div>
             <h2 class="section-title reveal">Latest Updates</h2>
-            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
 
             <div class="updates-container">
-                <!-- ═══ EDIT UPDATE TITLE & VIDEO PATH HERE ═══ -->
                 <div class="update-card reveal">
                     <div class="update-header">
                         <div class="update-badge">NEW</div>
@@ -1765,11 +1077,10 @@
                     </div>
                     <div class="update-body">
                         <p class="update-desc">
-                            Season 5 introduces the Ascension system — a complete overhaul of combat and progression. 
-                            Rebirth through kill streaks, unlock 18 unique abilities across 6 tiers, and forge your path 
+                            Season 5 introduces the Ascension system &mdash; a complete overhaul of combat and progression.
+                            Rebirth through kill streaks, unlock 18 unique abilities across 6 tiers, and forge your path
                             from nothing to everything. The Ascension Blade awaits those brave enough to claim it.
                         </p>
-                        <!-- ═══ EDIT VIDEO PATH HERE ═══ -->
                         <div class="video-container">
                             <video id="updateVideo" poster="./videos/update-thumbnail.jpg">
                                 <source src="./videos/season5-update.mp4" type="video/mp4">
@@ -1787,15 +1098,13 @@
         </div>
     </section>
 
-    <!-- ═══ ASCENSION GUIDE VIDEO SECTION ════════════════════════════════ -->
     <section id="ascension-guide">
         <div class="container">
             <div class="section-label reveal">Tutorial</div>
             <h2 class="section-title reveal">Ascension Guide</h2>
-            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
 
             <div class="guide-container reveal">
-                <!-- ═══ EDIT GUIDE VIDEO PATH HERE ═══ -->
                 <div class="guide-video-wrapper">
                     <video id="guideVideo" controls poster="./videos/guide-thumbnail.jpg">
                         <source src="./videos/ascension-guide.mp4" type="video/mp4">
@@ -1805,22 +1114,22 @@
 
                 <div class="guide-info">
                     <div class="guide-info-card">
-                        <div class="guide-info-icon">⚔️</div>
+                        <div class="guide-info-icon">&#9876;&#65039;</div>
                         <div class="guide-info-title">Combat Focused</div>
                         <div class="guide-info-text">Master PvP with abilities and kill streaks</div>
                     </div>
                     <div class="guide-info-card">
-                        <div class="guide-info-icon">⭐</div>
+                        <div class="guide-info-icon">&#11088;</div>
                         <div class="guide-info-title">6 Ascension Tiers</div>
                         <div class="guide-info-text">Progress from Iron Skin to Reaper's Call</div>
                     </div>
                     <div class="guide-info-card">
-                        <div class="guide-info-icon">🔄</div>
+                        <div class="guide-info-icon">&#128260;</div>
                         <div class="guide-info-title">Rebirth System</div>
                         <div class="guide-info-text">Earn points through streaks or crafting</div>
                     </div>
                     <div class="guide-info-card">
-                        <div class="guide-info-icon">🗡️</div>
+                        <div class="guide-info-icon">&#128481;&#65039;</div>
                         <div class="guide-info-title">Ascension Blade</div>
                         <div class="guide-info-text">Steal abilities from fallen enemies</div>
                     </div>
@@ -1829,257 +1138,47 @@
         </div>
     </section>
 
-    <!-- ═══ ABILITIES SECTION (Enhanced) ═════════════════════════════════ -->
+    <section id="commands-section">
+        <div class="container">
+            <div class="section-label reveal">Reference</div>
+            <h2 class="section-title reveal">Commands & Utilities</h2>
+            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
+
+            <div class="commands-grid">
+                <div class="command-card reveal" onclick="openModal('m-commands')">
+                    <div class="command-card-icon">&#9876;&#65039;</div>
+                    <div class="command-card-title">Combat & Mechanics</div>
+                    <p class="command-card-desc">/streak, /rebirth, /rebirthpoint-gift, and more combat commands.</p>
+                </div>
+
+                <div class="command-card reveal" onclick="openModal('m-commands')">
+                    <div class="command-card-icon">&#127968;</div>
+                    <div class="command-card-title">Teleportation & Homes</div>
+                    <p class="command-card-desc">/home, /tpa, /tpaccept, /rtp, /back, and all teleport commands.</p>
+                </div>
+
+                <div class="command-card reveal" onclick="openModal('m-commands')">
+                    <div class="command-card-icon">&#128737;&#65039;</div>
+                    <div class="command-card-title">Social & Teams</div>
+                    <p class="command-card-desc">/team, /msg, /reply, and all social utility commands.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="abilities-section">
         <div class="container">
             <div class="section-label reveal">Combat System</div>
             <h2 class="section-title reveal">All Abilities</h2>
-            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
+            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
 
-            <div class="abilities-grid">
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension I</div>
-                    <div class="ability-name">Iron Skin</div>
-                    <div class="ability-desc">Grants Resistance I and reduces incoming damage for 8 seconds. Your first step toward invulnerability.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag defense">Defense</span>
-                        <span class="ability-tag cooldown">40s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension I</div>
-                    <div class="ability-name">Dash</div>
-                    <div class="ability-desc">Launches you forward with a cloud particle trail. Perfect for closing gaps or escaping danger.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Mobility</span>
-                        <span class="ability-tag cooldown">15s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension I</div>
-                    <div class="ability-name">Smokescreen</div>
-                    <div class="ability-desc">Blinds the target and surrounds them in smoke for 3 seconds. Disorient and destroy.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Control</span>
-                        <span class="ability-tag cooldown">45s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension II</div>
-                    <div class="ability-name">Blood Rush</div>
-                    <div class="ability-desc">On hit or being hit — gain Speed II for 5 seconds. The more you fight, the faster you become.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Passive</span>
-                        <span class="ability-tag cooldown">45s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension II</div>
-                    <div class="ability-name">Fortify</div>
-                    <div class="ability-desc">On being hit — reduces 25% incoming damage for 8 seconds. Turn their strength against them.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag defense">Defense</span>
-                        <span class="ability-tag cooldown">50s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension II</div>
-                    <div class="ability-name">Splinter</div>
-                    <div class="ability-desc">Next attacks deal +8% bonus damage for 8 seconds. Every strike cuts deeper.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Damage</span>
-                        <span class="ability-tag cooldown">50s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension III</div>
-                    <div class="ability-name">Exposed</div>
-                    <div class="ability-desc">Target takes +10% bonus damage for 4 seconds. Reveal their weakness and exploit it.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Debuff</span>
-                        <span class="ability-tag cooldown">60s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension III</div>
-                    <div class="ability-name">Phantom Step</div>
-                    <div class="ability-desc">Invisibility and portal particles for 4 seconds. Vanish from sight, strike from shadow.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Stealth</span>
-                        <span class="ability-tag cooldown">65s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension III</div>
-                    <div class="ability-name">Shockwave</div>
-                    <div class="ability-desc">Knocks back all enemies in 5 blocks and deals 2 hearts. Control the battlefield.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">AoE</span>
-                        <span class="ability-tag cooldown">55s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension IV</div>
-                    <div class="ability-name">Overclock</div>
-                    <div class="ability-desc">Speed III and Haste II for 30 seconds. Push your body beyond its limits.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Buff</span>
-                        <span class="ability-tag cooldown">120s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension IV</div>
-                    <div class="ability-name">Soul Drain</div>
-                    <div class="ability-desc">Strips all active potion effects from target. Strip them bare of their enhancements.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Control</span>
-                        <span class="ability-tag cooldown">75s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension IV</div>
-                    <div class="ability-name">Warden's Grasp</div>
-                    <div class="ability-desc">Roots target for 3 seconds, then applies Slowness X for 5 seconds. None escape the deep.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Control</span>
-                        <span class="ability-tag cooldown">80s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension V</div>
-                    <div class="ability-name">Wraith Form</div>
-                    <div class="ability-desc">Invisibility, cleanses debuffs, cancels all incoming damage for 5 seconds. Become untouchable.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag defense">Ultimate Defense</span>
-                        <span class="ability-tag cooldown">150s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension V</div>
-                    <div class="ability-name">Execution</div>
-                    <div class="ability-desc">Hit an enemy below 25% HP within 10 seconds for 2x damage. The finisher's art.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Execute</span>
-                        <span class="ability-tag cooldown">85s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension V</div>
-                    <div class="ability-name">Marked</div>
-                    <div class="ability-desc">Target takes +15% damage from all sources for 5 seconds. Marked for death.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Debuff</span>
-                        <span class="ability-tag cooldown">95s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension VI</div>
-                    <div class="ability-name">Soul Lock</div>
-                    <div class="ability-desc">Silences target — strips effects and prevents item use for 6 seconds. Total domination.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Silence</span>
-                        <span class="ability-tag cooldown">115s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension VI</div>
-                    <div class="ability-name">Warlord's Aura</div>
-                    <div class="ability-desc">Strength III and Speed III for 8 seconds. The aura of a true conqueror.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Ultimate Buff</span>
-                        <span class="ability-tag cooldown">300s CD</span>
-                    </div>
-                </div>
-
-                <div class="ability-card reveal" onclick="openModal('m-abilities')">
-                    <div class="ability-tier">Ascension VI</div>
-                    <div class="ability-name">Reaper's Call</div>
-                    <div class="ability-desc">Encases target in black rings — frozen, blinded, nauseous, hotbar locked for 4 seconds. Death incarnate.</div>
-                    <div class="ability-meta">
-                        <span class="ability-tag power">Ultimate</span>
-                        <span class="ability-tag cooldown">600s CD</span>
-                    </div>
-                </div>
-            </div>
+            <div class="abilities-grid" id="abilitiesGrid"></div>
         </div>
     </section>
 
-    <!-- ═══ WIKI SECTION ═══════════════════════════════════════════════════ -->
-    <section id="wiki">
-        <div class="container">
-            <div class="section-label reveal">Plugin Documentation</div>
-            <h2 class="section-title reveal">Ascension Wiki</h2>
-            <div class="section-rule reveal"><span></span><em>◆</em><span></span></div>
-            <div class="wiki-grid">
-
-                <div class="wiki-card reveal" onclick="openModal('m-blade')">
-                    <div class="card-icon-wrap">🗡️</div>
-                    <div class="card-title">Ascension Blade</div>
-                    <p class="card-desc">The craftable scythe. Steal rebirth levels from your enemies.</p>
-                    <span class="card-arrow">›</span>
-                </div>
-
-                <div class="wiki-card reveal" onclick="openModal('m-rebirths')">
-                    <div class="card-icon-wrap">⭐</div>
-                    <div class="card-title">Rebirths</div>
-                    <p class="card-desc">Rebirth Points, progression tiers, and the broadcast system.</p>
-                    <span class="card-arrow">›</span>
-                </div>
-
-                <div class="wiki-card reveal" onclick="openModal('m-abilities')">
-                    <div class="card-icon-wrap">⚡</div>
-                    <div class="card-title">Abilities</div>
-                    <p class="card-desc">All 18 abilities across 6 Ascension tiers — fully documented.</p>
-                    <span class="card-arrow">›</span>
-                </div>
-
-                <div class="wiki-card reveal" onclick="openModal('m-streaks')">
-                    <div class="card-icon-wrap">🔥</div>
-                    <div class="card-title">Kill Streaks</div>
-                    <p class="card-desc">Streak requirements, display rules, and server-wide announces.</p>
-                    <span class="card-arrow">›</span>
-                </div>
-
-                <div class="wiki-card reveal" onclick="openModal('m-concept')">
-                    <div class="card-icon-wrap">💡</div>
-                    <div class="card-title">Plugin Information</div>
-                    <p class="card-desc">The concept behind Ascension and how it all fits together.</p>
-                    <span class="card-arrow">›</span>
-                </div>
-
-                <div class="wiki-card reveal" onclick="openModal('m-commands')">
-                    <div class="card-icon-wrap">⌨️</div>
-                    <div class="card-title">Commands &amp; Utilities</div>
-                    <p class="card-desc">Full command reference — homes, teams, combat, chat, and more.</p>
-                    <span class="card-arrow">›</span>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <footer>
-
-    <!-- ═══ WIKI MODALS ════════════════════════════════════════════════════ -->
     <div id="m-blade" class="modal">
         <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-blade')">×</span>
+            <span class="modal-close" onclick="closeModal('m-blade')">&times;</span>
             <h2>Ascension Blade</h2>
             <div class="m-rule"></div>
             <p>A craftable custom weapon.</p>
@@ -2093,7 +1192,7 @@
 
     <div id="m-rebirths" class="modal">
         <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-rebirths')">×</span>
+            <span class="modal-close" onclick="closeModal('m-rebirths')">&times;</span>
             <h2>Rebirths</h2>
             <div class="m-rule"></div>
             <h3>How to Rebirth</h3>
@@ -2111,51 +1210,51 @@
 
     <div id="m-abilities" class="modal">
         <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-abilities')">×</span>
+            <span class="modal-close" onclick="closeModal('m-abilities')">&times;</span>
             <h2>The 18 Abilities</h2>
             <div class="m-rule"></div>
-            <h3>Ascension I — Low Power</h3>
+            <h3>Ascension I &mdash; Low Power</h3>
             <ul>
                 <li><strong>Iron Skin:</strong> Grants Resistance I and reduces incoming damage for 8s. Cooldown: 40s.</li>
                 <li><strong>Dash:</strong> Launches you forward with cloud particle trail. Cooldown: 15s.</li>
                 <li><strong>Smokescreen:</strong> Blinds the target and surrounds them in smoke for 3s. Cooldown: 45s.</li>
             </ul>
-            <h3>Ascension II — Low Power</h3>
+            <h3>Ascension II &mdash; Low Power</h3>
             <ul>
-                <li><strong>Blood Rush:</strong> On hit/being hit — Speed II for 5s. Cooldown: 45s.</li>
-                <li><strong>Fortify:</strong> On being hit — reduces 25% incoming damage for 8s. Cooldown: 50s.</li>
+                <li><strong>Blood Rush:</strong> On hit/being hit &mdash; Speed II for 5s. Cooldown: 45s.</li>
+                <li><strong>Fortify:</strong> On being hit &mdash; reduces 25% incoming damage for 8s. Cooldown: 50s.</li>
                 <li><strong>Splinter:</strong> Next attacks deal +8% bonus damage for 8s. Cooldown: 50s.</li>
             </ul>
-            <h3>Ascension III — Medium Power</h3>
+            <h3>Ascension III &mdash; Medium Power</h3>
             <ul>
                 <li><strong>Exposed:</strong> Target takes +10% bonus damage for 4s. Cooldown: 60s.</li>
                 <li><strong>Phantom Step:</strong> Invisibility and portal particles for 4s. Cooldown: 65s.</li>
                 <li><strong>Shockwave:</strong> Knocks back all enemies in 5 blocks and deals 2 hearts. Cooldown: 55s.</li>
             </ul>
-            <h3>Ascension IV — Medium Power</h3>
+            <h3>Ascension IV &mdash; Medium Power</h3>
             <ul>
                 <li><strong>Overclock:</strong> Speed III, Haste II for 30s. Cooldown: 120s.</li>
                 <li><strong>Soul Drain:</strong> Strips all active potion effects from target. Cooldown: 75s.</li>
                 <li><strong>Warden's Grasp:</strong> Roots target in place for 3s then when it's over, player gets slowness X for 5s. Cooldown: 80s.</li>
             </ul>
-            <h3>Ascension V — High Power</h3>
+            <h3>Ascension V &mdash; High Power</h3>
             <ul>
                 <li><strong>Wraith Form:</strong> Invisibility, cleanses debuffs, cancels all incoming damage for 5s. Blocks Reaper's Call and Warden's Grasp. Cooldown: 150s.</li>
                 <li><strong>Execution:</strong> Hit an enemy below 25% HP within 10s for 2x damage. Cooldown: 85s.</li>
                 <li><strong>Marked:</strong> Target takes +15% damage from all sources for 5s. Cooldown: 95s.</li>
             </ul>
-            <h3>Ascension VI — High Power</h3>
+            <h3>Ascension VI &mdash; High Power</h3>
             <ul>
-                <li><strong>Soul Lock:</strong> Silences target — strips effects and prevents item use for 6s. Cooldown: 115s.</li>
+                <li><strong>Soul Lock:</strong> Silences target &mdash; strips effects and prevents item use for 6s. Cooldown: 115s.</li>
                 <li><strong>Warlord's Aura:</strong> Strength III and Speed III for 8s, cooldown: 300s.</li>
-                <li><strong>Reaper's Call:</strong> Encases target in black rings — frozen, blinded, nauseous, hotbar locked for 4s. Deals 20% bonus damage. Blocked by Wraith Form. Cooldown: 600s.</li>
+                <li><strong>Reaper's Call:</strong> Encases target in black rings &mdash; frozen, blinded, nauseous, hotbar locked for 4s. Deals 20% bonus damage. Blocked by Wraith Form. Cooldown: 600s.</li>
             </ul>
         </div>
     </div>
 
     <div id="m-streaks" class="modal">
         <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-streaks')">×</span>
+            <span class="modal-close" onclick="closeModal('m-streaks')">&times;</span>
             <h2>Kill Streaks</h2>
             <div class="m-rule"></div>
             <p>In order to gain rebirth points, you must reach 5 kill streak for your first rebirth point! every 5+ kill streak = 1 rebirth point, for example, if you have 3 kill streak, you won't gain any rebirth points, if you have a 5 kill streak you will gain 1 rebirth point as soon as you reach 5 kill streak, then 1+ rebirth point at 10 kill streak, then 1+ at 15 kill streak, get the concept? maximum is 30 kill streak, but you can also craft them, head over to rebirths category!</p>
@@ -2169,32 +1268,32 @@
             </ul>
             <h3>Display System</h3>
             <ul>
-                <li><strong>Under 5 kills</strong> — nothing shown</li>
-                <li><strong>5–14 kills</strong> — [X 🔥] in orange</li>
-                <li><strong>15–24 kills</strong> — [X 🔥] in purple</li>
-                <li><strong>25–30 kills</strong> — [X 🔥] in blood red, slightly larger</li>
+                <li><strong>Under 5 kills</strong> &mdash; nothing shown</li>
+                <li><strong>5&ndash;14 kills</strong> &mdash; [X &#128293;] in orange</li>
+                <li><strong>15&ndash;24 kills</strong> &mdash; [X &#128293;] in purple</li>
+                <li><strong>25&ndash;30 kills</strong> &mdash; [X &#128293;] in blood red, slightly larger</li>
             </ul>
         </div>
     </div>
 
     <div id="m-concept" class="modal">
         <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-concept')">×</span>
+            <span class="modal-close" onclick="closeModal('m-concept')">&times;</span>
             <h2>Plugin Information</h2>
             <div class="m-rule"></div>
-            <p>The main idea of this plugin is for players that love PvP, wars and battles — so they can express skill and strength. But it's also made for players that love grinding, want to avoid PvP, and just want to live in peace while feeling <strong>and being powerful.</strong> Ascension is all about ascending from being nothing, to being everything.</p>
+            <p>The main idea of this plugin is for players that love PvP, wars and battles &mdash; so they can express skill and strength. But it's also made for players that love grinding, want to avoid PvP, and just want to live in peace while feeling <strong>and being powerful.</strong> Ascension is all about ascending from being nothing, to being everything.</p>
             <h3>Concept</h3>
-            <p>Ascension is a PvP & grinding-based plugin where players must either reach a specific kill streak to <strong>earn Rebirth Points</strong> — unlocking various abilities — or grind for them. You can also earn Rebirth Points by crafting them using the custom recipe found in our Discord.</p>
+            <p>Ascension is a PvP & grinding-based plugin where players must either reach a specific kill streak to <strong>earn Rebirth Points</strong> &mdash; unlocking various abilities &mdash; or grind for them. You can also earn Rebirth Points by crafting them using the custom recipe found in our Discord.</p>
             <p>When rebirthed, you're presented with a menu and 3 abilities to choose 1 from. With each rebirth, the abilities get stronger. There are <strong>18 abilities</strong> and <strong>6 rebirth levels,</strong> with more planned for the future.</p>
         </div>
     </div>
 
     <div id="m-commands" class="modal">
         <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-commands')">×</span>
-            <h2>Commands &amp; Utilities</h2>
+            <span class="modal-close" onclick="closeModal('m-commands')">&times;</span>
+            <h2>Commands & Utilities</h2>
             <div class="m-rule"></div>
-            <h3>⚔️ Combat &amp; Mechanics</h3>
+            <h3>&#9876;&#65039; Combat & Mechanics</h3>
             <table class="m-table">
                 <thead><tr><th>Command</th><th>What it does</th></tr></thead>
                 <tbody>
@@ -2204,7 +1303,7 @@
                     <tr><td>/rebirthpoint-gift &lt;number&gt; &lt;player&gt;</td><td>Gift a rebirth point of yours to another player.</td></tr>
                 </tbody>
             </table>
-            <h3>🏠 Teleportation &amp; Homes</h3>
+            <h3>&#127968; Teleportation & Homes</h3>
             <table class="m-table">
                 <thead><tr><th>Command</th><th>What it does</th></tr></thead>
                 <tbody>
@@ -2217,7 +1316,7 @@
                     <tr><td>/back</td><td>Returns you to the location of your last natural death.</td></tr>
                 </tbody>
             </table>
-            <h3>🛡️ Social &amp; Teams</h3>
+            <h3>&#128737;&#65039; Social & Teams</h3>
             <table class="m-table">
                 <thead><tr><th>Command</th><th>What it does</th></tr></thead>
                 <tbody>
@@ -2231,49 +1330,6 @@
                     <tr><td>/reply &lt;message&gt;</td><td>Quick-reply to the last person who messaged you.</td></tr>
                 </tbody>
             </table>
-        </div>
-    </div>
-
-    <!-- ═══ PURCHASE MODAL ═════════════════════════════════════════════════ -->
-    <div id="m-purchase" class="modal">
-        <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-purchase')">×</span>
-
-            <div class="purchase-icon">
-                <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--gold-bright); fill: rgba(212,168,67,0.08);"/></svg>
-            </div>
-
-            <p class="purchase-eyebrow">Order Confirmation</p>
-            <h2>Complete Your Purchase</h2>
-            <p class="purchase-product" id="purchaseProductName">—</p>
-            <p class="purchase-price" id="purchaseProductPrice">—</p>
-
-            <div class="m-rule"></div>
-
-            <p class="purchase-instructions">
-                To finalize your purchase, please open a support ticket on our Discord server. Our staff will process your order, verify payment, and deliver your items in-game promptly.
-            </p>
-
-            <div class="purchase-steps">
-                <div class="purchase-step">
-                    <div class="step-num">1</div>
-                    <div>Head over to the LightCitySMP Discord server.</div>
-                </div>
-                <div class="purchase-step">
-                    <div class="step-num">2</div>
-                    <div>Navigate to the <strong>support</strong> or <strong>tickets</strong> channel and open a new ticket.</div>
-                </div>
-                <div class="purchase-step">
-                    <div class="step-num">3</div>
-                    <div>Mention the item you'd like to purchase along with your in-game username.</div>
-                </div>
-                <div class="purchase-step">
-                    <div class="step-num">4</div>
-                    <div>A staff member will assist you with payment and delivery.</div>
-                </div>
-            </div>
-
-            <p class="purchase-footer-note">Thank you for supporting LightCitySMP — every purchase helps fuel the server's future.</p>
         </div>
     </div>
 
@@ -2336,17 +1392,6 @@
         }
     });
 
-    // Open purchase modal with item info
-    function openPurchaseModal(productId) {
-        const product = SHOP_CONFIG.products.find(p => p.id === productId);
-        if (!product) return;
-        document.getElementById('purchaseProductName').textContent = product.name;
-        const priceText = SHOP_CONFIG.currency + product.price.toFixed(2)
-            + (product.perUnit ? ' ' + product.perUnit : '');
-        document.getElementById('purchaseProductPrice').textContent = priceText;
-        openModal('m-purchase');
-    }
-
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
             const target = document.querySelector(a.getAttribute('href'));
@@ -2355,240 +1400,37 @@
     });
 
     // ═══════════════════════════════════════════════════════════════════
-    //   SHOP RENDER
+    //   RENDER ABILITIES FROM CONFIG (super easy to add new ones!)
     // ═══════════════════════════════════════════════════════════════════
-    let activeCategory = 'all';
-    const timers = {};
+    function renderAbilities() {
+        const grid = document.getElementById('abilitiesGrid');
+        if (!grid) return;
 
-    function renderCategories() {
-        const bar = document.getElementById('categoryBar');
-        const allBtn = `<button class="cat-btn active" data-cat="all"><span class="cat-icon">✦</span>All Items</button>`;
-        const cats = SHOP_CONFIG.categories.map(c =>
-            `<button class="cat-btn" data-cat="${c.id}"><span class="cat-icon">${c.icon}</span>${c.name}</button>`
-        ).join('');
-        bar.innerHTML = allBtn + cats;
-        bar.querySelectorAll('.cat-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                bar.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                activeCategory = btn.dataset.cat;
-                renderProducts();
-            });
-        });
-    }
-
-    function fmt(n) {
-        return SHOP_CONFIG.currency + n.toFixed(2);
-    }
-
-    function buildCard(p) {
-        const accent = p.accent || 'gold';
-        const hasDiscount = p.discount && p.discount.percent;
-        const hasNew = p.isNew === true;
-        const hasTag = p.tag && !hasDiscount && !hasNew;
-
-        let bannerHTML = '';
-        if (p.banner) {
-            bannerHTML = `<img src="${p.banner}" alt="${p.name}">`;
-        } else if (p.bannerEmoji) {
-            bannerHTML = `<div class="banner-emoji">${p.bannerEmoji}</div>`;
-        } else {
-            bannerHTML = `<div class="banner-emoji">✦</div>`;
-        }
-
-        let badgesHTML = '';
-        if (hasNew) {
-            badgesHTML += `<div class="new-badge">★ New</div>`;
-        }
-        if (hasDiscount) {
-            badgesHTML += `<div class="discount-badge"><span class="pct-num">-${p.discount.percent}%</span><span class="pct-off">OFF</span></div>`;
-        }
-        if (hasTag) {
-            badgesHTML += `<div class="product-tag">${p.tag}</div>`;
-        } else if ((hasNew || hasDiscount) && p.tag) {
-            badgesHTML += `<div class="product-tag" style="top: auto; bottom: 1rem;">${p.tag}</div>`;
-        }
-
-        let limitedHTML = '';
-        let isSoldOut = false;
-        if (p.isLimited) {
-            const stock = typeof p.stock === 'number' ? p.stock : 0;
-            isSoldOut = stock <= 0;
-            const lowStock = stock > 0 && stock <= 5;
-            const stockPct = Math.max(0, Math.min(100, (stock / Math.max(stock, 25)) * 100));
-
-            let stockBlock = `
-                <div class="stock-row">
-                    <span class="stock-label">Stock Left</span>
-                    <span class="stock-count ${lowStock ? 'stock-low' : ''}">${isSoldOut ? 'SOLD OUT' : stock + ' units'}</span>
-                </div>
-                <div class="stock-bar"><div class="stock-bar-fill" style="width: ${stockPct}%"></div></div>
-            `;
-
-            let timerBlock = '';
-            if (p.limitedUntil) {
-                timerBlock = `
-                    <div class="timer-row">
-                        <span class="timer-label">Ends In</span>
-                        <span class="timer-display" data-deadline="${p.limitedUntil}" id="timer-${p.id}">--:--:--</span>
-                    </div>
-                `;
-            }
-
-            limitedHTML = `<div class="limited-info">${stockBlock}${timerBlock}</div>`;
-        }
-
-        let priceHTML = '';
-        if (hasDiscount && p.discount.originalPrice) {
-            priceHTML = `
-                <div class="price-block">
-                    <span class="price-current">${fmt(p.price)}</span>
-                    <span class="price-original">${fmt(p.discount.originalPrice)}</span>
-                    ${p.perUnit ? `<span class="price-unit">${p.perUnit}</span>` : ''}
-                </div>
-            `;
-        } else {
-            priceHTML = `
-                <div class="price-block">
-                    <span class="price-current">${fmt(p.price)}</span>
-                    ${p.perUnit ? `<span class="price-unit">${p.perUnit}</span>` : ''}
-                </div>
-            `;
-        }
-
-        const ctaHTML = isSoldOut
-            ? `<button class="product-cta sold-out" disabled>Sold Out</button>`
-            : `<button class="product-cta" onclick="openPurchaseModal('${p.id}')">Purchase <span class="arrow">→</span></button>`;
-
-        return `
-            <div class="product-card" data-accent="${accent}" data-id="${p.id}">
-                <div class="product-banner">
-                    ${bannerHTML}
-                    ${badgesHTML}
-                </div>
-                <div class="product-body">
-                    <h3 class="product-name">${p.name}</h3>
-                    ${p.description ? `<p class="product-desc">${p.description}</p>` : ''}
-                    ${limitedHTML}
-                    ${priceHTML}
-                    ${ctaHTML}
+        grid.innerHTML = ABILITIES_CONFIG.map((ability, i) => `
+            <div class="ability-card reveal" onclick="openModal('m-abilities')" style="animation-delay: ${i * 50}ms">
+                <div class="ability-tier">${ability.tier}</div>
+                <div class="ability-name">${ability.name}</div>
+                <div class="ability-desc">${ability.desc}</div>
+                <div class="ability-meta">
+                    <span class="ability-tag duration">Duration: ${ability.duration}</span>
+                    <span class="ability-tag cooldown">CD: ${ability.cooldown}</span>
                 </div>
             </div>
-        `;
+        `).join('');
+
+        // Re-observe new elements for reveal animation
+        grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     }
 
-    function renderProducts() {
-        Object.values(timers).forEach(clearInterval);
-        for (const k in timers) delete timers[k];
-
-        const grid = document.getElementById('productsGrid');
-        const filtered = activeCategory === 'all'
-            ? SHOP_CONFIG.products
-            : SHOP_CONFIG.products.filter(p => p.category === activeCategory);
-
-        if (filtered.length === 0) {
-            grid.innerHTML = `<div class="empty-state">No items in this category yet — check back soon.</div>`;
-            return;
-        }
-
-        grid.innerHTML = filtered.map(buildCard).join('');
-
-        const cards = grid.querySelectorAll('.product-card');
-        cards.forEach((card, i) => {
-            setTimeout(() => card.classList.add('visible'), i * 80);
-        });
-
-        filtered.forEach(p => {
-            if (p.isLimited && p.limitedUntil) {
-                startCountdown(p.id, p.limitedUntil);
-            }
-        });
-    }
-
-    function startCountdown(id, deadlineStr) {
-        const el = document.getElementById(`timer-${id}`);
-        if (!el) return;
-        const deadline = new Date(deadlineStr).getTime();
-
-        const tick = () => {
-            const now = Date.now();
-            const diff = deadline - now;
-            if (diff <= 0) {
-                el.textContent = 'EXPIRED';
-                clearInterval(timers[id]);
-                return;
-            }
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const mins = Math.floor((diff / (1000 * 60)) % 60);
-            const secs = Math.floor((diff / 1000) % 60);
-            const pad = n => String(n).padStart(2, '0');
-
-            el.textContent = days > 0
-                ? `${days}d ${pad(hours)}h ${pad(mins)}m`
-                : `${pad(hours)}:${pad(mins)}:${pad(secs)}`;
-        };
-        tick();
-        timers[id] = setInterval(tick, 1000);
-    }
-
-        function playUpdateVideo() {
+    function playUpdateVideo() {
         const video = document.getElementById('updateVideo');
         const overlay = document.getElementById('videoOverlay');
         video.play();
         overlay.classList.add('hidden');
     }
 
-    // Handle Crates category - show Coming Soon
-    const originalRenderProducts = renderProducts;
-    renderProducts = function() {
-        Object.values(timers).forEach(clearInterval);
-        for (const k in timers) delete timers[k];
-
-        const grid = document.getElementById('productsGrid');
-
-        // Show Coming Soon for Crates
-        if (activeCategory === 'crates') {
-            grid.innerHTML = `
-                <div class="coming-soon-box reveal visible">
-                    <div class="coming-soon-icon">📦</div>
-                    <div class="coming-soon-title">Coming Soon</div>
-                    <div class="coming-soon-text">Mystery crates filled with rare items, abilities, and exclusive cosmetics are on their way. Stay tuned for the grand opening.</div>
-                    <div class="coming-soon-dots">
-                        <div class="coming-soon-dot"></div>
-                        <div class="coming-soon-dot"></div>
-                        <div class="coming-soon-dot"></div>
-                    </div>
-                </div>
-            `;
-            return;
-        }
-
-        const filtered = activeCategory === 'all'
-            ? SHOP_CONFIG.products
-            : SHOP_CONFIG.products.filter(p => p.category === activeCategory);
-
-        if (filtered.length === 0) {
-            grid.innerHTML = `<div class="empty-state">No items in this category yet — check back soon.</div>`;
-            return;
-        }
-
-        grid.innerHTML = filtered.map(buildCard).join('');
-
-        const cards = grid.querySelectorAll('.product-card');
-        cards.forEach((card, i) => {
-            setTimeout(() => card.classList.add('visible'), i * 80);
-        });
-
-        filtered.forEach(p => {
-            if (p.isLimited && p.limitedUntil) {
-                startCountdown(p.id, p.limitedUntil);
-            }
-        });
-    };
-
-    renderCategories();
-    renderProducts();
+    // Initialize
+    renderAbilities();
     </script>
 
 </body>
