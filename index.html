@@ -156,11 +156,81 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         .loader-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            letter-spacing: 0.3em;
-            color: var(--gold-dim);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--gold-bright);
             text-transform: uppercase;
+            margin-top: 1.5rem;
+            text-shadow: 0 0 20px rgba(212,168,67,0.4);
+            animation: loaderTextPulse 1.5s ease-in-out infinite;
+        }
+
+        .loader-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 0.6rem;
+            animation: loaderTextPulse 1.5s ease-in-out 0.3s infinite;
+        }
+
+        .loader-orb {
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 30px var(--gold), 0 0 60px var(--gold-glow), 0 0 100px rgba(212,168,67,0.2);
+            animation: orbPulse 1.2s ease-in-out infinite;
+        }
+
+        .loader-pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: ringExpand 2s ease-out infinite;
+        }
+
+        @keyframes orbPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
+        }
+
+        @keyframes ringExpand {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+        }
+
+        @keyframes loaderTextPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .loader-inner {
+            text-align: center;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-ring {
+            display: none;
         }
 
         nav {
@@ -967,8 +1037,11 @@
 
     <div class="loader" id="loader">
         <div class="loader-inner">
-            <div class="loader-ring"></div>
+            <div class="loader-orb"></div>
+            <div class="loader-pulse-ring"></div>
+            <div class="loader-pulse-ring" style="animation-delay: 0.4s;"></div>
             <div class="loader-label">LightCitySMP</div>
+            <div class="loader-sub">Initializing Season 5...</div>
         </div>
     </div>
 
@@ -1019,12 +1092,7 @@
 
     <section id="wiki">
         <div class="container">
-            <div class="section-label reveal">Plugin Documentation</div>
-            <h2 class="section-title reveal">Ascension Wiki</h2>
-            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-            <div class="wiki-grid" style="display: none;">
-                <!-- Wiki cards removed per request -->
-            </div>
+            <!-- Wiki section content removed per request -->
         </div>
     </section>
 
@@ -1078,44 +1146,18 @@
                     </video>
                 </div>
 
-                <div class="guide-info">
-                    <div class="guide-info-card" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
+                <div class="guide-info" style="cursor: pointer;" onclick="openModal('m-commands')">
+                    <div class="guide-info-card" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--gold)';this.style.boxShadow='0 0 30px rgba(212,168,67,0.15)';" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none';">
                         <div class="guide-info-icon">&#128736;&#65039;</div>
                         <div class="guide-info-title">Commands & Utilities</div>
-                        <div class="guide-info-text">All server commands, teleportation, homes, teams, and combat utilities in one place.</div>
+                        <div class="guide-info-text">All server commands, teleportation, homes, teams, and combat utilities in one place. <span style="color: var(--gold-dim);">Click to view &rarr;</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="commands-section">
-        <div class="container">
-            <div class="section-label reveal">Reference</div>
-            <h2 class="section-title reveal">Commands & Utilities</h2>
-            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
 
-            <div class="commands-grid">
-                <div class="command-card reveal" onclick="openModal('m-commands')">
-                    <div class="command-card-icon">&#9876;&#65039;</div>
-                    <div class="command-card-title">Combat & Mechanics</div>
-                    <p class="command-card-desc">/streak, /rebirth, /rebirthpoint-gift, and more combat commands.</p>
-                </div>
-
-                <div class="command-card reveal" onclick="openModal('m-commands')">
-                    <div class="command-card-icon">&#127968;</div>
-                    <div class="command-card-title">Teleportation & Homes</div>
-                    <p class="command-card-desc">/home, /tpa, /tpaccept, /rtp, /back, and all teleport commands.</p>
-                </div>
-
-                <div class="command-card reveal" onclick="openModal('m-commands')">
-                    <div class="command-card-icon">&#128737;&#65039;</div>
-                    <div class="command-card-title">Social & Teams</div>
-                    <p class="command-card-desc">/team, /msg, /reply, and all social utility commands.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section id="abilities-section">
         <div class="container">
