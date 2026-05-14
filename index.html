@@ -286,11 +286,11 @@
         .nav-icon-btn:hover svg { transform: scale(1.1); }
 
         .hero {
-            min-height: 100vh;
+            min-height: 85vh;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             text-align: center;
-            padding: 2rem 5%;
+            padding: 2rem 5% 4rem;
             position: relative;
         }
 
@@ -640,6 +640,8 @@
             background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+            padding-top: 4rem;
+            padding-bottom: 4rem;
         }
 
         .updates-container {
@@ -1052,23 +1054,20 @@
     <nav id="navbar">
         <a href="#" class="logo" target="_self">LightCitySMP</a>
         <div class="nav-icons">
+            <a href="#shop" class="nav-icon-btn" title="Shop" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </a>
             <a href="#wiki" class="nav-icon-btn" title="Wiki" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
             </a>
-            <a href="#updates" class="nav-icon-btn" title="Updates" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            <a href="#leaderboard" class="nav-icon-btn" title="Leaderboard" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
             </a>
-            <a href="#ascension-guide" class="nav-icon-btn" title="Guide" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </a>
-            <a href="#abilities-section" class="nav-icon-btn" title="Abilities" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/></svg>
-            </a>
-            <a href="#commands-section" class="nav-icon-btn" title="Item Utilities" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M22 7h-9v2h9V7zm1 7v-2h-11v2h11zm-9 5v-2H2v2h12zm-4-16l-2 2h3v2h-3l2 2h-2l-3-3 3-3h2zm8 14l-2 2h3v2h-3l2 2h-2l-3-3 3-3h2z"/></svg>
+            <a href="items.html" class="nav-icon-btn" title="Item Utilities" target="_self">
+                <svg viewBox="0 0 24 24"><path d="M7 20h4v-2H7v2zm6-4h4v-2h-4v2zm-6-4h4v-2H7v2zm6-4h4V6h-4v2zM5 22V4l2-2h10l2 2v18H5z"/></svg>
             </a>
             <a href="rules.html" class="nav-icon-btn" title="Rules" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
             </a>
         </div>
     </nav>
@@ -1085,16 +1084,11 @@
         </div>
         <p class="hero-sub">Welcome to the official website for LightCitySMP, supervised by LightCity's council, owned by Sam.</p>
         <div class="hero-cta">
-            <a href="#wiki" class="btn btn-primary" target="_self">Ascension Wiki</a>
-            <a href="#ascension-guide" class="btn btn-secondary" target="_self">Ascension Guide</a>
+            <a href="#updates" class="btn btn-primary" target="_self">Explore Season 5</a>
         </div>
     </section>
 
-    <section id="wiki">
-        <div class="container">
-            <!-- Wiki section content removed per request -->
-        </div>
-    </section>
+
 
     <section id="updates">
         <div class="container">
