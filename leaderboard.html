@@ -326,6 +326,7 @@
         .cell-name-3 { color: var(--iron); }
         .cell-stat { font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; font-weight: 500; text-align: center; }
         .stat-kills { color: #ff6b6b; }
+        .stat-skill { color: #4ecdc4; }
         .stat-playtime { color: #ffe66d; }
         .cell-stat.highlighted { color: var(--gold-bright); font-weight: 700; }
 
@@ -401,11 +402,13 @@
         .modal-stat-row:hover::before { opacity: 1; }
         .modal-stat-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
         .modal-stat-icon.kills { background: rgba(255,107,107,0.12); }
+        .modal-stat-icon.skill { background: rgba(78,205,196,0.12); }
         .modal-stat-icon.time { background: rgba(255,230,109,0.12); }
         .modal-stat-info { flex: 1; }
         .modal-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
         .modal-stat-value { font-size: 1.15rem; font-weight: 700; color: #fff; }
         .modal-stat-value.kills { color: #ff6b6b; }
+        .modal-stat-value.skill { color: #4ecdc4; }
         .modal-stat-value.time { color: #ffe66d; }
         .modal-box::-webkit-scrollbar { width: 5px; }
         .modal-box::-webkit-scrollbar-track { background: transparent; }
@@ -486,6 +489,7 @@
             <input class="search-input" id="searchInput" type="text" placeholder="Search player...">
         </div>
         <div class="sort-tabs">
+            <button class="sort-tab" data-sort="skillPoints">Skill Points</button>
             <button class="sort-tab" data-sort="kills">Kills</button>
             <button class="sort-tab" data-sort="playtime">Playtime</button>
         </div>
@@ -497,6 +501,7 @@
             <div>#</div>
             <div>Player</div>
             <div class="th-sortable" data-sort="kills">Kills <span class="sort-arrow">↕</span></div>
+            <div class="th-sortable" data-sort="skillPoints">Skill Pts <span class="sort-arrow">↕</span></div>
             <div class="th-sortable hide-mobile" data-sort="playtime">Playtime <span class="sort-arrow">↕</span></div>
         </div>
         <div class="table-body" id="tableBody"></div>
@@ -530,6 +535,13 @@
                     </div>
                 </div>
                 <div class="modal-stat-row">
+                    <div class="modal-stat-icon skill">⭐</div>
+                    <div class="modal-stat-info">
+                        <div class="modal-stat-label">Skill Points</div>
+                        <div class="modal-stat-value skill" id="mSkill">0</div>
+                    </div>
+                </div>
+                <div class="modal-stat-row">
                     <div class="modal-stat-icon time">⏱️</div>
                     <div class="modal-stat-info">
                         <div class="modal-stat-label">Playtime</div>
@@ -543,56 +555,56 @@
 
 <script>
 const PLAYERS = [
-    { username: "5poundgodfish",  kills: 17,  playtimeRaw: 5471,  playtime: "91h 11m"  },
-    { username: "AmarGranatlija", kills: 5,   playtimeRaw: 3039,  playtime: "50h 39m"  },
-    { username: "Ashura007",      kills: 40,  playtimeRaw: 3717,  playtime: "61h 57m"  },
-    { username: "Bluesteel1",     kills: 2,   playtimeRaw: 202,   playtime: "3h 22m"   },
-    { username: "ciric_02",       kills: 2,   playtimeRaw: 1561,  playtime: "26h 1m"   },
-    { username: "clc_leo",        kills: 9,   playtimeRaw: 1813,  playtime: "30h 13m"  },
-    { username: "CrypticSIGMA",   kills: 40,  playtimeRaw: 2917,  playtime: "48h 37m"  },
-    { username: "DaanTwix",       kills: 27,  playtimeRaw: 2368,  playtime: "39h 28m"  },
-    { username: "Dominykas_G",    kills: 9,   playtimeRaw: 655,   playtime: "10h 55m"  },
-    { username: "EP1C_PANDA11",   kills: 91,  playtimeRaw: 8171,  playtime: "136h 11m" },
-    { username: "ExtraRyuma",     kills: 29,  playtimeRaw: 2636,  playtime: "43h 56m"  },
-    { username: "Galactus7",      kills: 7,   playtimeRaw: 271,   playtime: "4h 31m"   },
-    { username: "GamerThermal",   kills: 3,   playtimeRaw: 5083,  playtime: "84h 43m"  },
-    { username: "Itz_Redness",    kills: 20,  playtimeRaw: 1467,  playtime: "24h 27m"  },
-    { username: "kalhuuux3",      kills: 1,   playtimeRaw: 1102,  playtime: "18h 22m"  },
-    { username: "KingSorcer",     kills: 24,  playtimeRaw: 419,   playtime: "6h 59m"   },
-    { username: "M1lm_",          kills: 99,  playtimeRaw: 5883,  playtime: "98h 3m"   },
-    { username: "M4NO_",          kills: 74,  playtimeRaw: 1888,  playtime: "31h 28m"  },
-    { username: "MakiaTrapia",    kills: 36,  playtimeRaw: 4084,  playtime: "68h 4m"   },
-    { username: "Mannntas1",      kills: 6,   playtimeRaw: 1499,  playtime: "24h 59m"  },
-    { username: "Markuss_Black",  kills: 64,  playtimeRaw: 4613,  playtime: "76h 53m"  },
-    { username: "Midnight_Ace12", kills: 22,  playtimeRaw: 2838,  playtime: "47h 18m"  },
-    { username: "MiruAKS",        kills: 4,   playtimeRaw: 1294,  playtime: "21h 34m"  },
-    { username: "Moon7x_gg",      kills: 42,  playtimeRaw: 8679,  playtime: "144h 39m" },
-    { username: "N1qghtfall",     kills: 5,   playtimeRaw: 199,   playtime: "3h 19m"   },
-    { username: "NeoFlaw",        kills: 116, playtimeRaw: 4383,  playtime: "73h 3m"   },
-    { username: "onwpiece",       kills: 53,  playtimeRaw: 5877,  playtime: "97h 55m"  },
-    { username: "pandaboy1239",   kills: 41,  playtimeRaw: 2889,  playtime: "48h 9m"   },
-    { username: "rayolikemayo",   kills: 21,  playtimeRaw: 1549,  playtime: "25h 49m"  },
-    { username: "RazerX2",        kills: 55,  playtimeRaw: 3696,  playtime: "61h 36m"  },
-    { username: "REAKED",         kills: 23,  playtimeRaw: 6903,  playtime: "115h 3m"  },
-    { username: "Reviox",         kills: 8,   playtimeRaw: 4702,  playtime: "78h 22m"  },
-    { username: "SableJade",      kills: 67,  playtimeRaw: 6118,  playtime: "101h 58m" },
-    { username: "salDAMON",       kills: 87,  playtimeRaw: 3299,  playtime: "54h 59m"  },
-    { username: "SectorSynth",    kills: 61,  playtimeRaw: 3827,  playtime: "63h 47m"  },
-    { username: "Sequitor",       kills: 33,  playtimeRaw: 2598,  playtime: "43h 18m"  },
-    { username: "SparDeliMan",    kills: 3,   playtimeRaw: 939,   playtime: "15h 39m"  },
-    { username: "StixMogs",       kills: 3,   playtimeRaw: 174,   playtime: "2h 54m"   },
-    { username: "Stockjet999",    kills: 19,  playtimeRaw: 1286,  playtime: "21h 27m"  },
-    { username: "StrawBerySoymilk", kills: 0, playtimeRaw: 949,   playtime: "15h 49m"  },
-    { username: "TheAxeroft",     kills: 1,   playtimeRaw: 2118,  playtime: "35h 18m"  },
-    { username: "topkidcig",      kills: 31,  playtimeRaw: 943,   playtime: "15h 42m"  },
-    { username: "topkidwy",       kills: 90,  playtimeRaw: 2371,  playtime: "39h 31m"  },
-    { username: "Tylerguy612",    kills: 61,  playtimeRaw: 4962,  playtime: "82h 42m"  },
-    { username: "Velocity_speed", kills: 14,  playtimeRaw: 1014,  playtime: "16h 54m"  },
-    { username: "vm81",           kills: 10,  playtimeRaw: 3663,  playtime: "61h 3m"   },
-    { username: "Winter47468",    kills: 164, playtimeRaw: 3545,  playtime: "59h 5m"   },
+    { username: "5poundgodfish",    kills: 17,  skillPoints: 55, playtimeRaw: 5471,  playtime: "91h 11m"  },
+    { username: "AmarGranatlija",   kills: 5,   skillPoints: 35, playtimeRaw: 3039,  playtime: "50h 39m"  },
+    { username: "Ashura007",        kills: 40,  skillPoints: 65, playtimeRaw: 3717,  playtime: "61h 57m"  },
+    { username: "Bluesteelfarm1",   kills: 2,   skillPoints: 10, playtimeRaw: 202,   playtime: "3h 22m"   },
+    { username: "ciric_02",         kills: 2,   skillPoints: 15, playtimeRaw: 1561,  playtime: "26h 1m"   },
+    { username: "clc_leo",          kills: 9,   skillPoints: 56, playtimeRaw: 1813,  playtime: "30h 13m"  },
+    { username: "CrypticSIGMA",     kills: 40,  skillPoints: 64, playtimeRaw: 2917,  playtime: "48h 37m"  },
+    { username: "DaanTwix",         kills: 27,  skillPoints: 53, playtimeRaw: 2368,  playtime: "39h 28m"  },
+    { username: "Dominykas_G",      kills: 9,   skillPoints: 44, playtimeRaw: 655,   playtime: "10h 55m"  },
+    { username: "EP1C_PANDA11",     kills: 91,  skillPoints: 89, playtimeRaw: 8171,  playtime: "136h 11m" },
+    { username: "ExtraRyuma",       kills: 29,  skillPoints: 71, playtimeRaw: 2636,  playtime: "43h 56m"  },
+    { username: "Galactus7",        kills: 7,   skillPoints: 54, playtimeRaw: 271,   playtime: "4h 31m"   },
+    { username: "GamerThermal",     kills: 3,   skillPoints: 50, playtimeRaw: 5083,  playtime: "84h 43m"  },
+    { username: "Itz_Redness",      kills: 20,  skillPoints: 57, playtimeRaw: 1467,  playtime: "24h 27m"  },
+    { username: "kalhuuux3",        kills: 1,   skillPoints: 30, playtimeRaw: 1102,  playtime: "18h 22m"  },
+    { username: "KingSorcer",       kills: 24,  skillPoints: 52, playtimeRaw: 419,   playtime: "6h 59m"   },
+    { username: "M1lm_",            kills: 99,  skillPoints: 102, playtimeRaw: 5883,  playtime: "98h 3m"   },
+    { username: "M4NO_",            kills: 74,  skillPoints: 96, playtimeRaw: 1888,  playtime: "31h 28m"  },
+    { username: "MakiaTrapia",      kills: 36,  skillPoints: 88, playtimeRaw: 4084,  playtime: "68h 4m"   },
+    { username: "Mannntas1",        kills: 6,   skillPoints: 26, playtimeRaw: 1499,  playtime: "24h 59m"  },
+    { username: "Markuss_Black",    kills: 64,  skillPoints: 104, playtimeRaw: 4613,  playtime: "76h 53m"  },
+    { username: "Midnight_Ace12",   kills: 22,  skillPoints: 67, playtimeRaw: 2838,  playtime: "47h 18m"  },
+    { username: "MiruAKS",          kills: 4,   skillPoints: 39, playtimeRaw: 1294,  playtime: "21h 34m"  },
+    { username: "Moon7x_gg",        kills: 0,  skillPoints: 0, playtimeRaw: 8679,  playtime: "144h 39m" },
+    { username: "N1qghtfall",       kills: 5,   skillPoints: 50, playtimeRaw: 199,   playtime: "3h 19m"   },
+    { username: "NeoFlaw",          kills: 116, skillPoints: 158, playtimeRaw: 4383,  playtime: "73h 3m"   },
+    { username: "onwpiece",         kills: 53,  skillPoints: 84, playtimeRaw: 5877,  playtime: "97h 55m"  },
+    { username: "pandaboy1239",     kills: 41,  skillPoints: 81, playtimeRaw: 2889,  playtime: "48h 9m"   },
+    { username: "rayolikemayo",     kills: 21,  skillPoints: 49, playtimeRaw: 1549,  playtime: "25h 49m"  },
+    { username: "RazerX2",          kills: 55,  skillPoints: 78, playtimeRaw: 3696,  playtime: "61h 36m"  },
+    { username: "REAKED",           kills: 23,  skillPoints: 64, playtimeRaw: 6903,  playtime: "115h 3m"  },
+    { username: "Reviox",           kills: 8,   skillPoints: 58, playtimeRaw: 4702,  playtime: "78h 22m"  },
+    { username: "SableJade",        kills: 67,  skillPoints: 110, playtimeRaw: 6118,  playtime: "101h 58m" },
+    { username: "salDAMON",         kills: 87,  skillPoints: 108, playtimeRaw: 3299,  playtime: "54h 59m"  },
+    { username: "SectorSynth",      kills: 61,  skillPoints: 111, playtimeRaw: 3827,  playtime: "63h 47m"  },
+    { username: "Sequitor",         kills: 33,  skillPoints: 98, playtimeRaw: 2598,  playtime: "43h 18m"  },
+    { username: "SparDeliMan",      kills: 3,   skillPoints: 50, playtimeRaw: 939,   playtime: "15h 39m"  },
+    { username: "StixMogs",         kills: 3,   skillPoints: 19, playtimeRaw: 174,   playtime: "2h 54m"   },
+    { username: "Stockjet999",      kills: 19,  skillPoints: 39, playtimeRaw: 1286,  playtime: "21h 27m"  },
+    { username: "StrawBerySoymilk", kills: 0,   skillPoints: 15, playtimeRaw: 949,   playtime: "15h 49m"  },
+    { username: "TheAxeroft",       kills: 1,   skillPoints: 25, playtimeRaw: 2118,  playtime: "35h 18m"  },
+    { username: "topkidcig",        kills: 31,  skillPoints: 98, playtimeRaw: 943,   playtime: "15h 42m"  },
+    { username: "topkidwy",         kills: 90,  skillPoints: 240, playtimeRaw: 2371,  playtime: "39h 31m"  },
+    { username: "Tylerguy612",      kills: 61,  skillPoints: 105, playtimeRaw: 4962,  playtime: "82h 42m"  },
+    { username: "Velocity_speed",   kills: 14,  skillPoints: 73, playtimeRaw: 1014,  playtime: "16h 54m"  },
+    { username: "vm81",             kills: 10,  skillPoints: 51, playtimeRaw: 3663,  playtime: "61h 3m"   },
+    { username: "Winter47468",      kills: 164, skillPoints: 225, playtimeRaw: 3545,  playtime: "59h 5m"   },
 ];
 
-let currentSort = 'kills';
+let currentSort = 'skillPoints';
 let currentSearch = '';
 let uuidCache = new Map();
 let sortedPlayers = [];
@@ -622,6 +634,7 @@ function getSorted(sort) {
 
 function getStatLabel(sort, player) {
     if (sort === 'kills') return player.kills.toLocaleString();
+    if (sort === 'skillPoints') return player.skillPoints.toLocaleString();
     if (sort === 'playtime') return player.playtime;
     return '';
 }
@@ -632,7 +645,7 @@ async function renderPodium(sorted) {
     const top = [sorted[1], sorted[0], sorted[2]];
     const visualRanks = [2, 1, 3];
     const uuids = await Promise.all(top.map(p => fetchUUID(p.username)));
-    const sortLabel = { kills: 'Kills', playtime: 'Time' }[currentSort];
+    const sortLabel = { skillPoints: 'SP', kills: 'Kills', playtime: 'Time' }[currentSort];
     wrap.innerHTML = top.map((player, vi) => {
         const rank = visualRanks[vi];
         const uuid = uuids[vi];
@@ -683,6 +696,7 @@ async function renderTable() {
         const headClass = rank <= 3 ? `cell-head-${rank}` : '';
         const nameClass = rank <= 3 ? `cell-name-${rank}` : '';
         const killsHighlight = currentSort === 'kills' ? ' highlighted' : '';
+        const skillHighlight = currentSort === 'skillPoints' ? ' highlighted' : '';
         const timeHighlight = currentSort === 'playtime' ? ' highlighted' : '';
         return `
         <div class="table-row ${rowClass} row-animate" style="animation-delay:${fi * 35}ms"
@@ -694,6 +708,7 @@ async function renderTable() {
                 <span class="cell-name ${nameClass}">${player.username}</span>
             </div>
             <div class="cell-stat stat-kills${killsHighlight}">${player.kills.toLocaleString()}</div>
+            <div class="cell-stat stat-skill${skillHighlight}">${player.skillPoints.toLocaleString()}</div>
             <div class="cell-stat stat-playtime${timeHighlight} hide-mobile">${player.playtime}</div>
         </div>`;
     }).join('');
@@ -711,6 +726,7 @@ async function openModal(playerIndex, rank) {
     document.getElementById('modalUUID').textContent = uuid || 'UUID not found';
     document.getElementById('modalSkin').src = bodyUrl(uuid);
     document.getElementById('mKills').textContent = player.kills.toLocaleString();
+    document.getElementById('mSkill').textContent = player.skillPoints.toLocaleString();
     document.getElementById('mTime').textContent = player.playtime;
     document.getElementById('playerModal').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -747,7 +763,7 @@ document.getElementById('searchInput').addEventListener('input', e => { currentS
 window.addEventListener('load', () => { setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000); });
 window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
 
-document.querySelector('.sort-tab[data-sort="kills"]').classList.add('active');
+document.querySelector('.sort-tab[data-sort="skillPoints"]').classList.add('active');
 renderTable();
 </script>
 </body>
