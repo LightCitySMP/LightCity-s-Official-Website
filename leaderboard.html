@@ -24,8 +24,6 @@
             --text: #E8E2D5;
             --text-dim: rgba(232, 226, 213, 0.55);
             --text-muted: rgba(232, 226, 213, 0.3);
-
-            /* Rank colors */
             --diamond: #00e5ff;
             --diamond-glow: rgba(0, 229, 255, 0.25);
             --gold-rank: #FFD700;
@@ -45,7 +43,6 @@
             min-height: 100vh;
         }
 
-        /* ── BG ── */
         .bg-layer {
             position: fixed; inset: 0; z-index: -3;
             background:
@@ -75,7 +72,6 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* ── LOADER ── */
         .loader {
             position: fixed; inset: 0; z-index: 9999;
             background: var(--ink);
@@ -112,7 +108,6 @@
         @keyframes ringExpand { 0% { transform: translate(-50%,-50%) scale(0.5); opacity: 0.6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
         @keyframes loaderTextPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        /* ── NAV ── */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 1.2rem 5%;
@@ -139,10 +134,8 @@
         .nav-icon-btn svg { width: 20px; height: 20px; fill: var(--gold); transition: transform 0.25s ease; }
         .nav-icon-btn:hover svg { transform: scale(1.1); }
 
-        /* ── PAGE WRAPPER ── */
         .page { padding: 120px 5% 80px; max-width: 1300px; margin: 0 auto; }
 
-        /* ── HEADER ── */
         .page-header { text-align: center; margin-bottom: 4rem; }
         .page-eyebrow {
             font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
@@ -177,45 +170,28 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── PODIUM ── */
+        /* PODIUM */
         .podium-section {
             margin-bottom: 4rem;
             opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
         }
-
         .podium-wrapper {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 1.5rem;
-            padding: 0 1rem 2rem;
+            display: flex; align-items: flex-end; justify-content: center;
+            gap: 1.5rem; padding: 0 1rem 2rem;
         }
-
         .podium-card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative; display: flex; flex-direction: column; align-items: center;
+            cursor: pointer; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .podium-card:hover { transform: translateY(-8px) scale(1.02); }
-
-        /* Platform bases */
         .podium-base {
-            width: 100%;
-            border-radius: 12px 12px 0 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 0;
-            position: relative;
+            width: 100%; border-radius: 12px 12px 0 0;
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem 0; position: relative;
         }
-
         .podium-1 { flex: 0 0 260px; }
         .podium-2 { flex: 0 0 220px; }
         .podium-3 { flex: 0 0 200px; }
-
         .podium-base-1 {
             height: 90px;
             background: linear-gradient(180deg, rgba(0,229,255,0.15) 0%, rgba(0,229,255,0.05) 100%);
@@ -234,85 +210,40 @@
             border: 1px solid rgba(176,176,176,0.3);
             box-shadow: 0 0 30px rgba(176,176,176,0.1), inset 0 1px 0 rgba(176,176,176,0.2);
         }
-
-        .podium-rank-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem; font-weight: 700;
-        }
+        .podium-rank-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; }
         .podium-rank-num-1 { color: var(--diamond); text-shadow: 0 0 20px rgba(0,229,255,0.8), 0 0 40px rgba(0,229,255,0.4); }
         .podium-rank-num-2 { color: var(--gold-rank); text-shadow: 0 0 20px rgba(255,215,0,0.8), 0 0 40px rgba(255,215,0,0.4); }
         .podium-rank-num-3 { color: var(--iron); text-shadow: 0 0 15px rgba(176,176,176,0.7); }
-
-        .podium-player {
-            display: flex; flex-direction: column; align-items: center;
-            margin-bottom: 0.8rem; gap: 0.6rem;
-        }
-
-        .podium-head-wrap {
-            position: relative;
-        }
-        .podium-head {
-            image-rendering: pixelated; border-radius: 10px;
-            background: #1a1a1a; display: block;
-        }
-        .podium-head-1 {
-            width: 72px; height: 72px;
-            border: 3px solid var(--diamond);
-            box-shadow: 0 0 20px rgba(0,229,255,0.5), 0 0 40px rgba(0,229,255,0.2);
-        }
-        .podium-head-2 {
-            width: 60px; height: 60px;
-            border: 2px solid var(--gold-rank);
-            box-shadow: 0 0 16px rgba(255,215,0,0.5);
-        }
-        .podium-head-3 {
-            width: 52px; height: 52px;
-            border: 2px solid var(--iron);
-            box-shadow: 0 0 12px rgba(176,176,176,0.4);
-        }
-
+        .podium-player { display: flex; flex-direction: column; align-items: center; margin-bottom: 0.8rem; gap: 0.6rem; }
+        .podium-head-wrap { position: relative; }
+        .podium-head { image-rendering: pixelated; border-radius: 10px; background: #1a1a1a; display: block; }
+        .podium-head-1 { width: 72px; height: 72px; border: 3px solid var(--diamond); box-shadow: 0 0 20px rgba(0,229,255,0.5), 0 0 40px rgba(0,229,255,0.2); }
+        .podium-head-2 { width: 60px; height: 60px; border: 2px solid var(--gold-rank); box-shadow: 0 0 16px rgba(255,215,0,0.5); }
+        .podium-head-3 { width: 52px; height: 52px; border: 2px solid var(--iron); box-shadow: 0 0 12px rgba(176,176,176,0.4); }
         .podium-crown {
-            position: absolute; top: -22px; left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.3rem;
-            filter: drop-shadow(0 0 8px rgba(0,229,255,0.8));
+            position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+            font-size: 1.3rem; filter: drop-shadow(0 0 8px rgba(0,229,255,0.8));
             animation: crownFloat 3s ease-in-out infinite;
         }
-        @keyframes crownFloat {
-            0%,100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-4px); }
-        }
-
-        .podium-username {
-            font-family: 'Syne', sans-serif; font-weight: 700; text-align: center;
-        }
+        @keyframes crownFloat { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-4px); } }
+        .podium-username { font-family: 'Syne', sans-serif; font-weight: 700; text-align: center; }
         .podium-username-1 { font-size: 1.05rem; color: var(--diamond); text-shadow: 0 0 15px rgba(0,229,255,0.6); }
         .podium-username-2 { font-size: 0.95rem; color: var(--gold-rank); text-shadow: 0 0 12px rgba(255,215,0,0.5); }
         .podium-username-3 { font-size: 0.9rem; color: var(--iron); }
-
-        .podium-score {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
-            letter-spacing: 0.05em; color: var(--text-muted); text-align: center;
-        }
+        .podium-score { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--text-muted); text-align: center; }
         .podium-score strong { font-size: 1rem; font-weight: 500; }
         .podium-score-1 strong { color: var(--diamond); }
         .podium-score-2 strong { color: var(--gold-rank); }
         .podium-score-3 strong { color: var(--iron); }
 
-        /* ── CONTROLS ── */
+        /* CONTROLS */
         .controls {
             display: flex; align-items: center; gap: 1rem;
             margin-bottom: 1.5rem; flex-wrap: wrap;
             opacity: 0; animation: fadeUp 0.7s ease 0.7s forwards;
         }
-
-        .search-wrap {
-            flex: 1; min-width: 200px; position: relative;
-        }
-        .search-icon {
-            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-            color: var(--gold-dim); font-size: 0.9rem; pointer-events: none;
-        }
+        .search-wrap { flex: 1; min-width: 200px; position: relative; }
+        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--gold-dim); font-size: 0.9rem; pointer-events: none; }
         .search-input {
             width: 100%; padding: 0.7rem 1rem 0.7rem 2.6rem;
             background: var(--surface); border: 1px solid var(--border);
@@ -322,7 +253,6 @@
         }
         .search-input::placeholder { color: var(--text-muted); }
         .search-input:focus { border-color: var(--border-strong); background: var(--surface-hover); box-shadow: 0 0 0 3px rgba(212,168,67,0.08); }
-
         .sort-tabs { display: flex; gap: 0.4rem; flex-shrink: 0; }
         .sort-tab {
             padding: 0.6rem 1.2rem;
@@ -330,24 +260,13 @@
             border-radius: 8px; color: var(--text-muted);
             font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
             letter-spacing: 0.08em; text-transform: uppercase;
-            cursor: pointer; transition: all 0.25s ease;
-            white-space: nowrap;
+            cursor: pointer; transition: all 0.25s ease; white-space: nowrap;
         }
         .sort-tab:hover { border-color: var(--border-strong); color: var(--gold); background: var(--gold-trace); }
-        .sort-tab.active {
-            background: rgba(212,168,67,0.12);
-            border-color: var(--gold);
-            color: var(--gold-bright);
-            box-shadow: 0 0 12px rgba(212,168,67,0.15);
-        }
+        .sort-tab.active { background: rgba(212,168,67,0.12); border-color: var(--gold); color: var(--gold-bright); box-shadow: 0 0 12px rgba(212,168,67,0.15); }
+        .results-count { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; margin-left: auto; flex-shrink: 0; }
 
-        .results-count {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-            color: var(--text-muted); letter-spacing: 0.05em;
-            margin-left: auto; flex-shrink: 0;
-        }
-
-        /* ── TABLE ── */
+        /* TABLE */
         .table-wrap {
             background: rgba(255,215,0,0.02);
             border: 1px solid var(--border);
@@ -355,152 +274,85 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(212,168,67,0.04);
             opacity: 0; animation: fadeUp 0.7s ease 0.8s forwards;
         }
-
-        .table-header {
+        .table-header, .table-row {
             display: grid;
-            grid-template-columns: 70px 1fr 110px 130px 130px 100px;
-            padding: 16px 28px;
+            grid-template-columns: 60px 1fr 100px 100px 120px;
+            padding: 14px 24px;
+            align-items: center; gap: 8px;
+        }
+        .table-header {
             background: rgba(212,168,67,0.06);
             border-bottom: 1px solid var(--border);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem; letter-spacing: 0.12em;
-            text-transform: uppercase; color: var(--gold-dim);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim);
         }
-
-        .table-header .th-sortable {
-            cursor: pointer; transition: color 0.2s ease;
-            display: flex; align-items: center; gap: 0.3rem;
-        }
-        .table-header .th-sortable:hover { color: var(--gold); }
-        .table-header .th-sortable.active { color: var(--gold-bright); }
-        .sort-arrow { font-size: 0.6rem; }
-
-        .table-body { position: relative; }
-
+        .th-sortable { cursor: pointer; transition: color 0.2s; user-select: none; display: flex; align-items: center; gap: 4px; }
+        .th-sortable:hover { color: var(--gold); }
+        .th-sortable.active { color: var(--gold-bright); }
+        .sort-arrow { font-size: 0.7rem; opacity: 0.6; }
         .table-row {
-            display: grid;
-            grid-template-columns: 70px 1fr 110px 130px 130px 100px;
-            padding: 14px 28px;
-            border-bottom: 1px solid rgba(212,168,67,0.04);
-            align-items: center;
-            cursor: pointer;
-            transition: background 0.25s ease, transform 0.25s ease, border-left 0.25s ease;
-            position: relative; overflow: hidden;
+            border-bottom: 1px solid rgba(212,168,67,0.05);
+            cursor: pointer; transition: background 0.2s ease, transform 0.15s ease;
         }
-        .table-row::before {
-            content: ''; position: absolute; left: 0; top: 0;
-            width: 3px; height: 100%;
-            background: var(--gold); opacity: 0; transition: opacity 0.25s ease;
-        }
-        .table-row:hover { background: rgba(212,168,67,0.05); }
-        .table-row:hover::before { opacity: 1; }
         .table-row:last-child { border-bottom: none; }
-
-        .row-rank-1 {
-            background: linear-gradient(90deg, rgba(0,229,255,0.07) 0%, transparent 50%);
-            border-left: 3px solid var(--diamond);
-        }
-        .row-rank-2 {
-            background: linear-gradient(90deg, rgba(255,215,0,0.07) 0%, transparent 50%);
-            border-left: 3px solid var(--gold-rank);
-        }
-        .row-rank-3 {
-            background: linear-gradient(90deg, rgba(176,176,176,0.06) 0%, transparent 50%);
-            border-left: 3px solid var(--iron);
-        }
-        .row-rank-1::before, .row-rank-2::before, .row-rank-3::before { display: none; }
-
+        .table-row:hover { background: var(--surface-hover); transform: translateX(3px); }
+        .row-rank-1 { background: rgba(0,229,255,0.04); }
+        .row-rank-2 { background: rgba(255,215,0,0.04); }
+        .row-rank-3 { background: rgba(176,176,176,0.03); }
         .cell-rank {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem; font-weight: 700; text-align: center;
+            font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700;
+            text-align: center;
         }
-        .rank-1 { color: var(--diamond); text-shadow: 0 0 12px rgba(0,229,255,0.7); animation: rankPulse1 2.5s ease-in-out infinite; }
-        .rank-2 { color: var(--gold-rank); text-shadow: 0 0 12px rgba(255,215,0,0.7); animation: rankPulse2 2.5s ease-in-out infinite; }
+        .rank-1 { color: var(--diamond); animation: rankPulse1 2.5s ease-in-out infinite; }
+        .rank-2 { color: var(--gold-rank); animation: rankPulse2 2.5s ease-in-out infinite; }
         .rank-3 { color: var(--iron); text-shadow: 0 0 10px rgba(176,176,176,0.6); }
         .rank-other { color: #555; font-size: 1rem; font-family: 'Syne', sans-serif; font-weight: 600; }
-
-        @keyframes rankPulse1 {
-            0%,100% { text-shadow: 0 0 12px rgba(0,229,255,0.7), 0 0 24px rgba(0,229,255,0.3); }
-            50% { text-shadow: 0 0 20px rgba(0,229,255,1), 0 0 40px rgba(0,229,255,0.5); }
-        }
-        @keyframes rankPulse2 {
-            0%,100% { text-shadow: 0 0 12px rgba(255,215,0,0.7), 0 0 24px rgba(255,215,0,0.3); }
-            50% { text-shadow: 0 0 20px rgba(255,215,0,1), 0 0 40px rgba(255,215,0,0.5); }
-        }
-
-        .cell-player {
-            display: flex; align-items: center; gap: 12px;
-        }
+        @keyframes rankPulse1 { 0%,100% { text-shadow: 0 0 12px rgba(0,229,255,0.7), 0 0 24px rgba(0,229,255,0.3); } 50% { text-shadow: 0 0 20px rgba(0,229,255,1), 0 0 40px rgba(0,229,255,0.5); } }
+        @keyframes rankPulse2 { 0%,100% { text-shadow: 0 0 12px rgba(255,215,0,0.7), 0 0 24px rgba(255,215,0,0.3); } 50% { text-shadow: 0 0 20px rgba(255,215,0,1), 0 0 40px rgba(255,215,0,0.5); } }
+        .cell-player { display: flex; align-items: center; gap: 12px; }
         .cell-head {
             width: 42px; height: 42px; border-radius: 7px;
             image-rendering: pixelated; background: #1a1a1a;
             border: 1px solid rgba(212,168,67,0.2);
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
+            transition: transform 0.3s ease; flex-shrink: 0;
         }
         .table-row:hover .cell-head { transform: scale(1.12); }
         .cell-head-1 { border-color: rgba(0,229,255,0.5); box-shadow: 0 0 10px rgba(0,229,255,0.3); }
         .cell-head-2 { border-color: rgba(255,215,0,0.5); box-shadow: 0 0 10px rgba(255,215,0,0.3); }
         .cell-head-3 { border-color: rgba(176,176,176,0.4); box-shadow: 0 0 8px rgba(176,176,176,0.2); }
-
-        .cell-name {
-            font-weight: 600; font-size: 1rem; color: #fff;
-        }
+        .cell-name { font-weight: 600; font-size: 1rem; color: #fff; }
         .cell-name-1 { color: var(--diamond); }
         .cell-name-2 { color: var(--gold-rank); }
         .cell-name-3 { color: var(--iron); }
-
-        .cell-stat {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.92rem; font-weight: 500;
-            text-align: center;
-        }
+        .cell-stat { font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; font-weight: 500; text-align: center; }
         .stat-kills { color: #ff6b6b; }
-        .stat-skill { color: #4ecdc4; }
         .stat-playtime { color: #ffe66d; }
-        .stat-rebirths { color: #a8e6cf; }
+        .cell-stat.highlighted { color: var(--gold-bright); font-weight: 700; }
 
-        .cell-stat.highlighted {
-            color: var(--gold-bright);
-            font-weight: 700;
-        }
-
-        /* ── NO RESULTS ── */
-        .no-results {
-            display: none; text-align: center;
-            padding: 5rem 2rem;
-        }
+        .no-results { display: none; text-align: center; padding: 5rem 2rem; }
         .no-results.visible { display: block; }
         .no-results-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
-        .no-results-text {
-            font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
-            color: var(--text-muted);
-        }
+        .no-results-text { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--text-muted); }
 
-        /* ── MODAL ── */
+        /* MODAL */
         .modal-overlay {
             position: fixed; inset: 0; z-index: 10000;
             background: rgba(0,0,0,0.75); backdrop-filter: blur(10px);
-            display: flex; align-items: center; justify-content: center;
-            padding: 1rem;
+            display: flex; align-items: center; justify-content: center; padding: 1rem;
             opacity: 0; visibility: hidden;
             transition: opacity 0.35s ease, visibility 0.35s ease;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-
         .modal-box {
             background: linear-gradient(145deg, var(--ink-2) 0%, var(--ink-3) 100%);
-            border: 1px solid var(--border-strong);
-            border-radius: 20px; padding: 0;
-            max-width: 580px; width: 100%;
-            max-height: 88vh; overflow-y: auto;
+            border: 1px solid var(--border-strong); border-radius: 20px; padding: 0;
+            max-width: 540px; width: 100%; max-height: 88vh; overflow-y: auto;
             position: relative;
             transform: scale(0.85) translateY(30px); opacity: 0;
             transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
             box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(212,168,67,0.08);
         }
         .modal-overlay.active .modal-box { transform: scale(1) translateY(0); opacity: 1; }
-
         .modal-close-btn {
             position: absolute; top: 16px; right: 16px;
             width: 36px; height: 36px; border-radius: 50%;
@@ -510,12 +362,7 @@
             transition: all 0.25s ease; z-index: 5;
         }
         .modal-close-btn:hover { background: rgba(255,0,0,0.15); border-color: rgba(255,0,0,0.3); color: #ff6b6b; transform: rotate(90deg); }
-
-        .modal-top {
-            padding: 36px 36px 24px;
-            text-align: center; border-bottom: 1px solid var(--border);
-            position: relative;
-        }
+        .modal-top { padding: 36px 36px 24px; text-align: center; border-bottom: 1px solid var(--border); position: relative; }
         .modal-badge {
             display: inline-block; padding: 4px 16px; border-radius: 20px;
             font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
@@ -527,37 +374,17 @@
         .modal-badge-3 { background: rgba(176,176,176,0.1); border: 1px solid rgba(176,176,176,0.35); color: var(--iron); }
         .modal-badge-other { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #888; }
         @keyframes badgePulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
-
-        .modal-name {
-            font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700;
-            color: #fff; margin-bottom: 4px;
-        }
-        .modal-uuid {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
-            color: #444; letter-spacing: 0.05em; word-break: break-all;
-        }
-
-        .modal-body {
-            padding: 24px 36px 36px;
-            display: flex; gap: 24px; align-items: flex-start;
-        }
-        .modal-skin-col {
-            flex-shrink: 0; display: flex; flex-direction: column;
-            align-items: center; gap: 10px;
-        }
+        .modal-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .modal-uuid { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #444; letter-spacing: 0.05em; word-break: break-all; }
+        .modal-body { padding: 24px 36px 36px; display: flex; gap: 24px; align-items: flex-start; }
+        .modal-skin-col { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .modal-skin {
-            width: 130px; height: 260px;
-            image-rendering: pixelated; border-radius: 10px;
-            border: 1px solid var(--border);
-            box-shadow: 0 0 30px rgba(212,168,67,0.08);
+            width: 130px; height: 260px; image-rendering: pixelated; border-radius: 10px;
+            border: 1px solid var(--border); box-shadow: 0 0 30px rgba(212,168,67,0.08);
             background: var(--ink-3); transition: transform 0.3s ease;
         }
         .modal-skin:hover { transform: scale(1.03); }
-        .modal-skin-label {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
-            color: #555; text-transform: uppercase; letter-spacing: 0.15em;
-        }
-
+        .modal-skin-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: #555; text-transform: uppercase; letter-spacing: 0.15em; }
         .modal-stats-col { flex: 1; display: flex; flex-direction: column; gap: 10px; }
         .modal-stat-row {
             background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.055);
@@ -566,72 +393,38 @@
             transition: all 0.25s ease; position: relative; overflow: hidden;
         }
         .modal-stat-row::before {
-            content: ''; position: absolute; left: 0; top: 0;
-            width: 3px; height: 100%;
+            content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%;
             background: linear-gradient(180deg, var(--gold), var(--gold-dim));
             opacity: 0; transition: opacity 0.25s ease;
         }
         .modal-stat-row:hover { background: rgba(255,255,255,0.04); transform: translateX(4px); }
         .modal-stat-row:hover::before { opacity: 1; }
-        .modal-stat-icon {
-            width: 38px; height: 38px; border-radius: 9px;
-            display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
-        }
+        .modal-stat-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
         .modal-stat-icon.kills { background: rgba(255,107,107,0.12); }
-        .modal-stat-icon.skill { background: rgba(78,205,196,0.12); }
         .modal-stat-icon.time { background: rgba(255,230,109,0.12); }
-        .modal-stat-icon.rebirth { background: rgba(168,230,207,0.12); }
-        .modal-stat-icon.ability { background: rgba(212,168,67,0.12); }
         .modal-stat-info { flex: 1; }
-        .modal-stat-label {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
-            color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px;
-        }
-        .modal-stat-value {
-            font-size: 1.15rem; font-weight: 700; color: #fff;
-        }
+        .modal-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
+        .modal-stat-value { font-size: 1.15rem; font-weight: 700; color: #fff; }
         .modal-stat-value.kills { color: #ff6b6b; }
-        .modal-stat-value.skill { color: #4ecdc4; }
         .modal-stat-value.time { color: #ffe66d; }
-        .modal-stat-value.rebirth { color: #a8e6cf; }
-        .modal-stat-value.ability { color: var(--gold-bright); }
-        .modal-ability-desc {
-            font-size: 0.78rem; color: #666; margin-top: 2px; line-height: 1.4;
-        }
-
         .modal-box::-webkit-scrollbar { width: 5px; }
         .modal-box::-webkit-scrollbar-track { background: transparent; }
         .modal-box::-webkit-scrollbar-thumb { background: rgba(212,168,67,0.2); border-radius: 3px; }
 
-        /* ── ANIMATIONS (stagger) ── */
-        .row-animate {
-            opacity: 0; transform: translateX(-16px);
-            animation: rowSlide 0.4s ease forwards;
-        }
-        @keyframes rowSlide {
-            to { opacity: 1; transform: translateX(0); }
-        }
+        .row-animate { opacity: 0; transform: translateX(-16px); animation: rowSlide 0.4s ease forwards; }
+        @keyframes rowSlide { to { opacity: 1; transform: translateX(0); } }
 
-        /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
-            .table-header, .table-row {
-                grid-template-columns: 50px 1fr 80px 90px 90px 70px;
-                padding: 12px 16px; font-size: 0.82rem;
-            }
-            .podium-1 { flex: 0 0 200px; }
-            .podium-2 { flex: 0 0 170px; }
-            .podium-3 { flex: 0 0 155px; }
+            .table-header, .table-row { grid-template-columns: 50px 1fr 80px 90px 90px; padding: 12px 16px; font-size: 0.82rem; }
+            .podium-1 { flex: 0 0 200px; } .podium-2 { flex: 0 0 170px; } .podium-3 { flex: 0 0 155px; }
         }
         @media (max-width: 680px) {
             .table-header .hide-mobile, .table-row .hide-mobile { display: none; }
             .table-header, .table-row { grid-template-columns: 44px 1fr 80px 90px; padding: 10px 14px; }
             .podium-wrapper { gap: 0.8rem; }
-            .podium-1 { flex: 0 0 150px; }
-            .podium-2 { flex: 0 0 125px; }
-            .podium-3 { flex: 0 0 112px; }
+            .podium-1 { flex: 0 0 150px; } .podium-2 { flex: 0 0 125px; } .podium-3 { flex: 0 0 112px; }
             .modal-body { flex-direction: column; align-items: center; padding: 20px 24px 28px; }
         }
-
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--ink); }
         ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--gold-dim), var(--gold)); border-radius: 3px; }
@@ -640,14 +433,13 @@
 </head>
 <body>
 
-<!-- LOADER -->
 <div class="loader" id="loader">
     <div class="loader-inner">
         <div class="loader-orb"></div>
         <div class="loader-pulse-ring"></div>
         <div class="loader-pulse-ring" style="animation-delay:0.4s"></div>
         <div class="loader-label">Leaderboard</div>
-        <div class="loader-sub">Loading Season 5...</div>
+        <div class="loader-sub">Season 5 Final Stats</div>
     </div>
 </div>
 
@@ -655,7 +447,6 @@
 <div class="bg-lines"></div>
 <div class="bg-particles" id="particles"></div>
 
-<!-- NAV -->
 <nav id="navbar">
     <a href="index.html" class="logo" target="_self">LightCitySMP</a>
     <div class="nav-icons">
@@ -677,10 +468,7 @@
     </div>
 </nav>
 
-<!-- MAIN -->
 <div class="page">
-
-    <!-- Header -->
     <div class="page-header">
         <p class="page-eyebrow">Season 5 &middot; Hall of Fame</p>
         <h1 class="page-title">Leaderboard</h1>
@@ -688,34 +476,28 @@
         <p class="page-sub">The finest warriors of LightCitySMP, ranked.</p>
     </div>
 
-    <!-- Podium -->
     <div class="podium-section" id="podiumSection">
         <div class="podium-wrapper" id="podiumWrapper"></div>
     </div>
 
-    <!-- Controls -->
     <div class="controls">
         <div class="search-wrap">
             <span class="search-icon">⌕</span>
             <input class="search-input" id="searchInput" type="text" placeholder="Search player...">
         </div>
         <div class="sort-tabs">
-            <button class="sort-tab" data-sort="skillPoints">Skill Points</button>
             <button class="sort-tab" data-sort="kills">Kills</button>
             <button class="sort-tab" data-sort="playtime">Playtime</button>
         </div>
         <span class="results-count" id="resultsCount"></span>
     </div>
 
-    <!-- Table -->
     <div class="table-wrap">
         <div class="table-header">
             <div>#</div>
             <div>Player</div>
             <div class="th-sortable" data-sort="kills">Kills <span class="sort-arrow">↕</span></div>
-            <div class="th-sortable" data-sort="skillPoints">Skill Pts <span class="sort-arrow">↕</span></div>
             <div class="th-sortable hide-mobile" data-sort="playtime">Playtime <span class="sort-arrow">↕</span></div>
-            <div class="hide-mobile">Rebirths</div>
         </div>
         <div class="table-body" id="tableBody"></div>
         <div class="no-results" id="noResults">
@@ -723,7 +505,6 @@
             <div class="no-results-text">No players found</div>
         </div>
     </div>
-
 </div>
 
 <!-- MODAL -->
@@ -737,22 +518,15 @@
         </div>
         <div class="modal-body">
             <div class="modal-skin-col">
-                <img class="modal-skin" id="modalSkin" src="" alt="Skin">
-                <div class="modal-skin-label">Full Skin</div>
+                <img class="modal-skin" id="modalSkin" src="" alt="Player Skin">
+                <div class="modal-skin-label">Player Skin</div>
             </div>
             <div class="modal-stats-col">
                 <div class="modal-stat-row">
                     <div class="modal-stat-icon kills">⚔️</div>
                     <div class="modal-stat-info">
-                        <div class="modal-stat-label">Total Kills</div>
+                        <div class="modal-stat-label">Player Kills</div>
                         <div class="modal-stat-value kills" id="mKills">0</div>
-                    </div>
-                </div>
-                <div class="modal-stat-row">
-                    <div class="modal-stat-icon skill">⭐</div>
-                    <div class="modal-stat-info">
-                        <div class="modal-stat-label">Skill Points</div>
-                        <div class="modal-stat-value skill" id="mSkill">0</div>
                     </div>
                 </div>
                 <div class="modal-stat-row">
@@ -762,76 +536,74 @@
                         <div class="modal-stat-value time" id="mTime">0h 0m</div>
                     </div>
                 </div>
-                <div class="modal-stat-row">
-                    <div class="modal-stat-icon rebirth">🔄</div>
-                    <div class="modal-stat-info">
-                        <div class="modal-stat-label">Rebirths</div>
-                        <div class="modal-stat-value rebirth" id="mRebirths">0</div>
-                    </div>
-                </div>
-                <div class="modal-stat-row">
-                    <div class="modal-stat-icon ability">⚡</div>
-                    <div class="modal-stat-info">
-                        <div class="modal-stat-label">Current Ability</div>
-                        <div class="modal-stat-value ability" id="mAbility">None</div>
-                        <div class="modal-ability-desc" id="mAbilityDesc"></div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════
-//   PLAYER DATA — edit this array to update stats
-// ═══════════════════════════════════════════════════
 const PLAYERS = [
-    { username: "M1lm_",          kills: 77,  skillPoints: 185, playtimeRaw: 4086, playtime: "68h 6m",  rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "Winter47468",    kills: 118, skillPoints: 220, playtimeRaw: 1925, playtime: "32h 5m",  rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "NeoFlaw",        kills: 63,  skillPoints: 149, playtimeRaw: 2260, playtime: "37h 40m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "EP1C_PANDA11",   kills: 48,  skillPoints: 77,  playtimeRaw: 3703, playtime: "61h 43m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "salDAMON",       kills: 29,  skillPoints: 50,  playtimeRaw: 1724, playtime: "28h 44m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "SableJade",      kills: 28,  skillPoints: 50,  playtimeRaw: 2853, playtime: "47h 33m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "SectorSynth",    kills: 25,  skillPoints: 65,  playtimeRaw: 2064, playtime: "34h 24m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "Ashura007",      kills: 20,  skillPoints: 45,  playtimeRaw: 977,  playtime: "16h 17m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "Markuss_Black",  kills: 18,  skillPoints: 50,  playtimeRaw: 2548, playtime: "42h 28m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "Tylerguy612",    kills: 18,  skillPoints: 55,  playtimeRaw: 1644, playtime: "27h 24m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "clc_leo",        kills: 15,  skillPoints: 60,  playtimeRaw: 897,  playtime: "14h 57m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "Velocity_speed", kills: 14,  skillPoints: 56,  playtimeRaw: 874,  playtime: "14h 34m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "Dooofffyyy",     kills: 13,  skillPoints: 70,  playtimeRaw: 223,  playtime: "3h 43m",  rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "KingSorcer",     kills: 12,  skillPoints: 45,  playtimeRaw: 257,  playtime: "4h 17m",  rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "DaaxTwix",       kills: 9,   skillPoints: 50,  playtimeRaw: 561,  playtime: "9h 21m",  rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "REAKED",         kills: 5,   skillPoints: 55,  playtimeRaw: 3166, playtime: "52h 46m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "Itz_Redness",    kills: 4,   skillPoints: 30,  playtimeRaw: 345,  playtime: "5h 45m",  rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "ltharn",         kills: 4,   skillPoints: 25,  playtimeRaw: 280,  playtime: "4h 40m",  rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "RAZINHAMIM",     kills: 2,   skillPoints: 25,  playtimeRaw: 588,  playtime: "9h 48m",  rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "gamerthermal",   kills: 2,   skillPoints: 35,  playtimeRaw: 3263, playtime: "54h 23m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: ".samcrafts",     kills: 1,   skillPoints: 25,  playtimeRaw: 754,  playtime: "12h 34m", rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
-    { username: "Razer2X",        kills: 0,   skillPoints: 5,   playtimeRaw: 206,  playtime: "3h 26m",  rebirths: 0, ability: "Contact the owner for your ability.", abilityDesc: "" },
+    { username: "5poundgodfish",  kills: 17,  playtimeRaw: 5471,  playtime: "91h 11m"  },
+    { username: "AmarGranatlija", kills: 5,   playtimeRaw: 3039,  playtime: "50h 39m"  },
+    { username: "Ashura007",      kills: 40,  playtimeRaw: 3717,  playtime: "61h 57m"  },
+    { username: "Bluesteel1",     kills: 2,   playtimeRaw: 202,   playtime: "3h 22m"   },
+    { username: "ciric_02",       kills: 2,   playtimeRaw: 1561,  playtime: "26h 1m"   },
+    { username: "clc_leo",        kills: 9,   playtimeRaw: 1813,  playtime: "30h 13m"  },
+    { username: "CrypticSIGMA",   kills: 40,  playtimeRaw: 2917,  playtime: "48h 37m"  },
+    { username: "DaanTwix",       kills: 27,  playtimeRaw: 2368,  playtime: "39h 28m"  },
+    { username: "Dominykas_G",    kills: 9,   playtimeRaw: 655,   playtime: "10h 55m"  },
+    { username: "EP1C_PANDA11",   kills: 91,  playtimeRaw: 8171,  playtime: "136h 11m" },
+    { username: "ExtraRyuma",     kills: 29,  playtimeRaw: 2636,  playtime: "43h 56m"  },
+    { username: "Galactus7",      kills: 7,   playtimeRaw: 271,   playtime: "4h 31m"   },
+    { username: "GamerThermal",   kills: 3,   playtimeRaw: 5083,  playtime: "84h 43m"  },
+    { username: "Itz_Redness",    kills: 20,  playtimeRaw: 1467,  playtime: "24h 27m"  },
+    { username: "kalhuuux3",      kills: 1,   playtimeRaw: 1102,  playtime: "18h 22m"  },
+    { username: "KingSorcer",     kills: 24,  playtimeRaw: 419,   playtime: "6h 59m"   },
+    { username: "M1lm_",          kills: 99,  playtimeRaw: 5883,  playtime: "98h 3m"   },
+    { username: "M4NO_",          kills: 74,  playtimeRaw: 1888,  playtime: "31h 28m"  },
+    { username: "MakiaTrapia",    kills: 36,  playtimeRaw: 4084,  playtime: "68h 4m"   },
+    { username: "Mannntas1",      kills: 6,   playtimeRaw: 1499,  playtime: "24h 59m"  },
+    { username: "Markuss_Black",  kills: 64,  playtimeRaw: 4613,  playtime: "76h 53m"  },
+    { username: "Midnight_Ace12", kills: 22,  playtimeRaw: 2838,  playtime: "47h 18m"  },
+    { username: "MiruAKS",        kills: 4,   playtimeRaw: 1294,  playtime: "21h 34m"  },
+    { username: "Moon7x_gg",      kills: 42,  playtimeRaw: 8679,  playtime: "144h 39m" },
+    { username: "N1qghtfall",     kills: 5,   playtimeRaw: 199,   playtime: "3h 19m"   },
+    { username: "NeoFlaw",        kills: 116, playtimeRaw: 4383,  playtime: "73h 3m"   },
+    { username: "onwpiece",       kills: 53,  playtimeRaw: 5877,  playtime: "97h 55m"  },
+    { username: "pandaboy1239",   kills: 41,  playtimeRaw: 2889,  playtime: "48h 9m"   },
+    { username: "rayolikemayo",   kills: 21,  playtimeRaw: 1549,  playtime: "25h 49m"  },
+    { username: "RazerX2",        kills: 55,  playtimeRaw: 3696,  playtime: "61h 36m"  },
+    { username: "REAKED",         kills: 23,  playtimeRaw: 6903,  playtime: "115h 3m"  },
+    { username: "Reviox",         kills: 8,   playtimeRaw: 4702,  playtime: "78h 22m"  },
+    { username: "SableJade",      kills: 67,  playtimeRaw: 6118,  playtime: "101h 58m" },
+    { username: "salDAMON",       kills: 87,  playtimeRaw: 3299,  playtime: "54h 59m"  },
+    { username: "SectorSynth",    kills: 61,  playtimeRaw: 3827,  playtime: "63h 47m"  },
+    { username: "Sequitor",       kills: 33,  playtimeRaw: 2598,  playtime: "43h 18m"  },
+    { username: "SparDeliMan",    kills: 3,   playtimeRaw: 939,   playtime: "15h 39m"  },
+    { username: "StixMogs",       kills: 3,   playtimeRaw: 174,   playtime: "2h 54m"   },
+    { username: "Stockjet999",    kills: 19,  playtimeRaw: 1286,  playtime: "21h 27m"  },
+    { username: "StrawBerySoymilk", kills: 0, playtimeRaw: 949,   playtime: "15h 49m"  },
+    { username: "TheAxeroft",     kills: 1,   playtimeRaw: 2118,  playtime: "35h 18m"  },
+    { username: "topkidcig",      kills: 31,  playtimeRaw: 943,   playtime: "15h 42m"  },
+    { username: "topkidwy",       kills: 90,  playtimeRaw: 2371,  playtime: "39h 31m"  },
+    { username: "Tylerguy612",    kills: 61,  playtimeRaw: 4962,  playtime: "82h 42m"  },
+    { username: "Velocity_speed", kills: 14,  playtimeRaw: 1014,  playtime: "16h 54m"  },
+    { username: "vm81",           kills: 10,  playtimeRaw: 3663,  playtime: "61h 3m"   },
+    { username: "Winter47468",    kills: 164, playtimeRaw: 3545,  playtime: "59h 5m"   },
 ];
 
-// ═══════════════════════════════════════════════════
-//   STATE
-// ═══════════════════════════════════════════════════
-let currentSort = 'skillPoints';
+let currentSort = 'kills';
 let currentSearch = '';
 let uuidCache = new Map();
 let sortedPlayers = [];
 
-// ═══════════════════════════════════════════════════
-//   UUID / SKIN HELPERS
-// ═══════════════════════════════════════════════════
 async function fetchUUID(username) {
     if (uuidCache.has(username)) return uuidCache.get(username);
     try {
         const r = await fetch(`https://playerdb.co/api/player/minecraft/${username}`);
         if (r.ok) {
             const d = await r.json();
-            if (d.success && d.data?.player?.raw_id) {
-                uuidCache.set(username, d.data.player.raw_id);
-                return d.data.player.raw_id;
-            }
+            if (d.success && d.data?.player?.raw_id) { uuidCache.set(username, d.data.player.raw_id); return d.data.player.raw_id; }
         }
     } catch {}
     try {
@@ -844,36 +616,23 @@ async function fetchUUID(username) {
 function headUrl(uuid) { return uuid ? `https://crafthead.net/avatar/${uuid}/64` : `https://crafthead.net/avatar/Steve/64`; }
 function bodyUrl(uuid) { return uuid ? `https://crafthead.net/body/${uuid}` : `https://crafthead.net/body/Steve`; }
 
-// ═══════════════════════════════════════════════════
-//   SORT + FILTER
-// ═══════════════════════════════════════════════════
 function getSorted(sort) {
-    return [...PLAYERS].sort((a, b) => {
-        if (sort === 'playtime') return b.playtimeRaw - a.playtimeRaw;
-        return b[sort] - a[sort];
-    });
+    return [...PLAYERS].sort((a, b) => sort === 'playtime' ? b.playtimeRaw - a.playtimeRaw : b[sort] - a[sort]);
 }
 
 function getStatLabel(sort, player) {
     if (sort === 'kills') return player.kills.toLocaleString();
-    if (sort === 'skillPoints') return player.skillPoints.toLocaleString();
     if (sort === 'playtime') return player.playtime;
     return '';
 }
 
-// ═══════════════════════════════════════════════════
-//   PODIUM (always sorted by current sort)
-// ═══════════════════════════════════════════════════
 async function renderPodium(sorted) {
     const wrap = document.getElementById('podiumWrapper');
     if (sorted.length < 3) { wrap.innerHTML = ''; return; }
-
-    const top = [sorted[1], sorted[0], sorted[2]]; // 2nd, 1st, 3rd visual order
+    const top = [sorted[1], sorted[0], sorted[2]];
     const visualRanks = [2, 1, 3];
     const uuids = await Promise.all(top.map(p => fetchUUID(p.username)));
-
-    const sortLabel = { skillPoints: 'SP', kills: 'Kills', playtime: 'Time' }[currentSort];
-
+    const sortLabel = { kills: 'Kills', playtime: 'Time' }[currentSort];
     wrap.innerHTML = top.map((player, vi) => {
         const rank = visualRanks[vi];
         const uuid = uuids[vi];
@@ -882,14 +641,12 @@ async function renderPodium(sorted) {
         <div class="podium-card podium-${rank}" onclick="openModal(${PLAYERS.indexOf(player)}, ${PLAYERS.findIndex(p=>p.username===sorted[rank-1].username)+1})">
             <div class="podium-player">
                 ${rank === 1 ? '<div class="podium-crown">👑</div>' : ''}
-                <div class="podium-head-wrap" style="margin-top: ${rank===1?'26px':'12px'}">
+                <div class="podium-head-wrap" style="margin-top:${rank===1?'26px':'12px'}">
                     <img class="podium-head podium-head-${rank}" src="${headUrl(uuid)}"
                          onerror="this.src='https://crafthead.net/avatar/Steve/64'" alt="${player.username}">
                 </div>
                 <div class="podium-username podium-username-${rank}">${player.username}</div>
-                <div class="podium-score podium-score-${rank}">
-                    <strong>${score}</strong> ${sortLabel}
-                </div>
+                <div class="podium-score podium-score-${rank}"><strong>${score}</strong> ${sortLabel}</div>
             </div>
             <div class="podium-base podium-base-${rank}">
                 <span class="podium-rank-num podium-rank-num-${rank}">#${rank}</span>
@@ -898,28 +655,16 @@ async function renderPodium(sorted) {
     }).join('');
 }
 
-// ═══════════════════════════════════════════════════
-//   TABLE
-// ═══════════════════════════════════════════════════
 async function renderTable() {
     sortedPlayers = getSorted(currentSort);
     const query = currentSearch.toLowerCase().trim();
     const filtered = query ? sortedPlayers.filter(p => p.username.toLowerCase().includes(query)) : sortedPlayers;
-
     const body = document.getElementById('tableBody');
     const noResults = document.getElementById('noResults');
     const resultsCount = document.getElementById('resultsCount');
-
     resultsCount.textContent = query ? `${filtered.length} / ${PLAYERS.length} players` : `${PLAYERS.length} players`;
-
-    if (filtered.length === 0) {
-        body.innerHTML = '';
-        noResults.classList.add('visible');
-        return;
-    }
+    if (filtered.length === 0) { body.innerHTML = ''; noResults.classList.add('visible'); return; }
     noResults.classList.remove('visible');
-
-    // Update sort tab highlights & header arrows
     document.querySelectorAll('.sort-tab').forEach(t => t.classList.toggle('active', t.dataset.sort === currentSort));
     document.querySelectorAll('.th-sortable').forEach(th => {
         const isActive = th.dataset.sort === currentSort;
@@ -927,16 +672,9 @@ async function renderTable() {
         const arrow = th.querySelector('.sort-arrow');
         if (arrow) arrow.textContent = isActive ? '↓' : '↕';
     });
-
-    // Prefetch UUIDs for visible rows
     const uuidMap = new Map();
-    await Promise.all(filtered.map(async p => {
-        const uuid = await fetchUUID(p.username);
-        uuidMap.set(p.username, uuid);
-    }));
-
+    await Promise.all(filtered.map(async p => { const uuid = await fetchUUID(p.username); uuidMap.set(p.username, uuid); }));
     const globalRanks = new Map(sortedPlayers.map((p, i) => [p.username, i + 1]));
-
     body.innerHTML = filtered.map((player, fi) => {
         const rank = globalRanks.get(player.username);
         const uuid = uuidMap.get(player.username);
@@ -944,60 +682,36 @@ async function renderTable() {
         const rankClass = rank <= 3 ? `rank-${rank}` : 'rank-other';
         const headClass = rank <= 3 ? `cell-head-${rank}` : '';
         const nameClass = rank <= 3 ? `cell-name-${rank}` : '';
-
         const killsHighlight = currentSort === 'kills' ? ' highlighted' : '';
-        const skillHighlight = currentSort === 'skillPoints' ? ' highlighted' : '';
         const timeHighlight = currentSort === 'playtime' ? ' highlighted' : '';
-
         return `
-        <div class="table-row ${rowClass} row-animate"
-             style="animation-delay:${fi * 35}ms"
+        <div class="table-row ${rowClass} row-animate" style="animation-delay:${fi * 35}ms"
              onclick="openModal(${PLAYERS.indexOf(player)}, ${rank})">
             <div class="cell-rank ${rankClass}">${rank <= 3 ? '#' + rank : rank}</div>
             <div class="cell-player">
-                <img class="cell-head ${headClass}"
-                     src="${headUrl(uuid)}"
-                     onerror="this.src='https://crafthead.net/avatar/Steve/64'"
-                     alt="${player.username}">
+                <img class="cell-head ${headClass}" src="${headUrl(uuid)}"
+                     onerror="this.src='https://crafthead.net/avatar/Steve/64'" alt="${player.username}">
                 <span class="cell-name ${nameClass}">${player.username}</span>
             </div>
             <div class="cell-stat stat-kills${killsHighlight}">${player.kills.toLocaleString()}</div>
-            <div class="cell-stat stat-skill${skillHighlight}">${player.skillPoints.toLocaleString()}</div>
             <div class="cell-stat stat-playtime${timeHighlight} hide-mobile">${player.playtime}</div>
-            <div class="cell-stat stat-rebirths hide-mobile">${player.rebirths}</div>
         </div>`;
     }).join('');
-
-    // Render podium only when no search active
-    if (!query) {
-        renderPodium(sortedPlayers);
-        document.getElementById('podiumSection').style.display = '';
-    } else {
-        document.getElementById('podiumSection').style.display = 'none';
-    }
+    if (!query) { renderPodium(sortedPlayers); document.getElementById('podiumSection').style.display = ''; }
+    else { document.getElementById('podiumSection').style.display = 'none'; }
 }
 
-// ═══════════════════════════════════════════════════
-//   MODAL
-// ═══════════════════════════════════════════════════
 async function openModal(playerIndex, rank) {
     const player = PLAYERS[playerIndex];
     const uuid = await fetchUUID(player.username);
-
     const badge = document.getElementById('modalBadge');
     badge.textContent = `RANK #${rank}`;
     badge.className = `modal-badge modal-badge-${rank <= 3 ? rank : 'other'}`;
-
     document.getElementById('modalName').textContent = player.username;
     document.getElementById('modalUUID').textContent = uuid || 'UUID not found';
     document.getElementById('modalSkin').src = bodyUrl(uuid);
     document.getElementById('mKills').textContent = player.kills.toLocaleString();
-    document.getElementById('mSkill').textContent = player.skillPoints.toLocaleString();
     document.getElementById('mTime').textContent = player.playtime;
-    document.getElementById('mRebirths').textContent = player.rebirths;
-    document.getElementById('mAbility').textContent = player.ability || 'None';
-    document.getElementById('mAbilityDesc').textContent = player.abilityDesc || '';
-
     document.getElementById('playerModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -1011,24 +725,11 @@ document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
 document.getElementById('playerModal').addEventListener('click', e => { if (e.target.id === 'playerModal') closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// ═══════════════════════════════════════════════════
-//   CONTROLS
-// ═══════════════════════════════════════════════════
 document.querySelectorAll('.sort-tab, .th-sortable').forEach(el => {
-    el.addEventListener('click', () => {
-        currentSort = el.dataset.sort;
-        renderTable();
-    });
+    el.addEventListener('click', () => { currentSort = el.dataset.sort; renderTable(); });
 });
+document.getElementById('searchInput').addEventListener('input', e => { currentSearch = e.target.value; renderTable(); });
 
-document.getElementById('searchInput').addEventListener('input', e => {
-    currentSearch = e.target.value;
-    renderTable();
-});
-
-// ═══════════════════════════════════════════════════
-//   PARTICLES
-// ═══════════════════════════════════════════════════
 (function() {
     const wrap = document.getElementById('particles');
     for (let i = 0; i < 18; i++) {
@@ -1043,20 +744,10 @@ document.getElementById('searchInput').addEventListener('input', e => {
     }
 })();
 
-// ═══════════════════════════════════════════════════
-//   LOADER + NAV
-// ═══════════════════════════════════════════════════
-window.addEventListener('load', () => {
-    setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000);
-});
-window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-});
+window.addEventListener('load', () => { setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000); });
+window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
 
-// ═══════════════════════════════════════════════════
-//   INIT — set default sort tab active then render
-// ═══════════════════════════════════════════════════
-document.querySelector('.sort-tab[data-sort="skillPoints"]').classList.add('active');
+document.querySelector('.sort-tab[data-sort="kills"]').classList.add('active');
 renderTable();
 </script>
 </body>
