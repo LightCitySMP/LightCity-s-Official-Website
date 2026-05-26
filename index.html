@@ -3,94 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightCitySMP | Season 6 Wiki</title>
+    <title>LightCitySMP | Season 6</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-
-    <!-- ═══════════════════════════════════════════════════════════════════
-         ★ ABILITIES CONFIG ★ — Edit abilities here. Super easy to add.
-         ───────────────────────────────────────────────────────────────────
-         Just copy an object block and paste it. Fields:
-           tier       — "Ascension I" through "Ascension VI"
-           name       — ability name
-           desc       — description
-           duration   — how long it lasts (e.g. "8s", "5s", "Instant")
-           cooldown   — cooldown time (e.g. "40s", "15s")
-         ═══════════════════════════════════════════════════════════════════ -->
     <script>
     const ABILITIES_CONFIG = [
-        // ═══ ASCENSION I ════════════════════════════════════════════════
         { tier: "Ascension I", name: "Iron Skin",     desc: "Grants Resistance I and reduces incoming damage for 8 seconds. Your first step toward invulnerability.", duration: "8s", cooldown: "40s" },
         { tier: "Ascension I", name: "Dash",          desc: "Launches you forward with a cloud particle trail. Perfect for closing gaps or escaping danger.", duration: "Instant", cooldown: "15s" },
         { tier: "Ascension I", name: "Smokescreen",   desc: "Blinds the target and surrounds them in smoke for 3 seconds. Disorient and destroy.", duration: "3s", cooldown: "45s" },
-
-        // ═══ ASCENSION II ═══════════════════════════════════════════════
         { tier: "Ascension II", name: "Blood Rush",   desc: "On hit or being hit — gain Speed II for 5 seconds. The more you fight, the faster you become.", duration: "5s", cooldown: "45s" },
         { tier: "Ascension II", name: "Fortify",      desc: "On being hit — reduces 25% incoming damage for 8 seconds. Turn their strength against them.", duration: "8s", cooldown: "50s" },
         { tier: "Ascension II", name: "Splinter",     desc: "Next attacks deal +8% bonus damage for 8 seconds. Every strike cuts deeper.", duration: "8s", cooldown: "50s" },
-
-        // ═══ ASCENSION III ══════════════════════════════════════════════
         { tier: "Ascension III", name: "Exposed",     desc: "Target takes +10% bonus damage for 4 seconds. Reveal their weakness and exploit it.", duration: "4s", cooldown: "60s" },
         { tier: "Ascension III", name: "Phantom Step",desc: "Invisibility and portal particles for 4 seconds. Vanish from sight, strike from shadow.", duration: "4s", cooldown: "65s" },
         { tier: "Ascension III", name: "Shockwave",   desc: "Knocks back all enemies in 5 blocks and deals 2 hearts. Control the battlefield.", duration: "Instant", cooldown: "55s" },
-
-        // ═══ ASCENSION IV ═══════════════════════════════════════════════
         { tier: "Ascension IV", name: "Overclock",    desc: "Speed III and Haste II for 30 seconds. Push your body beyond its limits.", duration: "30s", cooldown: "120s" },
         { tier: "Ascension IV", name: "Soul Drain",   desc: "Strips all active potion effects from target. Strip them bare of their enhancements.", duration: "Instant", cooldown: "75s" },
         { tier: "Ascension IV", name: "Warden's Grasp",desc: "Roots target for 3 seconds, then applies Slowness X for 5 seconds. None escape the deep.", duration: "3s + 5s", cooldown: "500s" },
-
-        // ═══ ASCENSION V ════════════════════════════════════════════════
         { tier: "Ascension V", name: "Wraith Form",   desc: "Invisibility, cleanses debuffs, cancels all incoming damage for 5 seconds. Become untouchable.", duration: "5s", cooldown: "150s" },
         { tier: "Ascension V", name: "Execution",     desc: "Hit an enemy below 25% HP within 10 seconds for 2x damage. The finisher's art.", duration: "10s window", cooldown: "85s" },
         { tier: "Ascension V", name: "Marked",        desc: "Target takes +15% damage from all sources for 5 seconds. Marked for death.", duration: "5s", cooldown: "95s" },
-
-        // ═══ ASCENSION VI ═══════════════════════════════════════════════
         { tier: "Ascension VI", name: "Soul Lock",    desc: "Silences target — strips effects and freezes player. Total domination.", duration: "2s", cooldown: "750s" },
         { tier: "Ascension VI", name: "Warlord's Aura",desc: "Strength III and Speed III for 8 seconds. The aura of a true conqueror.", duration: "8s", cooldown: "300s" },
-        { tier: "Ascension VI", name: "Reaper's Call",desc: "Encases target in black rings —  blinded and nauseous. Death incarnate.", duration: "4s", cooldown: "800s" },
-         // ═══ ASCENSION VII ═══════════════════════════════════════════════
+        { tier: "Ascension VI", name: "Reaper's Call",desc: "Encases target in black rings — blinded and nauseous. Death incarnate.", duration: "4s", cooldown: "800s" },
         { tier: "Ascension VII", name: "Clone",    desc: "Spawns a half-HP, half-damage Citizens NPC copy of you that fights alongside you", duration: "30s", cooldown: "250s" },
         { tier: "Ascension VII", name: "Ultimate Dash",desc: "Dashes ~40% farther than normal Dash + Speed II afterwards. 2 charges — first use is free, cooldown only triggers after the 2nd use", duration: "2s", cooldown: "120s" },
-        // ═══ ASCENSION VIII ═══════════════════════════════════════════════
         { tier: "Ascension VIII", name: "Aegis",    desc: "Blue divine shield that reflects 50% of incoming damage back to attackers", duration: "8s", cooldown: "500s" },
         { tier: "Ascension VIII", name: "Divine Judgement",desc: "Smites a target with a beam of light (single-target burst damage)", duration: "insta", cooldown: "550s" },
         { tier: "Ascension VIII", name: "Divine Edict",desc: "AOE freeze — locks every enemy in a 10-block radius in place, takes away 2 hearts from frozen enemies. (ignores teammates)", duration: "5s", cooldown: "1000s" },
     ];
     </script>
-
     <style>
         :root {
-            --gold: #D4A843;
-            --gold-bright: #F0C060;
-            --gold-dim: #8A6B28;
-            --gold-trace: rgba(212, 168, 67, 0.12);
-            --gold-glow: rgba(212, 168, 67, 0.22);
-            --crimson: #C13838;
-            --crimson-bright: #E85555;
-            --crimson-dim: #7A1F1F;
-            --crimson-trace: rgba(193, 56, 56, 0.12);
-            --crimson-glow: rgba(193, 56, 56, 0.25);
+            --sun: #FF6B35;
+            --sun-bright: #FF9A5C;
+            --sun-dim: #A03E1A;
+            --sun-trace: rgba(255,107,53,0.10);
+            --sun-glow: rgba(255,107,53,0.22);
+            --coral: #FF4F6D;
+            --coral-bright: #FF7A8A;
+            --coral-trace: rgba(255,79,109,0.15);
+            --aqua: #00D4FF;
+            --aqua-bright: #4DE8FF;
+            --aqua-dim: #006B80;
+            --aqua-trace: rgba(0,212,255,0.10);
+            --aqua-glow: rgba(0,212,255,0.22);
             --violet: #9D5BD2;
             --violet-bright: #B87AF0;
-            --violet-dim: #5E2D85;
-            --violet-trace: rgba(157, 91, 210, 0.12);
-            --violet-glow: rgba(157, 91, 210, 0.25);
-            --cyan: #4FC3D9;
-            --cyan-bright: #6FE0F5;
-            --cyan-dim: #2A6E80;
-            --cyan-trace: rgba(79, 195, 217, 0.12);
-            --cyan-glow: rgba(79, 195, 217, 0.25);
-            --ink: #080808;
-            --ink-2: #0F0F0D;
-            --ink-3: #141412;
+            --violet-trace: rgba(157,91,210,0.12);
+            --ink: #060E1A;
+            --ink-2: #0A1628;
+            --ink-3: #0F1F35;
             --surface: rgba(255,255,255,0.025);
             --surface-hover: rgba(255,255,255,0.045);
-            --border: rgba(212, 168, 67, 0.14);
-            --border-strong: rgba(212, 168, 67, 0.35);
-            --text: #E8E2D5;
-            --text-dim: rgba(232, 226, 213, 0.55);
-            --text-muted: rgba(232, 226, 213, 0.3);
+            --border: rgba(255,107,53,0.14);
+            --border-strong: rgba(255,107,53,0.35);
+            --text: #F0EDE8;
+            --text-dim: rgba(240,237,232,0.55);
+            --text-muted: rgba(240,237,232,0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,950 +78,303 @@
         .bg-layer {
             position: fixed; inset: 0; z-index: -3;
             background:
-                radial-gradient(ellipse 80% 60% at 20% 15%, rgba(212,168,67,0.10) 0%, transparent 55%),
-                radial-gradient(ellipse 60% 50% at 80% 85%, rgba(157,91,210,0.06) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(193,56,56,0.04) 0%, transparent 60%),
+                radial-gradient(ellipse 80% 60% at 20% 15%, rgba(255,107,53,0.12) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 50% at 80% 85%, rgba(0,212,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,79,109,0.05) 0%, transparent 60%),
                 var(--ink);
         }
 
         .bg-lines {
             position: fixed; inset: 0; z-index: -2;
             background-image:
-                linear-gradient(rgba(212,168,67,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212,168,67,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(255,107,53,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,107,53,0.04) 1px, transparent 1px);
             background-size: 60px 60px;
             mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
         }
 
-        .bg-particles {
-            position: fixed; inset: 0; z-index: -1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
+        .bg-particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
         .particle {
-            position: absolute;
-            width: 2px; height: 2px;
-            background: var(--gold);
-            border-radius: 50%;
-            box-shadow: 0 0 6px var(--gold), 0 0 12px var(--gold-glow);
-            opacity: 0;
+            position: absolute; border-radius: 50%; opacity: 0;
             animation: floatUp linear infinite;
         }
-
         @keyframes floatUp {
             0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
         .loader {
-            position: fixed; inset: 0; z-index: 9999;
-            background: var(--ink);
+            position: fixed; inset: 0; z-index: 9999; background: var(--ink);
             display: flex; justify-content: center; align-items: center;
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
         .loader.hidden { opacity: 0; visibility: hidden; }
-        .loader-inner { text-align: center; }
-        .loader-ring {
-            width: 64px; height: 64px;
-            border: 2px solid rgba(212,168,67,0.1);
-            border-top-color: var(--gold);
-            border-radius: 50%;
-            animation: spin 0.9s linear infinite;
-            margin: 0 auto 1.2rem;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .loader-label {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            color: var(--gold-bright);
-            text-transform: uppercase;
-            margin-top: 1.5rem;
-            text-shadow: 0 0 20px rgba(212,168,67,0.4);
-            animation: loaderTextPulse 1.5s ease-in-out infinite;
-        }
-
-        .loader-sub {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-top: 0.6rem;
-            animation: loaderTextPulse 1.5s ease-in-out 0.3s infinite;
-        }
-
+        .loader-inner { text-align: center; position: relative; width: 200px; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .loader-orb {
-            width: 20px;
-            height: 20px;
-            background: var(--gold);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 30px var(--gold), 0 0 60px var(--gold-glow), 0 0 100px rgba(212,168,67,0.2);
+            width: 22px; height: 22px; background: var(--sun); border-radius: 50%;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+            box-shadow: 0 0 30px var(--sun), 0 0 60px var(--sun-glow), 0 0 80px rgba(255,79,109,0.2);
             animation: orbPulse 1.2s ease-in-out infinite;
         }
-
         .loader-pulse-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 60px;
-            height: 60px;
-            border: 1px solid var(--gold);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
+            position: absolute; top: 50%; left: 50%; width: 60px; height: 60px;
+            border: 1px solid var(--sun); border-radius: 50%;
+            transform: translate(-50%,-50%); opacity: 0;
             animation: ringExpand 2s ease-out infinite;
         }
-
-        @keyframes orbPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
+        .loader-label {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700;
+            letter-spacing: 0.15em; color: var(--sun-bright); text-transform: uppercase;
+            margin-top: 1.5rem; animation: loaderTextPulse 1.5s ease-in-out infinite;
+            position: relative; z-index: 2; text-shadow: 0 0 20px rgba(255,107,53,0.5);
         }
-
-        @keyframes ringExpand {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.6; }
-            100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+        .loader-sub {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase;
+            margin-top: 0.6rem; animation: loaderTextPulse 1.5s ease-in-out 0.3s infinite;
+            position: relative; z-index: 2;
         }
-
-        @keyframes loaderTextPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .loader-inner {
-            text-align: center;
-            position: relative;
-            width: 200px;
-            height: 200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loader-ring {
-            display: none;
-        }
+        @keyframes orbPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.3); opacity: 0.7; } }
+        @keyframes ringExpand { 0% { transform: translate(-50%,-50%) scale(0.5); opacity: 0.6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
+        @keyframes loaderTextPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 1.2rem 5%;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(8,8,8,0.88);
-            backdrop-filter: blur(24px);
+            background: rgba(6,14,26,0.88); backdrop-filter: blur(24px);
             border-bottom: 1px solid var(--border);
             transition: padding 0.3s ease, box-shadow 0.3s ease;
         }
-        nav.scrolled {
-            padding: 0.9rem 5%;
-            box-shadow: 0 4px 40px rgba(0,0,0,0.7);
-        }
+        nav.scrolled { padding: 0.9rem 5%; box-shadow: 0 4px 40px rgba(0,0,0,0.7); }
         .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold);
-            text-decoration: none;
-            letter-spacing: 0.03em;
-            display: flex; align-items: center; gap: 0.4rem;
-            text-shadow: 0 0 10px rgba(212, 168, 67, 0.5);
+            font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700;
+            color: var(--sun-bright); text-decoration: none; letter-spacing: 0.03em;
+            text-shadow: 0 0 12px rgba(255,107,53,0.6);
         }
         .nav-icons { display: flex; gap: 0.6rem; align-items: center; }
         .nav-icon-btn {
-            width: 44px; height: 44px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
+            width: 44px; height: 44px; background: var(--surface);
+            border: 1px solid var(--border); border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
+            cursor: pointer; transition: all 0.3s ease; text-decoration: none;
         }
-        .nav-icon-btn:hover {
-            background: var(--gold-trace);
-            border-color: var(--border-strong);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212,168,67,0.15);
-        }
-        .nav-icon-btn.active {
-            background: var(--gold-trace);
-            border-color: var(--gold);
-            box-shadow: 0 0 16px rgba(212,168,67,0.2);
-        }
-        .nav-icon-btn svg {
-            width: 20px; height: 20px;
-            fill: var(--gold);
-            transition: transform 0.25s ease;
-        }
+        .nav-icon-btn:hover { background: var(--sun-trace); border-color: var(--border-strong); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,53,0.15); }
+        .nav-icon-btn.active { background: var(--sun-trace); border-color: var(--sun); box-shadow: 0 0 16px rgba(255,107,53,0.2); }
+        .nav-icon-btn svg { width: 20px; height: 20px; fill: var(--sun); transition: transform 0.25s ease; }
         .nav-icon-btn:hover svg { transform: scale(1.1); }
 
         .hero {
-            min-height: 85vh;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            text-align: center;
-            padding: 2rem 5% 4rem;
-            position: relative;
+            min-height: 85vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 2rem 5% 4rem; position: relative;
         }
-
         .hero-eyebrow {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.3em;
-            color: var(--gold-dim);
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            animation: fadeUp 0.8s ease 0.2s forwards;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+            letter-spacing: 0.3em; color: var(--sun-dim); text-transform: uppercase;
+            margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
         }
-
         .hero-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3.5rem, 10vw, 7rem);
-            font-weight: 700;
-            line-height: 0.95;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-            opacity: 0;
-            animation: fadeUp 0.8s ease 0.35s forwards;
+            font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 700;
+            line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1rem;
+            opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards;
         }
-
         .hero-title .line1 {
-            display: block;
-            color: var(--gold-bright);
-            text-shadow: 0 0 25px rgba(212, 168, 67, 0.3);
+            display: block; color: var(--sun-bright);
+            text-shadow: 0 0 30px rgba(255,107,53,0.4), 0 0 60px rgba(255,79,109,0.2);
         }
-
+        .season-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(0,212,255,0.1));
+            border: 1px solid rgba(255,107,53,0.3);
+            border-radius: 6px;
+            padding: 0.3rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.2em; color: var(--sun-bright);
+            text-transform: uppercase; margin-bottom: 1.5rem;
+            opacity: 0; animation: fadeUp 0.8s ease 0.15s forwards;
+        }
         .hero-rule {
-            display: flex; align-items: center; gap: 1rem;
-            justify-content: center;
-            margin: 1.5rem 0;
-            opacity: 0;
-            animation: fadeUp 0.8s ease 0.5s forwards;
+            display: flex; align-items: center; gap: 1rem; justify-content: center;
+            margin: 1.5rem 0; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
         }
-        .hero-rule span {
-            height: 1px; width: 60px;
-            background: linear-gradient(90deg, transparent, var(--gold-dim));
-        }
-        .hero-rule span:last-child {
-            background: linear-gradient(90deg, var(--gold-dim), transparent);
-        }
-        .hero-rule em { color: var(--gold); font-style: normal; font-size: 0.85rem; }
-
+        .hero-rule span { height: 1px; width: 60px; background: linear-gradient(90deg, transparent, var(--sun-dim)); }
+        .hero-rule span:last-child { background: linear-gradient(90deg, var(--sun-dim), transparent); }
+        .hero-rule em { color: var(--sun); font-style: normal; font-size: 0.9rem; }
         .hero-sub {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            max-width: 500px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.7;
-            opacity: 0;
-            animation: fadeUp 0.8s ease 0.6s forwards;
+            font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
+            color: var(--text-dim); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7;
+            opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
         }
-
         .hero-cta {
             display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
-            opacity: 0;
-            animation: fadeUp 0.8s ease 0.75s forwards;
+            opacity: 0; animation: fadeUp 0.8s ease 0.75s forwards;
         }
-
         .btn {
-            padding: 0.75rem 2rem;
-            border-radius: 6px;
-            font-family: 'Syne', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.75rem 2rem; border-radius: 6px;
+            font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 0.05em; text-decoration: none; transition: all 0.3s ease;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;
         }
-
         .btn-primary {
-            background: var(--gold);
-            color: var(--ink);
-            border: 1px solid var(--gold);
+            background: linear-gradient(135deg, var(--sun), var(--coral));
+            color: #fff; border: 1px solid var(--sun);
         }
-        .btn-primary:hover {
-            background: var(--gold-bright);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px var(--gold-glow);
-        }
-
+        .btn-primary:hover { background: linear-gradient(135deg, var(--sun-bright), var(--coral-bright)); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.35); }
         .btn-secondary {
-            background: transparent;
-            color: var(--text-dim);
-            border: 1px solid var(--border-strong);
+            background: transparent; color: var(--text-dim); border: 1px solid var(--border-strong);
         }
-        .btn-secondary:hover {
-            background: var(--gold-trace);
-            color: var(--gold);
-            border-color: var(--gold);
-            transform: translateY(-2px);
-        }
+        .btn-secondary:hover { background: var(--sun-trace); color: var(--sun-bright); border-color: var(--sun); transform: translateY(-2px); }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
         .container { max-width: 1280px; margin: 0 auto; padding: 0 5%; }
-
         section { padding: 8rem 0; position: relative; }
 
         .section-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.25em;
-            color: var(--gold-dim);
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 0.8rem;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+            letter-spacing: 0.25em; color: var(--sun-dim); text-transform: uppercase;
+            text-align: center; margin-bottom: 0.8rem;
         }
-
         .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
-            text-align: center;
-            color: var(--gold-bright);
-            letter-spacing: -0.01em;
-            margin-bottom: 0.5rem;
+            font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700; text-align: center; color: var(--sun-bright);
+            letter-spacing: -0.01em; margin-bottom: 0.5rem;
         }
-
         .section-rule {
-            display: flex; align-items: center; gap: 1rem;
-            justify-content: center;
+            display: flex; align-items: center; gap: 1rem; justify-content: center;
             margin: 1rem 0 3.5rem;
         }
-        .section-rule span {
-            height: 1px; width: 50px;
-            background: linear-gradient(90deg, transparent, var(--gold-dim));
-        }
-        .section-rule span:last-child {
-            background: linear-gradient(90deg, var(--gold-dim), transparent);
-        }
-        .section-rule em { color: var(--gold-dim); font-style: normal; font-size: 0.7rem; }
+        .section-rule span { height: 1px; width: 50px; background: linear-gradient(90deg, transparent, var(--sun-dim)); }
+        .section-rule span:last-child { background: linear-gradient(90deg, var(--sun-dim), transparent); }
+        .section-rule em { color: var(--sun-dim); font-style: normal; font-size: 0.7rem; }
 
-        .wiki-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.2rem;
-        }
-
+        .wiki-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
         .wiki-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+            padding: 2rem; cursor: pointer; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
         }
-
         .wiki-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 3px; height: 100%;
-            background: linear-gradient(180deg, var(--gold-dim), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: linear-gradient(180deg, var(--sun-dim), transparent); opacity: 0; transition: opacity 0.3s;
         }
-
-        .wiki-card:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-strong);
-            transform: translateY(-4px);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(212,168,67,0.06);
-        }
-
+        .wiki-card:hover { background: var(--surface-hover); border-color: var(--border-strong); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(255,107,53,0.06); }
         .wiki-card:hover::before { opacity: 1; }
-
         .card-icon-wrap {
-            width: 52px; height: 52px;
-            background: rgba(212,168,67,0.08);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.2rem;
-            transition: all 0.3s ease;
+            width: 52px; height: 52px; background: var(--sun-trace); border: 1px solid var(--border);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 1.2rem; transition: all 0.3s;
         }
+        .wiki-card:hover .card-icon-wrap { background: rgba(255,107,53,0.14); border-color: var(--border-strong); transform: scale(1.05); }
+        .card-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+        .card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+        .card-arrow { position: absolute; bottom: 1.5rem; right: 1.5rem; color: var(--sun-dim); font-size: 0.9rem; opacity: 0; transform: translateX(-6px); transition: all 0.3s; }
+        .wiki-card:hover .card-arrow { opacity: 1; transform: translateX(0); color: var(--sun); }
 
-        .wiki-card:hover .card-icon-wrap {
-            background: rgba(212,168,67,0.14);
-            border-color: var(--border-strong);
-            transform: scale(1.05);
-        }
-
-        .card-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.02em;
-        }
-
-        .card-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .card-arrow {
-            position: absolute;
-            bottom: 1.5rem; right: 1.5rem;
-            color: var(--gold-dim);
-            font-size: 0.9rem;
-            opacity: 0;
-            transform: translateX(-6px);
-            transition: all 0.3s ease;
-        }
-
-        .wiki-card:hover .card-arrow {
-            opacity: 1;
-            transform: translateX(0);
-            color: var(--gold);
-        }
-
-        .modal {
-            display: none;
-            position: fixed; inset: 0; z-index: 2000;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(12px);
-            overflow-y: auto;
-            padding: 4rem 1rem;
-        }
-
-        .modal-box {
-            background: var(--ink-2);
-            border: 1px solid var(--border-strong);
-            border-radius: 12px;
-            width: 100%; max-width: 760px;
-            margin: 0 auto;
-            padding: 2.5rem;
-            position: relative;
-            animation: modalIn 0.3s ease;
-        }
-
-        @keyframes modalIn {
-            from { opacity: 0; transform: translateY(-16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.2rem; right: 1.5rem;
-            color: var(--gold-dim);
-            font-size: 1.5rem;
-            cursor: pointer;
-            line-height: 1;
-            transition: color 0.2s;
-        }
-        .modal-close:hover { color: var(--gold); }
-
-        .modal-box h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.9rem;
-            font-weight: 700;
-            color: var(--gold-bright);
-            margin-bottom: 0.3rem;
-        }
-
-        .modal-box .m-rule {
-            height: 1px;
-            background: linear-gradient(90deg, var(--gold-dim), transparent);
-            margin: 1rem 0 1.5rem;
-        }
-
-        .modal-box h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin: 1.8rem 0 0.8rem;
-        }
-
-        .modal-box p, .modal-box li {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            line-height: 1.8;
-            margin-bottom: 0.6rem;
-        }
-
+        .modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); overflow-y: auto; padding: 4rem 1rem; }
+        .modal-box { background: var(--ink-2); border: 1px solid var(--border-strong); border-radius: 12px; width: 100%; max-width: 760px; margin: 0 auto; padding: 2.5rem; position: relative; animation: modalIn 0.3s ease; }
+        @keyframes modalIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-close { position: absolute; top: 1.2rem; right: 1.5rem; color: var(--sun-dim); font-size: 1.5rem; cursor: pointer; line-height: 1; transition: color 0.2s; }
+        .modal-close:hover { color: var(--sun); }
+        .modal-box h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 700; color: var(--sun-bright); margin-bottom: 0.3rem; }
+        .modal-box .m-rule { height: 1px; background: linear-gradient(90deg, var(--sun-dim), transparent); margin: 1rem 0 1.5rem; }
+        .modal-box h3 { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sun); margin: 1.8rem 0 0.8rem; }
+        .modal-box p, .modal-box li { font-size: 0.9rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 0.6rem; }
         .modal-box ul { padding-left: 1.2rem; margin-bottom: 1rem; }
-        .modal-box strong { color: var(--gold-bright); font-weight: 600; }
-
-        .m-table {
-            width: 100%; border-collapse: collapse;
-            margin: 0.5rem 0 1rem;
-            border-radius: 8px; overflow: hidden;
-        }
-
-        .m-table th {
-            padding: 0.7rem 1rem;
-            text-align: left;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.1em;
-            color: var(--gold-dim);
-            text-transform: uppercase;
-            background: rgba(212,168,67,0.05);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .m-table td {
-            padding: 0.7rem 1rem;
-            font-size: 0.88rem;
-            color: var(--text-dim);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-
+        .modal-box strong { color: var(--sun-bright); font-weight: 600; }
+        .m-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; border-radius: 8px; overflow: hidden; }
+        .m-table th { padding: 0.7rem 1rem; text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--sun-dim); text-transform: uppercase; background: var(--sun-trace); border-bottom: 1px solid var(--border); }
+        .m-table td { padding: 0.7rem 1rem; font-size: 0.88rem; color: var(--text-dim); border-bottom: 1px solid rgba(255,255,255,0.04); }
         .m-table tr:last-child td { border-bottom: none; }
-        .m-table tr:hover td { background: rgba(212,168,67,0.02); }
-
-        .recipe-label {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--gold-bright);
-            margin: 2rem 0 0.8rem;
-        }
-
-        .recipe-img {
-            display: block;
-            max-width: 100%;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            image-rendering: pixelated;
-        }
+        .m-table tr:hover td { background: var(--sun-trace); }
+        .recipe-label { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--sun-bright); margin: 2rem 0 0.8rem; }
+        .recipe-img { display: block; max-width: 100%; border-radius: 8px; border: 1px solid var(--border); image-rendering: pixelated; }
 
         #updates {
-            background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding-top: 4rem;
-            padding-bottom: 4rem;
+            background: linear-gradient(180deg, transparent, rgba(255,107,53,0.02), transparent);
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            padding-top: 4rem; padding-bottom: 4rem;
         }
-
-        .updates-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .update-card {
-            background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            margin-bottom: 2rem;
-        }
-
-        .update-card:hover {
-            border-color: var(--border-strong);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(212,168,67,0.08);
-            transform: translateY(-4px);
-        }
-
-        .update-header {
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .update-badge {
-            padding: 0.35rem 0.9rem;
-            background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-bright) 100%);
-            color: #fff;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            border-radius: 4px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 12px rgba(193,56,56,0.4);
-        }
-
-        .update-date {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-        }
-
-        .update-title-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-left: auto;
-        }
-
-        .update-body {
-            padding: 2rem;
-        }
-
-        .update-desc {
-            font-size: 0.95rem;
-            color: var(--text-dim);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: var(--ink-2);
-        }
-
-        .video-container video {
-            width: 100%;
-            display: block;
-            border-radius: 12px;
-        }
-
-        .video-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-        }
-
-        .video-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .play-button {
-            width: 80px;
-            height: 80px;
-            background: rgba(212,168,67,0.2);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
-        }
-
-        .play-button:hover {
-            background: rgba(212,168,67,0.4);
-            transform: scale(1.1);
-            box-shadow: 0 0 40px rgba(212,168,67,0.4);
-        }
-
-        .play-button svg {
-            width: 28px;
-            height: 28px;
-            fill: var(--gold-bright);
-            margin-left: 4px;
-        }
+        .updates-container { max-width: 900px; margin: 0 auto; }
+        .update-card { background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.4s ease; margin-bottom: 2rem; }
+        .update-card:hover { border-color: var(--border-strong); box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,107,53,0.08); transform: translateY(-4px); }
+        .update-header { padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .update-badge { padding: 0.35rem 0.9rem; background: linear-gradient(135deg, var(--sun), var(--coral)); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; border-radius: 4px; text-transform: uppercase; box-shadow: 0 4px 12px rgba(255,107,53,0.4); }
+        .update-date { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.05em; }
+        .update-title-text { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--text); margin-left: auto; }
+        .update-body { padding: 2rem; }
+        .update-desc { font-size: 0.95rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1.5rem; }
+        .video-container { position: relative; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--ink-2); }
+        .video-container video { width: 100%; display: block; border-radius: 12px; }
+        .video-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.3s; }
+        .video-overlay.hidden { opacity: 0; pointer-events: none; }
+        .play-button { width: 80px; height: 80px; background: rgba(255,107,53,0.2); border: 2px solid var(--sun); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; backdrop-filter: blur(4px); }
+        .play-button:hover { background: rgba(255,107,53,0.4); transform: scale(1.1); box-shadow: 0 0 40px rgba(255,107,53,0.4); }
+        .play-button svg { width: 28px; height: 28px; fill: var(--sun-bright); margin-left: 4px; }
 
         #ascension-guide {
-            background: linear-gradient(180deg, transparent, rgba(157,91,210,0.03), transparent);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, transparent, rgba(0,212,255,0.03), transparent);
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
         }
+        .guide-container { max-width: 1000px; margin: 0 auto; }
+        .guide-video-wrapper { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .guide-video-wrapper video { width: 100%; display: block; }
+        .guide-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .guide-info-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s; }
+        .guide-info-card:hover { background: var(--surface-hover); border-color: var(--border-strong); transform: translateY(-4px); }
+        .guide-info-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+        .guide-info-title { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--sun); margin-bottom: 0.4rem; }
+        .guide-info-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
 
-        .guide-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .guide-video-wrapper {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-
-        .guide-video-wrapper video {
-            width: 100%;
-            display: block;
-        }
-
-        .guide-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .guide-info-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .guide-info-card:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-strong);
-            transform: translateY(-4px);
-        }
-
-        .guide-info-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .guide-info-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 0.4rem;
-            letter-spacing: 0.05em;
-        }
-
-        .guide-info-text {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        #abilities-section {
-            background: linear-gradient(180deg, transparent, rgba(79,195,217,0.02), transparent);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .abilities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
+        #abilities-section { background: linear-gradient(180deg, transparent, rgba(0,212,255,0.02), transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .abilities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
         .ability-card {
             background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            cursor: pointer;
+            border: 1px solid var(--border); border-radius: 14px; padding: 2rem;
+            position: relative; overflow: hidden; transition: all 0.4s; cursor: pointer;
         }
+        .ability-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--sun), var(--coral), var(--aqua)); opacity: 0; transition: opacity 0.3s; }
+        .ability-card:hover { border-color: var(--border-strong); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(255,107,53,0.08); }
+        .ability-card:hover::before { opacity: 1; }
+        .ability-tier { display: inline-block; padding: 0.3rem 0.8rem; background: var(--sun-trace); border: 1px solid var(--sun); border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: var(--sun-bright); text-transform: uppercase; margin-bottom: 1rem; }
+        .ability-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
+        .ability-card:hover .ability-name { color: var(--sun-bright); }
+        .ability-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem; }
+        .ability-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .ability-tag { padding: 0.25rem 0.7rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
+        .ability-tag.duration { border-color: rgba(255,107,53,0.3); color: var(--sun-bright); }
+        .ability-tag.cooldown { border-color: rgba(0,212,255,0.3); color: var(--aqua-bright); }
 
-        .ability-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--gold-bright), var(--gold));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .ability-card:hover {
-            border-color: var(--border-strong);
-            transform: translateY(-6px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(212,168,67,0.1);
-        }
-
-        .ability-card:hover::before {
-            opacity: 1;
-        }
-
-        .ability-tier {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: var(--gold-trace);
-            border: 1px solid var(--gold);
-            border-radius: 4px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            color: var(--gold-bright);
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .ability-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.6rem;
-        }
-
-        .ability-card:hover .ability-name {
-            color: var(--gold-bright);
-        }
-
-        .ability-desc {
-            font-size: 0.88rem;
-            color: var(--text-dim);
-            line-height: 1.7;
-            margin-bottom: 1rem;
-        }
-
-        .ability-meta {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .ability-tag {
-            padding: 0.25rem 0.7rem;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 4px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-        }
-
-        .ability-tag.duration { border-color: rgba(212,168,67,0.3); color: var(--gold-bright); }
-        .ability-tag.cooldown { border-color: rgba(79,195,217,0.3); color: var(--cyan-bright); }
-
-        #commands-section {
-            background: linear-gradient(180deg, transparent, rgba(212,168,67,0.02), transparent);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .commands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .command-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .command-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 3px; height: 100%;
-            background: linear-gradient(180deg, var(--gold-dim), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .command-card:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-strong);
-            transform: translateY(-4px);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-        }
-
-        .command-card:hover::before { opacity: 1; }
-
-        .command-card-icon {
-            width: 48px; height: 48px;
-            background: rgba(212,168,67,0.08);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .command-card:hover .command-card-icon {
-            background: rgba(212,168,67,0.14);
-            border-color: var(--border-strong);
-            transform: scale(1.05);
-        }
-
-        .command-card-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.4rem;
-            letter-spacing: 0.02em;
-        }
-
-        .command-card-desc {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .reveal {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--ink); }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--gold-dim), var(--gold));
-            border-radius: 3px;
-        }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--sun-dim), var(--sun)); border-radius: 3px; }
 
         @media (max-width: 768px) {
             .nav-icon-btn { width: 40px; height: 40px; }
             .hero-cta { flex-direction: column; align-items: center; }
             .wiki-grid { grid-template-columns: 1fr; }
             .abilities-grid { grid-template-columns: 1fr; }
-            .commands-grid { grid-template-columns: 1fr; }
             .update-header { flex-direction: column; text-align: center; gap: 0.8rem; }
             .update-title-text { margin-left: 0; }
-            .guide-info { grid-template-columns: 1fr; }
         }
     </style>
     <base target="_blank">
-<base target="_blank">
-<base target="_blank">
 </head>
 <body>
-
     <div class="loader" id="loader">
         <div class="loader-inner">
             <div class="loader-orb"></div>
             <div class="loader-pulse-ring"></div>
-            <div class="loader-pulse-ring" style="animation-delay: 0.4s;"></div>
+            <div class="loader-pulse-ring" style="animation-delay:0.4s"></div>
             <div class="loader-label">LightCitySMP</div>
-            <div class="loader-sub">Initializing Season 5...</div>
+            <div class="loader-sub">Initializing Season 6...</div>
         </div>
     </div>
 
@@ -1080,51 +404,36 @@
     </nav>
 
     <section class="hero">
-        <p class="hero-eyebrow">Season 5 &middot; Official Website</p>
-        <h1 class="hero-title">
-            <span class="line1">LightCitySMP</span>
-        </h1>
-        <div class="hero-rule">
-            <span></span>
-            <em>&#10022;</em>
-            <span></span>
-        </div>
+        <div class="season-tag">☀ Season 6 &middot; Summer 2025</div>
+        <h1 class="hero-title"><span class="line1">LightCitySMP</span></h1>
+        <div class="hero-rule"><span></span><em>&#10022;</em><span></span></div>
         <p class="hero-sub">Welcome to the official website for LightCitySMP, supervised by LightCity's council, owned by Sam.</p>
         <div class="hero-cta">
-            <a href="#updates" class="btn btn-primary" target="_self">Explore Season 5</a>
+            <a href="#updates" class="btn btn-primary" target="_self">Explore Season 6</a>
         </div>
     </section>
-
-
 
     <section id="updates">
         <div class="container">
             <div class="section-label reveal">What's New</div>
             <h2 class="section-title reveal">Latest Updates</h2>
             <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-
             <div class="updates-container">
                 <div class="update-card reveal">
                     <div class="update-header">
                         <div class="update-badge">NEW</div>
-                        <div class="update-date">V2.5 RELEASE!</div>
-                        <div class="update-title-text">The Ascension Update</div>
+                        <div class="update-date">SEASON 6 LAUNCH</div>
+                        <div class="update-title-text">The Summer Update</div>
                     </div>
                     <div class="update-body">
-                        <p class="update-desc">
-                            V2.5 update adds a new custom weapon, new systems and a fix to alot of bugs &mdash; so lets talk about it.
-                            Rebirth system got a revamp, but its not completed yet, V2.5 100% completes the rebirth revamp, we're also adding new reroll items! for abilities and rebirths.
-                            Update drops on saturday! make sure your there when it drops, Also I apologize for the bad mic quality! V2.5 release on may 17th.
-                        </p>
+                        <p class="update-desc">Season 6 is here. New abilities, new systems, new season — same battlefield. Stay tuned for updates as the season unfolds.</p>
                         <div class="video-container">
                             <video id="updateVideo" poster="./videos/update-thumbnail.jpg">
                                 <source src="./videos/v2.5-update.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                             <div class="video-overlay" id="videoOverlay" onclick="playUpdateVideo()">
-                                <div class="play-button">
-                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </div>
+                                <div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                             </div>
                         </div>
                     </div>
@@ -1138,7 +447,6 @@
             <div class="section-label reveal">Tutorial</div>
             <h2 class="section-title reveal">Ascension Guide</h2>
             <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-
             <div class="guide-container reveal">
                 <div class="guide-video-wrapper">
                     <video id="guideVideo" controls poster="./videos/guide-thumbnail.jpg">
@@ -1146,288 +454,161 @@
                         Your browser does not support the video tag.
                     </video>
                 </div>
-
-                <div class="guide-info" style="cursor: pointer;" onclick="openModal('m-commands')">
-                    <div class="guide-info-card" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--gold)';this.style.boxShadow='0 0 30px rgba(212,168,67,0.15)';" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none';">
+                <div class="guide-info" style="cursor:pointer;" onclick="openModal('m-commands')">
+                    <div class="guide-info-card" style="grid-column:1/-1;max-width:600px;margin:0 auto;" onmouseover="this.style.borderColor='var(--sun)';this.style.boxShadow='0 0 30px rgba(255,107,53,0.15)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
                         <div class="guide-info-icon">&#128736;&#65039;</div>
-                        <div class="guide-info-title">Commands & Utilities</div>
-                        <div class="guide-info-text">All server commands, teleportation, homes, teams, and combat utilities in one place. <span style="color: var(--gold-dim);">Click to view &rarr;</span></div>
+                        <div class="guide-info-title">Commands &amp; Utilities</div>
+                        <div class="guide-info-text">All server commands, teleportation, homes, teams, and combat utilities. <span style="color:var(--sun-dim)">Click to view &rarr;</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-
     <section id="abilities-section">
         <div class="container">
             <div class="section-label reveal">Combat System</div>
             <h2 class="section-title reveal">All Abilities</h2>
             <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-
             <div class="abilities-grid" id="abilitiesGrid"></div>
         </div>
     </section>
 
+    <!-- MODALS -->
     <div id="m-blade" class="modal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeModal('m-blade')">&times;</span>
-            <h2>Ascension Blade</h2>
-            <div class="m-rule"></div>
-            <p>A craftable custom weapon.</p>
-            <p>Killing a player with it <strong>steals one of their rebirth levels</strong>, including the ability tied to it. The stolen ability is stored as an item in your inventory.</p>
-            <p>When you activate it, your currently equipped ability is removed and replaced.</p>
-            <p>To acquire someone's rebirth and their tied ability, you must <strong>kill</strong> them using the Ascension Blade.</p>
-            <p class="recipe-label">Ascension Blade's Recipe</p>
-            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231529.png" alt="Ascension Blade Crafting Recipe">
+            <h2>Ascension Blade</h2><div class="m-rule"></div>
+            <p>A craftable custom weapon. Killing a player with it <strong>steals one of their rebirth levels</strong>, including the ability tied to it.</p>
+            <p class="recipe-label">Ascension Blade Recipe</p>
+            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231529.png" alt="Ascension Blade Recipe">
         </div>
     </div>
-
     <div id="m-rebirths" class="modal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeModal('m-rebirths')">&times;</span>
-            <h2>Rebirths</h2>
-            <div class="m-rule"></div>
+            <h2>Rebirths</h2><div class="m-rule"></div>
             <h3>How to Rebirth</h3>
-            <p>Requires 1 Rebirth Point, earned by:</p>
-            <ul>
-                <li>Reaching the required kill streak without dying</li>
-                <li>Purchasing from the server store</li>
-                <li>Crafting a rebirth point using its custom recipe</li>
-            </ul>
-            <p>Upon completing a rebirth, players are presented with a selection of three abilities, from which they may permanently choose one.</p>
+            <p>Requires 1 Rebirth Point, earned by reaching the required kill streak, purchasing from the store, or crafting.</p>
             <p class="recipe-label">Rebirth Point Recipe</p>
-            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231638.png" alt="Rebirth Point Crafting Recipe">
+            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231638.png" alt="Rebirth Point Recipe">
         </div>
     </div>
-
     <div id="m-abilities" class="modal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeModal('m-abilities')">&times;</span>
-            <h2>The 18 Abilities</h2>
-            <div class="m-rule"></div>
-            <h3>Ascension I &mdash; Low Power</h3>
-            <ul>
-                <li><strong>Iron Skin:</strong> Grants Resistance I and reduces incoming damage for 8s. Cooldown: 40s.</li>
-                <li><strong>Dash:</strong> Launches you forward with cloud particle trail. Cooldown: 15s.</li>
-                <li><strong>Smokescreen:</strong> Blinds the target and surrounds them in smoke for 3s. Cooldown: 45s.</li>
-            </ul>
-            <h3>Ascension II &mdash; Low Power</h3>
-            <ul>
-                <li><strong>Blood Rush:</strong> On hit/being hit &mdash; Speed II for 5s. Cooldown: 45s.</li>
-                <li><strong>Fortify:</strong> On being hit &mdash; reduces 25% incoming damage for 8s. Cooldown: 50s.</li>
-                <li><strong>Splinter:</strong> Next attacks deal +8% bonus damage for 8s. Cooldown: 50s.</li>
-            </ul>
-            <h3>Ascension III &mdash; Medium Power</h3>
-            <ul>
-                <li><strong>Exposed:</strong> Target takes +10% bonus damage for 4s. Cooldown: 60s.</li>
-                <li><strong>Phantom Step:</strong> Invisibility and portal particles for 4s. Cooldown: 65s.</li>
-                <li><strong>Shockwave:</strong> Knocks back all enemies in 5 blocks and deals 2 hearts. Cooldown: 55s.</li>
-            </ul>
-            <h3>Ascension IV &mdash; Medium Power</h3>
-            <ul>
-                <li><strong>Overclock:</strong> Speed III, Haste II for 30s. Cooldown: 120s.</li>
-                <li><strong>Soul Drain:</strong> Strips all active potion effects from target. Cooldown: 75s.</li>
-                <li><strong>Warden's Grasp:</strong> Roots target in place for 3s then when it's over, player gets slowness X for 5s. Cooldown: 80s.</li>
-            </ul>
-            <h3>Ascension V &mdash; High Power</h3>
-            <ul>
-                <li><strong>Wraith Form:</strong> Invisibility, cleanses debuffs, cancels all incoming damage for 5s. Blocks Reaper's Call and Warden's Grasp. Cooldown: 150s.</li>
-                <li><strong>Execution:</strong> Hit an enemy below 25% HP within 10s for 2x damage. Cooldown: 85s.</li>
-                <li><strong>Marked:</strong> Target takes +15% damage from all sources for 5s. Cooldown: 95s.</li>
-            </ul>
-            <h3>Ascension VI &mdash; High Power</h3>
-            <ul>
-                <li><strong>Soul Lock:</strong> Silences target &mdash; strips effects and prevents item use for 6s. Cooldown: 115s.</li>
-                <li><strong>Warlord's Aura:</strong> Strength III and Speed III for 8s, cooldown: 300s.</li>
-                <li><strong>Reaper's Call:</strong> Encases target in black rings &mdash; frozen, blinded, nauseous, hotbar locked for 4s. Deals 20% bonus damage. Blocked by Wraith Form. Cooldown: 600s.</li>
-            </ul>
+            <h2>All 18+ Abilities</h2><div class="m-rule"></div>
+            <h3>Ascension I — Low Power</h3>
+            <ul><li><strong>Iron Skin:</strong> Resistance I for 8s. CD: 40s.</li><li><strong>Dash:</strong> Forward launch. CD: 15s.</li><li><strong>Smokescreen:</strong> Blinds target 3s. CD: 45s.</li></ul>
+            <h3>Ascension II — Low Power</h3>
+            <ul><li><strong>Blood Rush:</strong> Speed II on hit 5s. CD: 45s.</li><li><strong>Fortify:</strong> -25% damage 8s on hit. CD: 50s.</li><li><strong>Splinter:</strong> +8% damage 8s. CD: 50s.</li></ul>
+            <h3>Ascension III — Medium</h3>
+            <ul><li><strong>Exposed:</strong> +10% dmg to target 4s. CD: 60s.</li><li><strong>Phantom Step:</strong> Invis 4s. CD: 65s.</li><li><strong>Shockwave:</strong> Knockback 5b, 2 hearts. CD: 55s.</li></ul>
+            <h3>Ascension IV — Medium</h3>
+            <ul><li><strong>Overclock:</strong> Speed III + Haste II 30s. CD: 120s.</li><li><strong>Soul Drain:</strong> Strip target effects. CD: 75s.</li><li><strong>Warden's Grasp:</strong> Root 3s + Slow X 5s. CD: 500s.</li></ul>
+            <h3>Ascension V — High</h3>
+            <ul><li><strong>Wraith Form:</strong> Invis + no damage 5s. CD: 150s.</li><li><strong>Execution:</strong> 2x dmg below 25% HP. CD: 85s.</li><li><strong>Marked:</strong> +15% dmg 5s. CD: 95s.</li></ul>
+            <h3>Ascension VI — High</h3>
+            <ul><li><strong>Soul Lock:</strong> Silence + freeze. CD: 750s.</li><li><strong>Warlord's Aura:</strong> Str III + Speed III 8s. CD: 300s.</li><li><strong>Reaper's Call:</strong> Blind + nausea 4s. CD: 800s.</li></ul>
         </div>
     </div>
-
     <div id="m-streaks" class="modal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeModal('m-streaks')">&times;</span>
-            <h2>Kill Streaks</h2>
-            <div class="m-rule"></div>
-            <p>In order to gain rebirth points, you must reach 5 kill streak for your first rebirth point! every 5+ kill streak = 1 rebirth point, for example, if you have 3 kill streak, you won't gain any rebirth points, if you have a 5 kill streak you will gain 1 rebirth point as soon as you reach 5 kill streak, then 1+ rebirth point at 10 kill streak, then 1+ at 15 kill streak, get the concept? maximum is 30 kill streak, but you can also craft them, head over to rebirths category!</p>
-
-            <h3>Streak Rules</h3>
-            <ul>
-                <li>Killing the same player has a 30-minute cooldown before it counts again.</li>
-                <li>Dying resets your streak to 0.</li>
-                <li>Streak does not reset on logout.</li>
-                <li>Active streaks are publicly visible.</li>
-            </ul>
-            <h3>Display System</h3>
-            <ul>
-                <li><strong>Under 5 kills</strong> &mdash; nothing shown</li>
-                <li><strong>5&ndash;14 kills</strong> &mdash; [X &#128293;] in orange</li>
-                <li><strong>15&ndash;24 kills</strong> &mdash; [X &#128293;] in purple</li>
-                <li><strong>25&ndash;30 kills</strong> &mdash; [X &#128293;] in blood red, slightly larger</li>
-            </ul>
+            <h2>Kill Streaks</h2><div class="m-rule"></div>
+            <p>Every 5 kill streak = 1 Rebirth Point. Dying resets streak to 0.</p>
+            <h3>Display</h3>
+            <ul><li><strong>5–14</strong> — orange tag</li><li><strong>15–24</strong> — purple tag</li><li><strong>25–30</strong> — blood red, larger</li></ul>
         </div>
     </div>
-
     <div id="m-concept" class="modal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeModal('m-concept')">&times;</span>
-            <h2>Plugin Information</h2>
-            <div class="m-rule"></div>
-            <p>The main idea of this plugin is for players that love PvP, wars and battles &mdash; so they can express skill and strength. But it's also made for players that love grinding, want to avoid PvP, and just want to live in peace while feeling <strong>and being powerful.</strong> Ascension is all about ascending from being nothing, to being everything.</p>
-            <h3>Concept</h3>
-            <p>Ascension is a PvP & grinding-based plugin where players must either reach a specific kill streak to <strong>earn Rebirth Points</strong> &mdash; unlocking various abilities &mdash; or grind for them. You can also earn Rebirth Points by crafting them using the custom recipe found in our Discord.</p>
-            <p>When rebirthed, you're presented with a menu and 3 abilities to choose 1 from. With each rebirth, the abilities get stronger. There are <strong>18 abilities</strong> and <strong>6 rebirth levels,</strong> with more planned for the future.</p>
+            <h2>Plugin Information</h2><div class="m-rule"></div>
+            <p>Ascension is a PvP & grinding plugin where players earn <strong>Rebirth Points</strong> through kill streaks or crafting, unlocking abilities. With each rebirth, abilities grow stronger.</p>
         </div>
     </div>
-
     <div id="m-commands" class="modal">
         <div class="modal-box">
             <span class="modal-close" onclick="closeModal('m-commands')">&times;</span>
-            <h2>Commands & Utilities</h2>
-            <div class="m-rule"></div>
-            <h3>&#9876;&#65039; Combat & Mechanics</h3>
-            <table class="m-table">
-                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
-                <tbody>
-                    <tr><td>/streak</td><td>Opens a GUI showing your current kill streak and progress toward the next Rebirth Point.</td></tr>
-                    <tr><td>/streak-toggle</td><td>Toggles your streak tag visibility above your head.</td></tr>
-                    <tr><td>/rebirth</td><td>Opens the Rebirth Panel to spend Rebirth Points and select abilities.</td></tr>
-                    <tr><td>/rebirthpoint-gift &lt;number&gt; &lt;player&gt;</td><td>Gift a rebirth point of yours to another player.</td></tr>
-                </tbody>
-            </table>
-            <h3>&#127968; Teleportation & Homes</h3>
-            <table class="m-table">
-                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
-                <tbody>
-                    <tr><td>/home</td><td>Opens the GUI Home Panel to manage your homes.</td></tr>
-                    <tr><td>/tpa &lt;player&gt;</td><td>Sends a teleport request to another player.</td></tr>
-                    <tr><td>/tpaccept</td><td>Accepts a pending teleport request.</td></tr>
-                    <tr><td>/tpdeny</td><td>Denies a pending teleport request.</td></tr>
-                    <tr><td>/tpahere</td><td>Sends a teleport request to a player to teleport to you.</td></tr>
-                    <tr><td>/rtp</td><td>Teleports you to a random safe location (3000 block radius).</td></tr>
-                    <tr><td>/back</td><td>Returns you to the location of your last natural death.</td></tr>
-                    <tr><td>/spawn</td><td>Teleports you to spawn of LightCitySMP.</td></tr>
-                </tbody>
-            </table>
-            <h3>&#128737;&#65039; Social & Teams</h3>
-            <table class="m-table">
-                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
-                <tbody>
-                    <tr><td>/team create &lt;name&gt;</td><td>Start a new team.</td></tr>
-                    <tr><td>/team invite &lt;player&gt;</td><td>Invite someone to your team.</td></tr>
-                    <tr><td>/team accept &lt;team&gt;</td><td>Join a team you were invited to.</td></tr>
-                    <tr><td>/team chat</td><td>Toggle between global and team chat.</td></tr>
-                    <tr><td>/team home set</td><td>Sets a home for the whole team</td></tr>
-                    <tr><td>/team ownership_transfer</td><td>Transfers ownership to a new player</td></tr>
-                    <tr><td>/team leave / disband / kick / rename / promote</td><td>Manage your team.</td></tr>
-                    <tr><td>/msg &lt;player&gt; &lt;message&gt;</td><td>Send a private message.</td></tr>
-                    <tr><td>/reply &lt;message&gt;</td><td>Quick-reply to the last person who messaged you.</td></tr>
-                </tbody>
-            </table>
+            <h2>Commands &amp; Utilities</h2><div class="m-rule"></div>
+            <h3>⚔️ Combat</h3>
+            <table class="m-table"><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
+                <tr><td>/streak</td><td>View kill streak &amp; progress.</td></tr>
+                <tr><td>/rebirth</td><td>Open Rebirth Panel.</td></tr>
+                <tr><td>/rebirthpoint-gift &lt;n&gt; &lt;player&gt;</td><td>Gift a rebirth point.</td></tr>
+            </tbody></table>
+            <h3>🏠 Teleportation</h3>
+            <table class="m-table"><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
+                <tr><td>/home</td><td>Manage homes.</td></tr>
+                <tr><td>/tpa &lt;player&gt;</td><td>Teleport request.</td></tr>
+                <tr><td>/rtp</td><td>Random teleport (3000 radius).</td></tr>
+                <tr><td>/back</td><td>Return to last death.</td></tr>
+                <tr><td>/spawn</td><td>Go to spawn.</td></tr>
+            </tbody></table>
+            <h3>🛡️ Teams</h3>
+            <table class="m-table"><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
+                <tr><td>/team create &lt;name&gt;</td><td>Create a team.</td></tr>
+                <tr><td>/team invite &lt;player&gt;</td><td>Invite to team.</td></tr>
+                <tr><td>/team chat</td><td>Toggle team chat.</td></tr>
+                <tr><td>/msg &lt;player&gt; &lt;message&gt;</td><td>Private message.</td></tr>
+            </tbody></table>
         </div>
     </div>
 
     <script>
-    // ═══════════════════════════════════════════════════════════════════
-    //   PARTICLES
-    // ═══════════════════════════════════════════════════════════════════
     (function spawnParticles() {
         const wrap = document.getElementById('particles');
-        const count = 18;
-        for (let i = 0; i < count; i++) {
+        const colors = ['#FF6B35','#FF4F6D','#00D4FF','#FF9A5C','#4DE8FF'];
+        for (let i = 0; i < 20; i++) {
             const p = document.createElement('div');
             p.className = 'particle';
             p.style.left = Math.random() * 100 + '%';
             p.style.animationDuration = (12 + Math.random() * 14) + 's';
             p.style.animationDelay = (Math.random() * 14) + 's';
-            const size = 1 + Math.random() * 2.5;
-            p.style.width = size + 'px';
-            p.style.height = size + 'px';
+            const size = 1.5 + Math.random() * 2.5;
+            p.style.width = size + 'px'; p.style.height = size + 'px';
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            p.style.background = color;
+            p.style.boxShadow = `0 0 6px ${color}`;
             wrap.appendChild(p);
         }
     })();
 
-    // ═══════════════════════════════════════════════════════════════════
-    //   LOADER + NAV
-    // ═══════════════════════════════════════════════════════════════════
-    window.addEventListener('load', () => {
-        setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1200);
-    });
+    window.addEventListener('load', () => { setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1200); });
+    window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
 
-    window.addEventListener('scroll', () => {
-        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // ═══════════════════════════════════════════════════════════════════
-    //   REVEAL OBSERVER
-    // ═══════════════════════════════════════════════════════════════════
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // ═══════════════════════════════════════════════════════════════════
-    //   MODALS
-    // ═══════════════════════════════════════════════════════════════════
-    function openModal(id) {
-        document.getElementById(id).style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
+    function openModal(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = ''; }
+    window.addEventListener('click', e => { if (e.target.classList.contains('modal')) { e.target.style.display = 'none'; document.body.style.overflow = ''; } });
 
-    function closeModal(id) {
-        document.getElementById(id).style.display = 'none';
-        document.body.style.overflow = '';
-    }
-
-    window.addEventListener('click', e => {
-        if (e.target.classList.contains('modal')) {
-            e.target.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', e => {
-            const target = document.querySelector(a.getAttribute('href'));
-            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-        });
-    });
-
-    // ═══════════════════════════════════════════════════════════════════
-    //   RENDER ABILITIES FROM CONFIG (super easy to add new ones!)
-    // ═══════════════════════════════════════════════════════════════════
     function renderAbilities() {
         const grid = document.getElementById('abilitiesGrid');
         if (!grid) return;
-
-        grid.innerHTML = ABILITIES_CONFIG.map((ability, i) => `
-            <div class="ability-card reveal" onclick="openModal('m-abilities')" style="animation-delay: ${i * 50}ms">
-                <div class="ability-tier">${ability.tier}</div>
-                <div class="ability-name">${ability.name}</div>
-                <div class="ability-desc">${ability.desc}</div>
+        grid.innerHTML = ABILITIES_CONFIG.map((a, i) => `
+            <div class="ability-card reveal" onclick="openModal('m-abilities')" style="animation-delay:${i*50}ms">
+                <div class="ability-tier">${a.tier}</div>
+                <div class="ability-name">${a.name}</div>
+                <div class="ability-desc">${a.desc}</div>
                 <div class="ability-meta">
-                    <span class="ability-tag duration">Duration: ${ability.duration}</span>
-                    <span class="ability-tag cooldown">CD: ${ability.cooldown}</span>
+                    <span class="ability-tag duration">Duration: ${a.duration}</span>
+                    <span class="ability-tag cooldown">CD: ${a.cooldown}</span>
                 </div>
-            </div>
-        `).join('');
-
-        // Re-observe new elements for reveal animation
+            </div>`).join('');
         grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     }
 
     function playUpdateVideo() {
-        const video = document.getElementById('updateVideo');
-        const overlay = document.getElementById('videoOverlay');
-        video.play();
-        overlay.classList.add('hidden');
+        document.getElementById('updateVideo').play();
+        document.getElementById('videoOverlay').classList.add('hidden');
     }
 
-    // Initialize
     renderAbilities();
     </script>
-
 </body>
 </html>
