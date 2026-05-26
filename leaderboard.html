@@ -21,11 +21,11 @@
             --gold-rank: #FFD700; --gold-rank-glow: rgba(255,215,0,0.25);
             --iron: #b0b0b0; --iron-glow: rgba(176,176,176,0.25);
         }
-
+ 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Syne', sans-serif; background: var(--ink); color: var(--text); overflow-x: hidden; min-height: 100vh; }
-
+ 
         .bg-layer {
             position: fixed; inset: 0; z-index: -3;
             background:
@@ -48,7 +48,7 @@
             10% { opacity: 0.5; } 90% { opacity: 0.5; }
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
-
+ 
         .loader {
             position: fixed; inset: 0; z-index: 9999; background: var(--ink);
             display: flex; justify-content: center; align-items: center;
@@ -63,7 +63,7 @@
         @keyframes orbPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.3); opacity: 0.7; } }
         @keyframes ringExpand { 0% { transform: translate(-50%,-50%) scale(0.5); opacity: 0.6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
         @keyframes loaderTextPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-
+ 
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center;
@@ -79,9 +79,9 @@
         .nav-icon-btn.active { background: var(--sun-trace); border-color: var(--sun); box-shadow: 0 0 16px rgba(255,107,53,0.2); }
         .nav-icon-btn svg { width: 20px; height: 20px; fill: var(--sun); transition: transform 0.25s ease; }
         .nav-icon-btn:hover svg { transform: scale(1.1); }
-
+ 
         .page { padding: 120px 5% 80px; max-width: 1300px; margin: 0 auto; }
-
+ 
         .page-header { text-align: center; margin-bottom: 4rem; }
         .page-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.3em; color: var(--sun-dim); text-transform: uppercase; margin-bottom: 0.8rem; opacity: 0; animation: fadeUp 0.7s ease 0.1s forwards; }
         .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 700; line-height: 0.95; color: var(--sun-bright); text-shadow: 0 0 40px rgba(255,107,53,0.2); opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards; }
@@ -91,7 +91,7 @@
         .page-rule em { color: var(--sun); font-style: normal; font-size: 0.8rem; }
         .page-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--text-muted); letter-spacing: 0.05em; opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
+ 
         /* ── PODIUM ── */
         .podium-section { margin-bottom: 4rem; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
         .podium-wrapper { display: flex; align-items: flex-end; justify-content: center; gap: 1.5rem; padding: 0 1rem 2rem; }
@@ -123,7 +123,7 @@
         .podium-score-1 strong { color: var(--diamond); }
         .podium-score-2 strong { color: var(--sun-bright); }
         .podium-score-3 strong { color: var(--iron); }
-
+ 
         /* ── CONTROLS ── */
         .controls { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s ease 0.7s forwards; }
         .search-wrap { flex: 1; min-width: 200px; position: relative; }
@@ -136,7 +136,7 @@
         .sort-tab:hover { border-color: var(--border-strong); color: var(--sun); background: var(--sun-trace); }
         .sort-tab.active { background: rgba(255,107,53,0.12); border-color: var(--sun); color: var(--sun-bright); box-shadow: 0 0 12px rgba(255,107,53,0.15); }
         .results-count { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; margin-left: auto; flex-shrink: 0; }
-
+ 
         /* ── TABLE ── */
         .table-wrap { background: rgba(255,107,53,0.02); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(255,107,53,0.04); opacity: 0; animation: fadeUp 0.7s ease 0.8s forwards; }
         .table-header, .table-row { display: grid; grid-template-columns: 60px 1fr 100px 100px 120px; padding: 14px 24px; align-items: center; gap: 8px; }
@@ -177,7 +177,7 @@
         .no-results.visible { display: block; }
         .no-results-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
         .no-results-text { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--text-muted); }
-
+ 
         /* ── MODAL ── */
         .modal-overlay { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s ease; }
         .modal-overlay.active { opacity: 1; visibility: visible; }
@@ -217,10 +217,10 @@
         .modal-box::-webkit-scrollbar { width: 5px; }
         .modal-box::-webkit-scrollbar-track { background: transparent; }
         .modal-box::-webkit-scrollbar-thumb { background: rgba(255,107,53,0.2); border-radius: 3px; }
-
+ 
         .row-animate { opacity: 0; transform: translateX(-16px); animation: rowSlide 0.4s ease forwards; }
         @keyframes rowSlide { to { opacity: 1; transform: translateX(0); } }
-
+ 
         @media (max-width: 900px) {
             .table-header, .table-row { grid-template-columns: 50px 1fr 80px 90px 90px; padding: 12px 16px; }
             .podium-1 { flex: 0 0 200px; } .podium-2 { flex: 0 0 170px; } .podium-3 { flex: 0 0 155px; }
@@ -239,7 +239,7 @@
     <base target="_blank">
 </head>
 <body>
-
+ 
 <div class="loader" id="loader">
     <div class="loader-inner">
         <div class="loader-orb"></div>
@@ -249,11 +249,11 @@
         <div class="loader-sub">Season 6 Final Stats</div>
     </div>
 </div>
-
+ 
 <div class="bg-layer"></div>
 <div class="bg-lines"></div>
 <div class="bg-particles" id="particles"></div>
-
+ 
 <nav id="navbar">
     <a href="index.html" class="logo" target="_self">LightCitySMP</a>
     <div class="nav-icons">
@@ -274,7 +274,7 @@
         </a>
     </div>
 </nav>
-
+ 
 <div class="page">
     <div class="page-header">
         <p class="page-eyebrow">Season 6 &middot; Hall of Fame</p>
@@ -282,11 +282,11 @@
         <div class="page-rule"><span></span><em>&#9728;</em><span></span></div>
         <p class="page-sub">The finest warriors of LightCitySMP, ranked.</p>
     </div>
-
+ 
     <div class="podium-section" id="podiumSection">
         <div class="podium-wrapper" id="podiumWrapper"></div>
     </div>
-
+ 
     <div class="controls">
         <div class="search-wrap">
             <span class="search-icon">⌕</span>
@@ -299,7 +299,7 @@
         </div>
         <span class="results-count" id="resultsCount"></span>
     </div>
-
+ 
     <div class="table-wrap">
         <div class="table-header">
             <div>#</div>
@@ -315,7 +315,7 @@
         </div>
     </div>
 </div>
-
+ 
 <!-- MODAL -->
 <div class="modal-overlay" id="playerModal">
     <div class="modal-box">
@@ -356,7 +356,7 @@
         </div>
     </div>
 </div>
-
+ 
 <script>
 const PLAYERS = [
     { username: "5poundgodfish",    kills: 17,  skillPoints: 55,  playtimeRaw: 5471,  playtime: "91h 11m"  },
@@ -407,12 +407,12 @@ const PLAYERS = [
     { username: "vm81",             kills: 10,  skillPoints: 51,  playtimeRaw: 3663,  playtime: "61h 3m"   },
     { username: "Winter47468",      kills: 164, skillPoints: 225, playtimeRaw: 3545,  playtime: "59h 5m"   },
 ];
-
+ 
 let currentSort = 'skillPoints';
 let currentSearch = '';
 let uuidCache = new Map();
 let sortedPlayers = [];
-
+ 
 async function fetchUUID(username) {
     if (uuidCache.has(username)) return uuidCache.get(username);
     try {
@@ -426,21 +426,21 @@ async function fetchUUID(username) {
     uuidCache.set(username, null);
     return null;
 }
-
+ 
 function headUrl(uuid) { return uuid ? `https://crafthead.net/avatar/${uuid}/64` : `https://crafthead.net/avatar/Steve/64`; }
 function bodyUrl(uuid) { return uuid ? `https://crafthead.net/body/${uuid}` : `https://crafthead.net/body/Steve`; }
-
+ 
 function getSorted(sort) {
     return [...PLAYERS].sort((a, b) => sort === 'playtime' ? b.playtimeRaw - a.playtimeRaw : b[sort] - a[sort]);
 }
-
+ 
 function getStatLabel(sort, player) {
     if (sort === 'kills') return player.kills.toLocaleString();
     if (sort === 'skillPoints') return player.skillPoints.toLocaleString();
     if (sort === 'playtime') return player.playtime;
     return '';
 }
-
+ 
 async function renderPodium(sorted) {
     const wrap = document.getElementById('podiumWrapper');
     if (sorted.length < 3) { wrap.innerHTML = ''; return; }
@@ -469,7 +469,7 @@ async function renderPodium(sorted) {
         </div>`;
     }).join('');
 }
-
+ 
 async function renderTable() {
     sortedPlayers = getSorted(currentSort);
     const query = currentSearch.toLowerCase().trim();
@@ -517,7 +517,7 @@ async function renderTable() {
     if (!query) { renderPodium(sortedPlayers); document.getElementById('podiumSection').style.display = ''; }
     else { document.getElementById('podiumSection').style.display = 'none'; }
 }
-
+ 
 async function openModal(playerIndex, rank) {
     const player = PLAYERS[playerIndex];
     const uuid = await fetchUUID(player.username);
@@ -533,21 +533,21 @@ async function openModal(playerIndex, rank) {
     document.getElementById('playerModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
-
+ 
 function closeModal() {
     document.getElementById('playerModal').classList.remove('active');
     document.body.style.overflow = '';
 }
-
+ 
 document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
 document.getElementById('playerModal').addEventListener('click', e => { if (e.target.id === 'playerModal') closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
+ 
 document.querySelectorAll('.sort-tab, .th-sortable').forEach(el => {
     el.addEventListener('click', () => { currentSort = el.dataset.sort; renderTable(); });
 });
 document.getElementById('searchInput').addEventListener('input', e => { currentSearch = e.target.value; renderTable(); });
-
+ 
 (function() {
     const wrap = document.getElementById('particles');
     const colors = ['#FF6B35','#FF4F6D','#00D4FF','#FF9A5C','#4DE8FF'];
@@ -565,10 +565,10 @@ document.getElementById('searchInput').addEventListener('input', e => { currentS
         wrap.appendChild(p);
     }
 })();
-
+ 
 window.addEventListener('load', () => { setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000); });
 window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
-
+ 
 document.querySelector('.sort-tab[data-sort="skillPoints"]').classList.add('active');
 renderTable();
 </script>
