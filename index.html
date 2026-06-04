@@ -7,33 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <script>
-    const ABILITIES_CONFIG = [
-        { tier: "Ascension I", name: "Iron Skin",     desc: "Grants Resistance I and reduces incoming damage for 8 seconds. Your first step toward invulnerability.", duration: "8s", cooldown: "40s" },
-        { tier: "Ascension I", name: "Dash",          desc: "Launches you forward with a cloud particle trail. Perfect for closing gaps or escaping danger.", duration: "Instant", cooldown: "15s" },
-        { tier: "Ascension I", name: "Smokescreen",   desc: "Blinds the target and surrounds them in smoke for 3 seconds. Disorient and destroy.", duration: "3s", cooldown: "45s" },
-        { tier: "Ascension II", name: "Blood Rush",   desc: "On hit or being hit — gain Speed II for 5 seconds. The more you fight, the faster you become.", duration: "5s", cooldown: "45s" },
-        { tier: "Ascension II", name: "Fortify",      desc: "On being hit — reduces 25% incoming damage for 8 seconds. Turn their strength against them.", duration: "8s", cooldown: "50s" },
-        { tier: "Ascension II", name: "Splinter",     desc: "Next attacks deal +8% bonus damage for 8 seconds. Every strike cuts deeper.", duration: "8s", cooldown: "50s" },
-        { tier: "Ascension III", name: "Exposed",     desc: "Target takes +10% bonus damage for 4 seconds. Reveal their weakness and exploit it.", duration: "4s", cooldown: "60s" },
-        { tier: "Ascension III", name: "Phantom Step",desc: "Invisibility and portal particles for 4 seconds. Vanish from sight, strike from shadow.", duration: "4s", cooldown: "65s" },
-        { tier: "Ascension III", name: "Shockwave",   desc: "Knocks back all enemies in 5 blocks and deals 2 hearts. Control the battlefield.", duration: "Instant", cooldown: "55s" },
-        { tier: "Ascension IV", name: "Overclock",    desc: "Speed III and Haste II for 30 seconds. Push your body beyond its limits.", duration: "30s", cooldown: "120s" },
-        { tier: "Ascension IV", name: "Soul Drain",   desc: "Strips all active potion effects from target. Strip them bare of their enhancements.", duration: "Instant", cooldown: "75s" },
-        { tier: "Ascension IV", name: "Warden's Grasp",desc: "Roots target for 3 seconds, then applies Slowness X for 5 seconds. None escape the deep.", duration: "3s + 5s", cooldown: "500s" },
-        { tier: "Ascension V", name: "Wraith Form",   desc: "Invisibility, cleanses debuffs, cancels all incoming damage for 5 seconds. Become untouchable.", duration: "5s", cooldown: "150s" },
-        { tier: "Ascension V", name: "Execution",     desc: "Hit an enemy below 25% HP within 10 seconds for 2x damage. The finisher's art.", duration: "10s window", cooldown: "85s" },
-        { tier: "Ascension V", name: "Marked",        desc: "Target takes +15% damage from all sources for 5 seconds. Marked for death.", duration: "5s", cooldown: "95s" },
-        { tier: "Ascension VI", name: "Soul Lock",    desc: "Silences target — strips effects and freezes player. Total domination.", duration: "2s", cooldown: "750s" },
-        { tier: "Ascension VI", name: "Warlord's Aura",desc: "Strength III and Speed III for 8 seconds. The aura of a true conqueror.", duration: "8s", cooldown: "300s" },
-        { tier: "Ascension VI", name: "Reaper's Call",desc: "Encases target in black rings — blinded and nauseous. Death incarnate.", duration: "4s", cooldown: "800s" },
-        { tier: "Ascension VII", name: "Clone",    desc: "Spawns a half-HP, half-damage Citizens NPC copy of you that fights alongside you", duration: "30s", cooldown: "250s" },
-        { tier: "Ascension VII", name: "Ultimate Dash",desc: "Dashes ~40% farther than normal Dash + Speed II afterwards. 2 charges — first use is free, cooldown only triggers after the 2nd use", duration: "2s", cooldown: "120s" },
-        { tier: "Ascension VIII", name: "Aegis",    desc: "Blue divine shield that reflects 50% of incoming damage back to attackers", duration: "8s", cooldown: "500s" },
-        { tier: "Ascension VIII", name: "Divine Judgement",desc: "Smites a target with a beam of light (single-target burst damage)", duration: "insta", cooldown: "550s" },
-        { tier: "Ascension VIII", name: "Divine Edict",desc: "AOE freeze — locks every enemy in a 10-block radius in place, takes away 2 hearts from frozen enemies. (ignores teammates)", duration: "5s", cooldown: "1000s" },
-    ];
-    </script>
+    
     <style>
         :root {
             --sun: #FF6B35;
@@ -330,25 +304,6 @@
         .guide-info-title { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--sun); margin-bottom: 0.4rem; }
         .guide-info-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
 
-        #abilities-section { background: linear-gradient(180deg, transparent, rgba(0,212,255,0.02), transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .abilities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
-        .ability-card {
-            background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
-            border: 1px solid var(--border); border-radius: 14px; padding: 2rem;
-            position: relative; overflow: hidden; transition: all 0.4s; cursor: pointer;
-        }
-        .ability-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--sun), var(--coral), var(--aqua)); opacity: 0; transition: opacity 0.3s; }
-        .ability-card:hover { border-color: var(--border-strong); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(255,107,53,0.08); }
-        .ability-card:hover::before { opacity: 1; }
-        .ability-tier { display: inline-block; padding: 0.3rem 0.8rem; background: var(--sun-trace); border: 1px solid var(--sun); border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: var(--sun-bright); text-transform: uppercase; margin-bottom: 1rem; }
-        .ability-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
-        .ability-card:hover .ability-name { color: var(--sun-bright); }
-        .ability-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem; }
-        .ability-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .ability-tag { padding: 0.25rem 0.7rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
-        .ability-tag.duration { border-color: rgba(255,107,53,0.3); color: var(--sun-bright); }
-        .ability-tag.cooldown { border-color: rgba(0,212,255,0.3); color: var(--aqua-bright); }
-
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -360,7 +315,6 @@
             .nav-icon-btn { width: 40px; height: 40px; }
             .hero-cta { flex-direction: column; align-items: center; }
             .wiki-grid { grid-template-columns: 1fr; }
-            .abilities-grid { grid-template-columns: 1fr; }
             .update-header { flex-direction: column; text-align: center; gap: 0.8rem; }
             .update-title-text { margin-left: 0; }
         }
@@ -385,7 +339,7 @@
     <nav id="navbar">
         <a href="#" class="logo" target="_self">LightCitySMP</a>
         <div class="nav-icons">
-            <a href="#shop" class="nav-icon-btn" title="Shop" target="_self">
+            <a href="https://store.lightcitysmp.com" class="nav-icon-btn" title="Shop" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
             </a>
             <a href="#wiki" class="nav-icon-btn" title="Wiki" target="_self">
@@ -462,15 +416,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="abilities-section">
-        <div class="container">
-            <div class="section-label reveal">Combat System</div>
-            <h2 class="section-title reveal">All Abilities</h2>
-            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-            <div class="abilities-grid" id="abilitiesGrid"></div>
         </div>
     </section>
 
@@ -587,28 +532,11 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = ''; }
     window.addEventListener('click', e => { if (e.target.classList.contains('modal')) { e.target.style.display = 'none'; document.body.style.overflow = ''; } });
 
-    function renderAbilities() {
-        const grid = document.getElementById('abilitiesGrid');
-        if (!grid) return;
-        grid.innerHTML = ABILITIES_CONFIG.map((a, i) => `
-            <div class="ability-card reveal" onclick="openModal('m-abilities')" style="animation-delay:${i*50}ms">
-                <div class="ability-tier">${a.tier}</div>
-                <div class="ability-name">${a.name}</div>
-                <div class="ability-desc">${a.desc}</div>
-                <div class="ability-meta">
-                    <span class="ability-tag duration">Duration: ${a.duration}</span>
-                    <span class="ability-tag cooldown">CD: ${a.cooldown}</span>
-                </div>
-            </div>`).join('');
-        grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-    }
-
     function playUpdateVideo() {
         document.getElementById('updateVideo').play();
         document.getElementById('videoOverlay').classList.add('hidden');
     }
 
-    renderAbilities();
     </script>
 </body>
 </html>
