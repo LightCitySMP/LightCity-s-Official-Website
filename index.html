@@ -268,35 +268,39 @@
         .recipe-label { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--sun-bright); margin: 2rem 0 0.8rem; }
         .recipe-img { display: block; max-width: 100%; border-radius: 8px; border: 1px solid var(--border); image-rendering: pixelated; }
 
-        #updates {
+        #wiki {
             background: linear-gradient(180deg, transparent, rgba(255,107,53,0.02), transparent);
             border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-            padding-top: 4rem; padding-bottom: 4rem;
+            padding-top: 6rem; padding-bottom: 6rem;
         }
-        .updates-container { max-width: 900px; margin: 0 auto; }
-        .update-card { background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.4s ease; margin-bottom: 2rem; }
-        .update-card:hover { border-color: var(--border-strong); box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,107,53,0.08); transform: translateY(-4px); }
-        .update-header { padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-        .update-badge { padding: 0.35rem 0.9rem; background: linear-gradient(135deg, var(--sun), var(--coral)); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; border-radius: 4px; text-transform: uppercase; box-shadow: 0 4px 12px rgba(255,107,53,0.4); }
-        .update-date { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.05em; }
-        .update-title-text { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--text); margin-left: auto; }
-        .update-body { padding: 2rem; }
-        .update-desc { font-size: 0.95rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1.5rem; }
-        .video-container { position: relative; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--ink-2); }
-        .video-container video { width: 100%; display: block; border-radius: 12px; }
-        .video-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.3s; }
-        .video-overlay.hidden { opacity: 0; pointer-events: none; }
-        .play-button { width: 80px; height: 80px; background: rgba(255,107,53,0.2); border: 2px solid var(--sun); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; backdrop-filter: blur(4px); }
-        .play-button:hover { background: rgba(255,107,53,0.4); transform: scale(1.1); box-shadow: 0 0 40px rgba(255,107,53,0.4); }
-        .play-button svg { width: 28px; height: 28px; fill: var(--sun-bright); margin-left: 4px; }
+        .wiki-content { max-width: 800px; margin: 0 auto; }
+        .wiki-entry {
+            padding: 2.5rem 0;
+            border-bottom: 1px solid rgba(255,107,53,0.08);
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .wiki-entry.visible { opacity: 1; transform: translateY(0); }
+        .wiki-entry:last-child { border-bottom: none; }
+        .wiki-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem; font-weight: 700;
+            color: var(--sun-bright); margin-bottom: 0.9rem;
+            display: flex; align-items: center; gap: 0.7rem;
+        }
+        .wiki-heading::before {
+            content: ''; display: block; width: 4px; height: 1.5rem;
+            background: var(--sun); border-radius: 2px; flex-shrink: 0;
+        }
+        .wiki-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.08rem; color: var(--text-dim); line-height: 1.95;
+        }
 
-        #ascension-guide {
-            background: linear-gradient(180deg, transparent, rgba(0,212,255,0.03), transparent);
-            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+        #commands-section {
+            border-top: 1px solid var(--border);
+            padding-top: 6rem; padding-bottom: 6rem;
         }
-        .guide-container { max-width: 1000px; margin: 0 auto; }
-        .guide-video-wrapper { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .guide-video-wrapper video { width: 100%; display: block; }
         .guide-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
         .guide-info-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s; }
         .guide-info-card:hover { background: var(--surface-hover); border-color: var(--border-strong); transform: translateY(-4px); }
@@ -339,9 +343,7 @@
     <nav id="navbar">
         <a href="#" class="logo" target="_self">LightCitySMP</a>
         <div class="nav-icons">
-            <a href="https://store.lightcitysmp.com" class="nav-icon-btn" title="Shop" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-            </a>
+
             <a href="#wiki" class="nav-icon-btn" title="Wiki" target="_self">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
             </a>
@@ -363,57 +365,53 @@
         <div class="hero-rule"><span></span><em>&#10022;</em><span></span></div>
         <p class="hero-sub">Welcome to the official website for LightCitySMP, supervised by LightCity's council, owned by Sam.</p>
         <div class="hero-cta">
-            <a href="#updates" class="btn btn-primary" target="_self">Explore Season 6</a>
+            <a href="#wiki" class="btn btn-primary" target="_self">Explore Season 6</a>
         </div>
     </section>
 
-    <section id="updates">
+    <section id="wiki">
         <div class="container">
-            <div class="section-label reveal">What's New</div>
-            <h2 class="section-title reveal">Latest Updates</h2>
+            <div class="section-label reveal">Season 6</div>
+            <h2 class="section-title reveal">Ascension Wiki</h2>
             <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-            <div class="updates-container">
-                <div class="update-card reveal">
-                    <div class="update-header">
-                        <div class="update-badge">NEW</div>
-                        <div class="update-date">SEASON 6 LAUNCH</div>
-                        <div class="update-title-text">The Summer Update</div>
-                    </div>
-                    <div class="update-body">
-                        <p class="update-desc">Season 6 is here. New abilities, new systems, new season — same battlefield. Stay tuned for updates as the season unfolds.</p>
-                        <div class="video-container">
-                            <video id="updateVideo" poster="./videos/update-thumbnail.jpg">
-                                <source src="./videos/v2.5-update.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-overlay" id="videoOverlay" onclick="playUpdateVideo()">
-                                <div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="wiki-content reveal">
+
+                <!-- ══════════════════════════════════════════════════
+                     ADD YOUR WIKI TEXT BELOW THIS LINE
+                     Each <div class="wiki-entry"> is one block.
+                     ══════════════════════════════════════════════════ -->
+
+                <div class="wiki-entry">
+                    <h3 class="wiki-heading">Getting Started</h3>
+                    <p class="wiki-text">Write your wiki text here...</p>
                 </div>
+
+                <div class="wiki-entry">
+                    <h3 class="wiki-heading">Rebirths</h3>
+                    <p class="wiki-text">Write your wiki text here...</p>
+                </div>
+
+                <div class="wiki-entry">
+                    <h3 class="wiki-heading">Abilities</h3>
+                    <p class="wiki-text">Write your wiki text here...</p>
+                </div>
+
+                <!-- ADD MORE ENTRIES ABOVE THIS LINE -->
+
             </div>
         </div>
     </section>
 
-    <section id="ascension-guide">
+    <section id="commands-section">
         <div class="container">
-            <div class="section-label reveal">Tutorial</div>
-            <h2 class="section-title reveal">Ascension Guide</h2>
+            <div class="section-label reveal">Reference</div>
+            <h2 class="section-title reveal">Commands &amp; Utilities</h2>
             <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-            <div class="guide-container reveal">
-                <div class="guide-video-wrapper">
-                    <video id="guideVideo" controls poster="./videos/guide-thumbnail.jpg">
-                        <source src="./videos/ascension-guide.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div class="guide-info" style="cursor:pointer;" onclick="openModal('m-commands')">
-                    <div class="guide-info-card" style="grid-column:1/-1;max-width:600px;margin:0 auto;" onmouseover="this.style.borderColor='var(--sun)';this.style.boxShadow='0 0 30px rgba(255,107,53,0.15)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
-                        <div class="guide-info-icon">&#128736;&#65039;</div>
-                        <div class="guide-info-title">Commands &amp; Utilities</div>
-                        <div class="guide-info-text">All server commands, teleportation, homes, teams, and combat utilities. <span style="color:var(--sun-dim)">Click to view &rarr;</span></div>
-                    </div>
+            <div class="guide-info reveal" style="cursor:pointer;" onclick="openModal('m-commands')">
+                <div class="guide-info-card" style="grid-column:1/-1;max-width:600px;margin:0 auto;" onmouseover="this.style.borderColor='var(--sun)';this.style.boxShadow='0 0 30px rgba(255,107,53,0.15)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+                    <div class="guide-info-icon">&#128736;&#65039;</div>
+                    <div class="guide-info-title">View All Commands</div>
+                    <div class="guide-info-text">Teleportation, homes, clans, combat utilities and more. <span style="color:var(--sun-dim)">Click to view &rarr;</span></div>
                 </div>
             </div>
         </div>
@@ -479,24 +477,22 @@
             <h2>Commands &amp; Utilities</h2><div class="m-rule"></div>
             <h3>⚔️ Combat</h3>
             <table class="m-table"><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
-                <tr><td>/streak</td><td>View kill streak &amp; progress.</td></tr>
-                <tr><td>/rebirth</td><td>Open Rebirth Panel.</td></tr>
-                <tr><td>/rebirthpoint-gift &lt;n&gt; &lt;player&gt;</td><td>Gift a rebirth point.</td></tr>
+                <tr><td>/kills</td><td>View how many kills you have.</td></tr>
+                <tr><td>/forge</td><td>Upgrade your staff.</td></tr>
             </tbody></table>
             <h3>🏠 Teleportation</h3>
             <table class="m-table"><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
                 <tr><td>/home</td><td>Manage homes.</td></tr>
                 <tr><td>/tpa &lt;player&gt;</td><td>Teleport request.</td></tr>
-                <tr><td>/rtp</td><td>Random teleport (3000 radius).</td></tr>
+                <tr><td>/tpahere &lt;player&gt;</td><td>Teleport a player to you.</td></tr>
+                <tr><td>/rtp</td><td>Random teleport (6000 radius).</td></tr>
                 <tr><td>/back</td><td>Return to last death.</td></tr>
                 <tr><td>/spawn</td><td>Go to spawn.</td></tr>
             </tbody></table>
-            <h3>🛡️ Teams</h3>
+            <h3>🛡️ Clans</h3>
             <table class="m-table"><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
-                <tr><td>/team create &lt;name&gt;</td><td>Create a team.</td></tr>
-                <tr><td>/team invite &lt;player&gt;</td><td>Invite to team.</td></tr>
-                <tr><td>/team chat</td><td>Toggle team chat.</td></tr>
-                <tr><td>/msg &lt;player&gt; &lt;message&gt;</td><td>Private message.</td></tr>
+                <tr><td>/clan &lt;name&gt;</td><td>Opens clan GUI and lets you create and configure your clan.</td></tr>
+                <tr><td>/clan chat</td><td>Toggle clan chat.</td></tr>
             </tbody></table>
         </div>
     </div>
@@ -528,14 +524,15 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+    // Animate wiki entries on scroll
+    const wikiObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.wiki-entry').forEach(el => wikiObserver.observe(el));
+
     function openModal(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = ''; }
     window.addEventListener('click', e => { if (e.target.classList.contains('modal')) { e.target.style.display = 'none'; document.body.style.overflow = ''; } });
-
-    function playUpdateVideo() {
-        document.getElementById('updateVideo').play();
-        document.getElementById('videoOverlay').classList.add('hidden');
-    }
 
     </script>
 </body>
