@@ -273,29 +273,132 @@
             border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
             padding-top: 6rem; padding-bottom: 6rem;
         }
-        .wiki-content { max-width: 800px; margin: 0 auto; }
-        .wiki-entry {
-            padding: 2.5rem 0;
-            border-bottom: 1px solid rgba(255,107,53,0.08);
-            opacity: 0; transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+        .wiki-content { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+
+        .weapon-card {
+            background: linear-gradient(135deg, var(--ink-3) 0%, var(--ink-2) 100%);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            opacity: 0; transform: translateY(28px);
+            transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
         }
-        .wiki-entry.visible { opacity: 1; transform: translateY(0); }
-        .wiki-entry:last-child { border-bottom: none; }
-        .wiki-heading {
+        .weapon-card.visible { opacity: 1; transform: translateY(0); }
+        .weapon-card:hover { border-color: var(--border-strong); box-shadow: 0 16px 48px rgba(0,0,0,0.45), 0 0 24px rgba(255,107,53,0.07); }
+        .weapon-card.disabled { border-color: rgba(255,255,255,0.06); opacity: 0.7; }
+        .weapon-card.disabled.visible { opacity: 0.7; }
+        .weapon-card.disabled:hover { box-shadow: none; border-color: rgba(255,255,255,0.08); }
+
+        /* coloured top accent per weapon */
+        .weapon-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        }
+        .weapon-card.poison::before  { background: linear-gradient(90deg, #7CFF6B, #3ACC2A); }
+        .weapon-card.fire::before    { background: linear-gradient(90deg, #FF6B35, #FF4F6D); }
+        .weapon-card.swift::before   { background: linear-gradient(90deg, #00D4FF, #4DE8FF); }
+        .weapon-card.rampage::before { background: linear-gradient(90deg, #FFD700, #FF9A5C); }
+        .weapon-card.vengeance::before { background: linear-gradient(90deg, #9D5BD2, #B87AF0); }
+        .weapon-card.rampage .weapon-ability-name { color: #FFD700; }
+        .weapon-card.vengeance .weapon-ability-name { color: #B87AF0; }
+        .weapon-card.poison .weapon-ability-name  { color: #7CFF6B; }
+        .weapon-card.fire .weapon-ability-name    { color: var(--sun-bright); }
+        .weapon-card.swift .weapon-ability-name   { color: var(--aqua-bright); }
+
+        .weapon-header {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1.4rem 1.8rem 1rem;
+        }
+        .weapon-icon { font-size: 1.8rem; line-height: 1; flex-shrink: 0; }
+        .weapon-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem; font-weight: 700;
-            color: var(--sun-bright); margin-bottom: 0.9rem;
-            display: flex; align-items: center; gap: 0.7rem;
+            font-size: 1.5rem; font-weight: 700; color: var(--text);
+            line-height: 1.1;
         }
-        .wiki-heading::before {
-            content: ''; display: block; width: 4px; height: 1.5rem;
-            background: var(--sun); border-radius: 2px; flex-shrink: 0;
+        .weapon-type-tag {
+            margin-left: auto; flex-shrink: 0;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 0.2rem 0.7rem; border-radius: 20px;
         }
-        .wiki-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.08rem; color: var(--text-dim); line-height: 1.95;
+        .tag-projectile { color: #FF6B35; background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.25); }
+        .tag-selfbuff   { color: #00D4FF; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25); }
+        .tag-disabled   { color: #888; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); }
+
+        .weapon-subtitle {
+            font-family: 'Cormorant Garamond', serif; font-size: 0.95rem;
+            color: var(--text-muted); padding: 0 1.8rem 0; font-style: italic;
         }
+
+        .weapon-body { padding: 1rem 1.8rem 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+
+        .weapon-ability {
+            background: rgba(255,255,255,0.025); border-radius: 8px;
+            padding: 0.9rem 1.1rem; border-left: 3px solid var(--sun);
+        }
+        .weapon-ability-name {
+            font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--sun-bright);
+            margin-bottom: 0.35rem;
+        }
+        .weapon-ability-desc {
+            font-family: 'Cormorant Garamond', serif; font-size: 0.98rem;
+            color: var(--text-dim); line-height: 1.7;
+        }
+
+        .weapon-stats {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem;
+        }
+        .weapon-stat {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px; padding: 0.75rem 1rem;
+        }
+        .weapon-stat-label {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+        .weapon-stat-value {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+            color: var(--text-dim); line-height: 1.6;
+        }
+        .weapon-stat-value span { color: var(--sun-bright); }
+
+        .weapon-forms {
+            display: flex; gap: 0.5rem; flex-wrap: wrap;
+        }
+        .form-pip {
+            flex: 1; min-width: 80px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 6px; padding: 0.5rem 0.7rem; text-align: center;
+        }
+        .form-pip-label {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+            letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase;
+            display: block; margin-bottom: 0.2rem;
+        }
+        .form-pip-val {
+            font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700;
+            color: var(--sun-bright);
+        }
+
+        .weapon-counter {
+            display: flex; align-items: flex-start; gap: 0.6rem;
+            font-family: 'Cormorant Garamond', serif; font-size: 0.95rem;
+            color: var(--text-muted); padding: 0.6rem 0.9rem;
+            background: rgba(255,79,109,0.06); border: 1px solid rgba(255,79,109,0.15);
+            border-radius: 8px;
+        }
+        .weapon-counter::before { content: '🛡'; font-size: 1rem; flex-shrink: 0; }
+
+        .disabled-banner {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 0.1em; color: #888; text-transform: uppercase;
+            background: rgba(255,255,255,0.03); border-radius: 6px;
+            padding: 0.5rem 0.9rem; border: 1px solid rgba(255,255,255,0.07);
+        }
+        .disabled-banner::before { content: '⚠'; }
 
         #commands-section {
             border-top: 1px solid var(--border);
@@ -374,29 +477,183 @@
             <div class="section-label reveal">Season 6</div>
             <h2 class="section-title reveal">Ascension Wiki</h2>
             <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-            <div class="wiki-content reveal">
+            <div class="wiki-content">
 
-                <!-- ══════════════════════════════════════════════════
-                     ADD YOUR WIKI TEXT BELOW THIS LINE
-                     Each <div class="wiki-entry"> is one block.
-                     ══════════════════════════════════════════════════ -->
-
-                <div class="wiki-entry">
-                    <h3 class="wiki-heading">Getting Started</h3>
-                    <p class="wiki-text">Write your wiki text here...</p>
+                <!-- ☠ POISON STAFF -->
+                <div class="weapon-card poison">
+                    <div class="weapon-header">
+                        <span class="weapon-icon">☠</span>
+                        <span class="weapon-name">Poison Staff</span>
+                        <span class="weapon-type-tag tag-projectile">Projectile</span>
+                    </div>
+                    <p class="weapon-subtitle">Aimed projectile — you have to hit your target.</p>
+                    <div class="weapon-body">
+                        <div class="weapon-ability">
+                            <div class="weapon-ability-name">Venom Burst</div>
+                            <div class="weapon-ability-desc">A lethal poison-over-time lasting <span style="color:var(--sun-bright)">6 seconds</span>. Milk cleanses it entirely; golden apples soften the damage.</div>
+                        </div>
+                        <div class="weapon-stats">
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Uses</div>
+                                <div class="weapon-stat-value"><span>3</span> charges (spammable)</div>
+                            </div>
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Base Cooldown</div>
+                                <div class="weapon-stat-value"><span>50s</span> after charges depleted</div>
+                            </div>
+                        </div>
+                        <div class="weapon-stat">
+                            <div class="weapon-stat-label">Damage by Form (total over 6s)</div>
+                            <div class="weapon-forms" style="margin-top:0.5rem">
+                                <div class="form-pip"><span class="form-pip-label">Form 0</span><span class="form-pip-val">3 ❤</span></div>
+                                <div class="form-pip"><span class="form-pip-label">Form 1</span><span class="form-pip-val">3.5 ❤</span></div>
+                                <div class="form-pip"><span class="form-pip-label">Form 2</span><span class="form-pip-val">4 ❤</span></div>
+                                <div class="form-pip"><span class="form-pip-label">Form 3</span><span class="form-pip-val">4.5 ❤</span></div>
+                            </div>
+                        </div>
+                        <div class="weapon-stat">
+                            <div class="weapon-stat-label">Cooldown by Condition</div>
+                            <div class="weapon-stat-value"><span>50s</span> Healthy &nbsp;/&nbsp; <span>60s</span> Hurt &nbsp;/&nbsp; <span>70s</span> Damaged &nbsp;/&nbsp; <span>90s</span> Very Damaged</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="wiki-entry">
-                    <h3 class="wiki-heading">Rebirths</h3>
-                    <p class="wiki-text">Write your wiki text here...</p>
+                <!-- 🔥 FIRE STAFF -->
+                <div class="weapon-card fire">
+                    <div class="weapon-header">
+                        <span class="weapon-icon">🔥</span>
+                        <span class="weapon-name">Fire Staff</span>
+                        <span class="weapon-type-tag tag-projectile">Projectile</span>
+                    </div>
+                    <p class="weapon-subtitle">Aimed projectile — you have to hit your target. Ignores fire resistance.</p>
+                    <div class="weapon-body">
+                        <div class="weapon-ability">
+                            <div class="weapon-ability-name">Fire Bolt</div>
+                            <div class="weapon-ability-desc">Direct burning damage applied over <span style="color:var(--sun-bright)">8 seconds</span>. Fire resistance potions do absolutely nothing against it.</div>
+                        </div>
+                        <div class="weapon-stats">
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Uses</div>
+                                <div class="weapon-stat-value"><span>3</span> charges (spammable)</div>
+                            </div>
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Base Cooldown</div>
+                                <div class="weapon-stat-value"><span>60s</span> after charges depleted</div>
+                            </div>
+                        </div>
+                        <div class="weapon-stat">
+                            <div class="weapon-stat-label">Damage by Form (total over 8s)</div>
+                            <div class="weapon-forms" style="margin-top:0.5rem">
+                                <div class="form-pip"><span class="form-pip-label">Form 0</span><span class="form-pip-val">2.5 ❤</span></div>
+                                <div class="form-pip"><span class="form-pip-label">Form 1</span><span class="form-pip-val">3 ❤</span></div>
+                                <div class="form-pip"><span class="form-pip-label">Form 2</span><span class="form-pip-val">3.5 ❤</span></div>
+                                <div class="form-pip"><span class="form-pip-label">Form 3</span><span class="form-pip-val">4 ❤</span></div>
+                            </div>
+                        </div>
+                        <div class="weapon-stat">
+                            <div class="weapon-stat-label">Cooldown by Condition</div>
+                            <div class="weapon-stat-value"><span>60s</span> Healthy &nbsp;/&nbsp; <span>70s</span> Hurt &nbsp;/&nbsp; <span>80s</span> Damaged &nbsp;/&nbsp; <span>100s</span> Very Damaged</div>
+                        </div>
+                        <div class="weapon-counter">Gapples and Egaps counter with absorption + regen. Fire resistance potions do nothing.</div>
+                    </div>
                 </div>
 
-                <div class="wiki-entry">
-                    <h3 class="wiki-heading">Abilities</h3>
-                    <p class="wiki-text">Write your wiki text here...</p>
+                <!-- 💨 SWIFT STAFF -->
+                <div class="weapon-card swift">
+                    <div class="weapon-header">
+                        <span class="weapon-icon">💨</span>
+                        <span class="weapon-name">Swift Staff</span>
+                        <span class="weapon-type-tag tag-selfbuff">Self-Buff</span>
+                    </div>
+                    <p class="weapon-subtitle">Self-buff — cast on yourself.</p>
+                    <div class="weapon-body">
+                        <div class="weapon-ability">
+                            <div class="weapon-ability-name">Swift Surge</div>
+                            <div class="weapon-ability-desc"><span style="color:var(--aqua-bright)">Speed III</span> + full knockback immunity for <span style="color:var(--sun-bright)">15 seconds</span>. Form 1 and above also dash you forward on cast. Very Damaged condition downgrades Speed III → Speed II.</div>
+                        </div>
+                        <div class="weapon-stats">
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Uses</div>
+                                <div class="weapon-stat-value"><span>2</span> charges</div>
+                            </div>
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Base Cooldown</div>
+                                <div class="weapon-stat-value"><span>40s</span> after charges depleted</div>
+                            </div>
+                        </div>
+                        <div class="weapon-stat">
+                            <div class="weapon-stat-label">Cooldown by Condition</div>
+                            <div class="weapon-stat-value"><span>40s</span> Healthy &nbsp;/&nbsp; <span>50s</span> Hurt &nbsp;/&nbsp; <span>60s</span> Damaged &nbsp;/&nbsp; <span>80s</span> Very Damaged</div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- ADD MORE ENTRIES ABOVE THIS LINE -->
+                <!-- ⚔ RAMPAGE STAFF -->
+                <div class="weapon-card rampage">
+                    <div class="weapon-header">
+                        <span class="weapon-icon">⚔</span>
+                        <span class="weapon-name">Rampage Staff</span>
+                        <span class="weapon-type-tag tag-selfbuff">Self-Buff</span>
+                    </div>
+                    <p class="weapon-subtitle">Self-buff — cast on yourself.</p>
+                    <div class="weapon-body">
+                        <div class="weapon-ability">
+                            <div class="weapon-ability-name">Rampage</div>
+                            <div class="weapon-ability-desc"><span style="color:var(--sun-bright)">Strength II</span> for 5 seconds. Forms stack on top of each other — Form 1 adds +0.5❤ melee damage, Form 2 reduces incoming damage by 6%, Form 3 adds −10% incoming damage and Absorption hearts.</div>
+                        </div>
+                        <div class="weapon-stats">
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Uses</div>
+                                <div class="weapon-stat-value"><span>1</span> charge</div>
+                            </div>
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Base Cooldown</div>
+                                <div class="weapon-stat-value"><span>120s</span></div>
+                            </div>
+                        </div>
+                        <div class="weapon-stat">
+                            <div class="weapon-stat-label">Cooldown by Condition</div>
+                            <div class="weapon-stat-value"><span>120s</span> Healthy &nbsp;/&nbsp; <span>135s</span> Hurt &nbsp;/&nbsp; <span>150s</span> Damaged &nbsp;/&nbsp; <span>170s</span> Very Damaged</div>
+                        </div>
+                        <div class="weapon-counter">Counter: chugging Enchanted Golden Apples.</div>
+                    </div>
+                </div>
+
+                <!-- 🗡 SWORD OF VENGEANCE -->
+                <div class="weapon-card vengeance disabled">
+                    <div class="weapon-header">
+                        <span class="weapon-icon">🗡</span>
+                        <span class="weapon-name">Sword of Vengeance</span>
+                        <span class="weapon-type-tag tag-disabled">Disabled</span>
+                    </div>
+                    <p class="weapon-subtitle">Self-buff · Netherite Sword · Currently disabled — unobtainable.</p>
+                    <div class="weapon-body">
+                        <div class="disabled-banner">Currently disabled &amp; unobtainable in Season 6</div>
+                        <div class="weapon-ability">
+                            <div class="weapon-ability-name">Vengeance Mode</div>
+                            <div class="weapon-ability-desc">On activation, lightning strikes the user and they become a dark figure. Everyone within 15 blocks sees <em style="color:var(--text-dim)">"[player] has entered Vengeance mode.."</em> — <span style="color:var(--sun-bright)">Strength III</span> + knockback immunity + immunity to enemy staff abilities for <span style="color:var(--sun-bright)">7 seconds</span>. Forms stack: Form 1 adds +0.5❤ &amp; +10% outgoing damage, Form 2 also reduces incoming by 8%, Form 3 (Last Stand) gives −15% incoming / +15% outgoing.</div>
+                        </div>
+                        <div class="weapon-stat">
+                            <div class="weapon-stat-label">Condition Scaling</div>
+                            <div class="weapon-stat-value">Damaged loses staff immunity · Very Damaged loses all immunities</div>
+                        </div>
+                        <div class="weapon-stats">
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Uses</div>
+                                <div class="weapon-stat-value"><span>1</span> charge</div>
+                            </div>
+                            <div class="weapon-stat">
+                                <div class="weapon-stat-label">Base Cooldown</div>
+                                <div class="weapon-stat-value"><span>240s</span></div>
+                            </div>
+                        </div>
+                        <div class="weapon-stat">
+                            <div class="weapon-stat-label">Cooldown by Condition</div>
+                            <div class="weapon-stat-value"><span>240s</span> Healthy &nbsp;/&nbsp; <span>260s</span> Hurt &nbsp;/&nbsp; <span>280s</span> Damaged &nbsp;/&nbsp; <span>300s</span> Very Damaged</div>
+                        </div>
+                        <div class="weapon-counter">Counter: chugging Enchanted Golden Apples.</div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -524,11 +781,14 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // Animate wiki entries on scroll
+    // Animate weapon cards on scroll
     const wikiObserver = new IntersectionObserver((entries) => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.wiki-entry').forEach(el => wikiObserver.observe(el));
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.weapon-card').forEach((el, i) => {
+        el.style.transitionDelay = (i * 0.08) + 's';
+        wikiObserver.observe(el);
+    });
 
     function openModal(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = ''; }
