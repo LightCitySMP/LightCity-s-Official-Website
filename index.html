@@ -3,797 +3,1115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightCitySMP | Season 6</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    
+    <title>LightCitySMP Wiki — Staff Weapons & Clans</title>
     <style>
         :root {
-            --sun: #FF6B35;
-            --sun-bright: #FF9A5C;
-            --sun-dim: #A03E1A;
-            --sun-trace: rgba(255,107,53,0.10);
-            --sun-glow: rgba(255,107,53,0.22);
-            --coral: #FF4F6D;
-            --coral-bright: #FF7A8A;
-            --coral-trace: rgba(255,79,109,0.15);
-            --aqua: #00D4FF;
-            --aqua-bright: #4DE8FF;
-            --aqua-dim: #006B80;
-            --aqua-trace: rgba(0,212,255,0.10);
-            --aqua-glow: rgba(0,212,255,0.22);
-            --violet: #9D5BD2;
-            --violet-bright: #B87AF0;
-            --violet-trace: rgba(157,91,210,0.12);
-            --ink: #060E1A;
-            --ink-2: #0A1628;
-            --ink-3: #0F1F35;
-            --surface: rgba(255,255,255,0.025);
-            --surface-hover: rgba(255,255,255,0.045);
-            --border: rgba(255,107,53,0.14);
-            --border-strong: rgba(255,107,53,0.35);
-            --text: #F0EDE8;
-            --text-dim: rgba(240,237,232,0.55);
-            --text-muted: rgba(240,237,232,0.3);
+            --bg-dark: #0f0f13;
+            --bg-card: #1a1a22;
+            --bg-card-hover: #22222e;
+            --border: #2a2a3a;
+            --border-accent: #3a3a50;
+            --text-primary: #e8e8f0;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6a6a80;
+            --accent-gold: #d4a843;
+            --accent-gold-dim: #8a7030;
+            --accent-red: #c44b4b;
+            --accent-green: #5ab85a;
+            --accent-blue: #5a8ac4;
+            --accent-purple: #9b5ac4;
+            --accent-cyan: #4ab8b8;
+            --rarity-common: #a0a0a0;
+            --rarity-uncommon: #4ab84a;
+            --rarity-rare: #4a8ac4;
+            --rarity-epic: #9b4ac4;
+            --rarity-legendary: #d4a843;
+            --rarity-mythic: #c44b4b;
+            --shadow: 0 4px 24px rgba(0,0,0,0.4);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --radius: 12px;
+            --radius-sm: 8px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Syne', sans-serif;
-            background: var(--ink);
-            color: var(--text);
-            overflow-x: hidden;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* ── Header ── */
+        .wiki-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%);
+            border-bottom: 1px solid var(--border-accent);
+            padding: 48px 24px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .wiki-header::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(212,168,67,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(91,138,196,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .wiki-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, var(--accent-gold), #e8c97a, var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            text-shadow: none;
+        }
+        .wiki-header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-top: 8px;
+            position: relative;
+        }
+        .wiki-header .badge {
+            display: inline-block;
+            background: rgba(212,168,67,0.15);
+            border: 1px solid rgba(212,168,67,0.3);
+            color: var(--accent-gold);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 16px;
+            position: relative;
+        }
+
+        /* ── Navigation ── */
+        .nav-bar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+        }
+        .nav-tab {
+            padding: 14px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            cursor: pointer;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+        .nav-tab:hover { color: var(--text-primary); background: rgba(255,255,255,0.03); }
+        .nav-tab.active {
+            color: var(--accent-gold);
+            border-bottom-color: var(--accent-gold);
+            background: rgba(212,168,67,0.08);
+        }
+
+        /* ── Layout ── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 24px 64px;
+        }
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .section.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            border-color: var(--border-accent);
+            box-shadow: var(--shadow);
+        }
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title .icon {
+            width: 32px; height: 32px;
+            border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* ── Tables ── */
+        .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+        thead {
+            background: linear-gradient(135deg, #1e1e2a, #252535);
+        }
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-accent);
+        }
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(255,255,255,0.02); }
+        tbody tr:nth-child(even) { background: rgba(255,255,255,0.015); }
+
+        /* ── Info Blocks ── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+        .info-block {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+        }
+        .info-block h4 {
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .info-block p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
             line-height: 1.6;
         }
 
-        .bg-layer {
-            position: fixed; inset: 0; z-index: -3;
-            background:
-                radial-gradient(ellipse 80% 60% at 20% 15%, rgba(255,107,53,0.12) 0%, transparent 55%),
-                radial-gradient(ellipse 60% 50% at 80% 85%, rgba(0,212,255,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,79,109,0.05) 0%, transparent 60%),
-                var(--ink);
-        }
-
-        .bg-lines {
-            position: fixed; inset: 0; z-index: -2;
-            background-image:
-                linear-gradient(rgba(255,107,53,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,107,53,0.04) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
-        }
-
-        .bg-particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-        .particle {
-            position: absolute; border-radius: 50%; opacity: 0;
-            animation: floatUp linear infinite;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-        }
-
-        .loader {
-            position: fixed; inset: 0; z-index: 9999; background: var(--ink);
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-        .loader.hidden { opacity: 0; visibility: hidden; }
-        .loader-inner { text-align: center; position: relative; width: 200px; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .loader-orb {
-            width: 22px; height: 22px; background: var(--sun); border-radius: 50%;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-            box-shadow: 0 0 30px var(--sun), 0 0 60px var(--sun-glow), 0 0 80px rgba(255,79,109,0.2);
-            animation: orbPulse 1.2s ease-in-out infinite;
-        }
-        .loader-pulse-ring {
-            position: absolute; top: 50%; left: 50%; width: 60px; height: 60px;
-            border: 1px solid var(--sun); border-radius: 50%;
-            transform: translate(-50%,-50%); opacity: 0;
-            animation: ringExpand 2s ease-out infinite;
-        }
-        .loader-label {
-            font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700;
-            letter-spacing: 0.15em; color: var(--sun-bright); text-transform: uppercase;
-            margin-top: 1.5rem; animation: loaderTextPulse 1.5s ease-in-out infinite;
-            position: relative; z-index: 2; text-shadow: 0 0 20px rgba(255,107,53,0.5);
-        }
-        .loader-sub {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
-            letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase;
-            margin-top: 0.6rem; animation: loaderTextPulse 1.5s ease-in-out 0.3s infinite;
-            position: relative; z-index: 2;
-        }
-        @keyframes orbPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.3); opacity: 0.7; } }
-        @keyframes ringExpand { 0% { transform: translate(-50%,-50%) scale(0.5); opacity: 0.6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
-        @keyframes loaderTextPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 1.2rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(6,14,26,0.88); backdrop-filter: blur(24px);
-            border-bottom: 1px solid var(--border);
-            transition: padding 0.3s ease, box-shadow 0.3s ease;
-        }
-        nav.scrolled { padding: 0.9rem 5%; box-shadow: 0 4px 40px rgba(0,0,0,0.7); }
-        .logo {
-            font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700;
-            color: var(--sun-bright); text-decoration: none; letter-spacing: 0.03em;
-            text-shadow: 0 0 12px rgba(255,107,53,0.6);
-        }
-        .nav-icons { display: flex; gap: 0.6rem; align-items: center; }
-        .nav-icon-btn {
-            width: 44px; height: 44px; background: var(--surface);
-            border: 1px solid var(--border); border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.3s ease; text-decoration: none;
-        }
-        .nav-icon-btn:hover { background: var(--sun-trace); border-color: var(--border-strong); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,53,0.15); }
-        .nav-icon-btn.active { background: var(--sun-trace); border-color: var(--sun); box-shadow: 0 0 16px rgba(255,107,53,0.2); }
-        .nav-icon-btn svg { width: 20px; height: 20px; fill: var(--sun); transition: transform 0.25s ease; }
-        .nav-icon-btn:hover svg { transform: scale(1.1); }
-
-        .hero {
-            min-height: 85vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            padding: 2rem 5% 4rem; position: relative;
-        }
-        .hero-eyebrow {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-            letter-spacing: 0.3em; color: var(--sun-dim); text-transform: uppercase;
-            margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
-        }
-        .hero-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 700;
-            line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1rem;
-            opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards;
-        }
-        .hero-title .line1 {
-            display: block; color: var(--sun-bright);
-            text-shadow: 0 0 30px rgba(255,107,53,0.4), 0 0 60px rgba(255,79,109,0.2);
-        }
-        .season-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(0,212,255,0.1));
-            border: 1px solid rgba(255,107,53,0.3);
+        /* ── Tags & Badges ── */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
             border-radius: 6px;
-            padding: 0.3rem 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem; letter-spacing: 0.2em; color: var(--sun-bright);
-            text-transform: uppercase; margin-bottom: 1.5rem;
-            opacity: 0; animation: fadeUp 0.8s ease 0.15s forwards;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .hero-rule {
-            display: flex; align-items: center; gap: 1rem; justify-content: center;
-            margin: 1.5rem 0; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
-        }
-        .hero-rule span { height: 1px; width: 60px; background: linear-gradient(90deg, transparent, var(--sun-dim)); }
-        .hero-rule span:last-child { background: linear-gradient(90deg, var(--sun-dim), transparent); }
-        .hero-rule em { color: var(--sun); font-style: normal; font-size: 0.9rem; }
-        .hero-sub {
-            font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
-            color: var(--text-dim); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7;
-            opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
-        }
-        .hero-cta {
-            display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
-            opacity: 0; animation: fadeUp 0.8s ease 0.75s forwards;
-        }
-        .btn {
-            padding: 0.75rem 2rem; border-radius: 6px;
-            font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 600;
-            letter-spacing: 0.05em; text-decoration: none; transition: all 0.3s ease;
-            cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--sun), var(--coral));
-            color: #fff; border: 1px solid var(--sun);
-        }
-        .btn-primary:hover { background: linear-gradient(135deg, var(--sun-bright), var(--coral-bright)); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.35); }
-        .btn-secondary {
-            background: transparent; color: var(--text-dim); border: 1px solid var(--border-strong);
-        }
-        .btn-secondary:hover { background: var(--sun-trace); color: var(--sun-bright); border-color: var(--sun); transform: translateY(-2px); }
+        .tag-common { background: rgba(160,160,160,0.15); color: var(--rarity-common); border: 1px solid rgba(160,160,160,0.25); }
+        .tag-uncommon { background: rgba(74,184,74,0.15); color: var(--rarity-uncommon); border: 1px solid rgba(74,184,74,0.25); }
+        .tag-rare { background: rgba(74,138,196,0.15); color: var(--rarity-rare); border: 1px solid rgba(74,138,196,0.25); }
+        .tag-epic { background: rgba(155,74,196,0.15); color: var(--rarity-epic); border: 1px solid rgba(155,74,196,0.25); }
+        .tag-legendary { background: rgba(212,168,67,0.15); color: var(--rarity-legendary); border: 1px solid rgba(212,168,67,0.25); }
+        .tag-mythic { background: rgba(196,75,75,0.15); color: var(--rarity-mythic); border: 1px solid rgba(196,75,75,0.25); }
 
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        .badge-inline {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+        .badge-tier-0 { background: rgba(160,160,160,0.15); color: var(--rarity-common); }
+        .badge-tier-1 { background: rgba(74,184,74,0.15); color: var(--rarity-uncommon); }
+        .badge-tier-2 { background: rgba(74,138,196,0.15); color: var(--rarity-rare); }
+        .badge-tier-3 { background: rgba(212,168,67,0.15); color: var(--rarity-legendary); }
 
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 5%; }
-        section { padding: 8rem 0; position: relative; }
+        /* ── Callouts ── */
+        .callout {
+            border-left: 4px solid;
+            padding: 16px 20px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 16px 0;
+            background: rgba(255,255,255,0.02);
+        }
+        .callout-info { border-color: var(--accent-blue); }
+        .callout-warn { border-color: var(--accent-gold); }
+        .callout-danger { border-color: var(--accent-red); }
+        .callout-success { border-color: var(--accent-green); }
+        .callout h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .callout-info h4 { color: var(--accent-blue); }
+        .callout-warn h4 { color: var(--accent-gold); }
+        .callout-danger h4 { color: var(--accent-red); }
+        .callout-success h4 { color: var(--accent-green); }
 
-        .section-label {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
-            letter-spacing: 0.25em; color: var(--sun-dim); text-transform: uppercase;
-            text-align: center; margin-bottom: 0.8rem;
+        /* ── Stats Grid ── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
         }
-        .section-title {
-            font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700; text-align: center; color: var(--sun-bright);
-            letter-spacing: -0.01em; margin-bottom: 0.5rem;
-        }
-        .section-rule {
-            display: flex; align-items: center; gap: 1rem; justify-content: center;
-            margin: 1rem 0 3.5rem;
-        }
-        .section-rule span { height: 1px; width: 50px; background: linear-gradient(90deg, transparent, var(--sun-dim)); }
-        .section-rule span:last-child { background: linear-gradient(90deg, var(--sun-dim), transparent); }
-        .section-rule em { color: var(--sun-dim); font-style: normal; font-size: 0.7rem; }
-
-        .wiki-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
-        .wiki-card {
-            background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-            padding: 2rem; cursor: pointer; transition: all 0.3s ease;
-            position: relative; overflow: hidden;
-        }
-        .wiki-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-            background: linear-gradient(180deg, var(--sun-dim), transparent); opacity: 0; transition: opacity 0.3s;
-        }
-        .wiki-card:hover { background: var(--surface-hover); border-color: var(--border-strong); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(255,107,53,0.06); }
-        .wiki-card:hover::before { opacity: 1; }
-        .card-icon-wrap {
-            width: 52px; height: 52px; background: var(--sun-trace); border: 1px solid var(--border);
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; margin-bottom: 1.2rem; transition: all 0.3s;
-        }
-        .wiki-card:hover .card-icon-wrap { background: rgba(255,107,53,0.14); border-color: var(--border-strong); transform: scale(1.05); }
-        .card-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
-        .card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
-        .card-arrow { position: absolute; bottom: 1.5rem; right: 1.5rem; color: var(--sun-dim); font-size: 0.9rem; opacity: 0; transform: translateX(-6px); transition: all 0.3s; }
-        .wiki-card:hover .card-arrow { opacity: 1; transform: translateX(0); color: var(--sun); }
-
-        .modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); overflow-y: auto; padding: 4rem 1rem; }
-        .modal-box { background: var(--ink-2); border: 1px solid var(--border-strong); border-radius: 12px; width: 100%; max-width: 760px; margin: 0 auto; padding: 2.5rem; position: relative; animation: modalIn 0.3s ease; }
-        @keyframes modalIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
-        .modal-close { position: absolute; top: 1.2rem; right: 1.5rem; color: var(--sun-dim); font-size: 1.5rem; cursor: pointer; line-height: 1; transition: color 0.2s; }
-        .modal-close:hover { color: var(--sun); }
-        .modal-box h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 700; color: var(--sun-bright); margin-bottom: 0.3rem; }
-        .modal-box .m-rule { height: 1px; background: linear-gradient(90deg, var(--sun-dim), transparent); margin: 1rem 0 1.5rem; }
-        .modal-box h3 { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sun); margin: 1.8rem 0 0.8rem; }
-        .modal-box p, .modal-box li { font-size: 0.9rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 0.6rem; }
-        .modal-box ul { padding-left: 1.2rem; margin-bottom: 1rem; }
-        .modal-box strong { color: var(--sun-bright); font-weight: 600; }
-        .m-table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1rem; border-radius: 8px; overflow: hidden; }
-        .m-table th { padding: 0.7rem 1rem; text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--sun-dim); text-transform: uppercase; background: var(--sun-trace); border-bottom: 1px solid var(--border); }
-        .m-table td { padding: 0.7rem 1rem; font-size: 0.88rem; color: var(--text-dim); border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .m-table tr:last-child td { border-bottom: none; }
-        .m-table tr:hover td { background: var(--sun-trace); }
-        .recipe-label { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--sun-bright); margin: 2rem 0 0.8rem; }
-        .recipe-img { display: block; max-width: 100%; border-radius: 8px; border: 1px solid var(--border); image-rendering: pixelated; }
-
-        #wiki {
-            background: linear-gradient(180deg, transparent, rgba(255,107,53,0.02), transparent);
-            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-            padding-top: 6rem; padding-bottom: 6rem;
-        }
-        .wiki-content { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
-
-        .weapon-card {
-            background: linear-gradient(135deg, var(--ink-3) 0%, var(--ink-2) 100%);
+        .stat-box {
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--border);
-            border-radius: 14px;
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-box .value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            line-height: 1;
+        }
+        .stat-box .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 6px;
+        }
+
+        /* ── Progress Bar ── */
+        .progress-track {
+            background: var(--border);
+            border-radius: 6px;
+            height: 8px;
             overflow: hidden;
-            opacity: 0; transform: translateY(28px);
-            transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.3s, box-shadow 0.3s;
-            position: relative;
+            margin: 8px 0;
         }
-        .weapon-card.visible { opacity: 1; transform: translateY(0); }
-        .weapon-card:hover { border-color: var(--border-strong); box-shadow: 0 16px 48px rgba(0,0,0,0.45), 0 0 24px rgba(255,107,53,0.07); }
-        .weapon-card.disabled { border-color: rgba(255,255,255,0.06); opacity: 0.7; }
-        .weapon-card.disabled.visible { opacity: 0.7; }
-        .weapon-card.disabled:hover { box-shadow: none; border-color: rgba(255,255,255,0.08); }
-
-        /* coloured top accent per weapon */
-        .weapon-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, var(--accent-gold), #e8c97a);
+            transition: width 0.5s ease;
         }
-        .weapon-card.poison::before  { background: linear-gradient(90deg, #7CFF6B, #3ACC2A); }
-        .weapon-card.fire::before    { background: linear-gradient(90deg, #FF6B35, #FF4F6D); }
-        .weapon-card.swift::before   { background: linear-gradient(90deg, #00D4FF, #4DE8FF); }
-        .weapon-card.rampage::before { background: linear-gradient(90deg, #FFD700, #FF9A5C); }
-        .weapon-card.vengeance::before { background: linear-gradient(90deg, #9D5BD2, #B87AF0); }
-        .weapon-card.rampage .weapon-ability-name { color: #FFD700; }
-        .weapon-card.vengeance .weapon-ability-name { color: #B87AF0; }
-        .weapon-card.poison .weapon-ability-name  { color: #7CFF6B; }
-        .weapon-card.fire .weapon-ability-name    { color: var(--sun-bright); }
-        .weapon-card.swift .weapon-ability-name   { color: var(--aqua-bright); }
 
+        /* ── Weapon Cards ── */
+        .weapon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .weapon-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .weapon-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
         .weapon-header {
-            display: flex; align-items: center; gap: 1rem;
-            padding: 1.4rem 1.8rem 1rem;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
-        .weapon-icon { font-size: 1.8rem; line-height: 1; flex-shrink: 0; }
-        .weapon-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem; font-weight: 700; color: var(--text);
-            line-height: 1.1;
+        .weapon-header h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
         }
-        .weapon-type-tag {
-            margin-left: auto; flex-shrink: 0;
-            font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
-            letter-spacing: 0.1em; text-transform: uppercase;
-            padding: 0.2rem 0.7rem; border-radius: 20px;
-        }
-        .tag-projectile { color: #FF6B35; background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.25); }
-        .tag-selfbuff   { color: #00D4FF; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25); }
-        .tag-disabled   { color: #888; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); }
-
-        .weapon-subtitle {
-            font-family: 'Cormorant Garamond', serif; font-size: 0.95rem;
-            color: var(--text-muted); padding: 0 1.8rem 0; font-style: italic;
-        }
-
-        .weapon-body { padding: 1rem 1.8rem 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
-
-        .weapon-ability {
-            background: rgba(255,255,255,0.025); border-radius: 8px;
-            padding: 0.9rem 1.1rem; border-left: 3px solid var(--sun);
-        }
-        .weapon-ability-name {
-            font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700;
-            letter-spacing: 0.12em; text-transform: uppercase; color: var(--sun-bright);
-            margin-bottom: 0.35rem;
-        }
-        .weapon-ability-desc {
-            font-family: 'Cormorant Garamond', serif; font-size: 0.98rem;
-            color: var(--text-dim); line-height: 1.7;
-        }
-
-        .weapon-stats {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem;
-        }
+        .weapon-body { padding: 20px 24px; }
         .weapon-stat {
-            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 8px; padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.9rem;
         }
-        .weapon-stat-label {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
-            letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
-            margin-bottom: 0.35rem;
-        }
-        .weapon-stat-value {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
-            color: var(--text-dim); line-height: 1.6;
-        }
-        .weapon-stat-value span { color: var(--sun-bright); }
-
+        .weapon-stat:last-child { border-bottom: none; }
+        .weapon-stat .stat-name { color: var(--text-muted); }
+        .weapon-stat .stat-val { color: var(--text-primary); font-weight: 600; }
         .weapon-forms {
-            display: flex; gap: 0.5rem; flex-wrap: wrap;
-        }
-        .form-pip {
-            flex: 1; min-width: 80px;
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 6px; padding: 0.5rem 0.7rem; text-align: center;
-        }
-        .form-pip-label {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
-            letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase;
-            display: block; margin-bottom: 0.2rem;
-        }
-        .form-pip-val {
-            font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700;
-            color: var(--sun-bright);
-        }
-
-        .weapon-counter {
-            display: flex; align-items: flex-start; gap: 0.6rem;
-            font-family: 'Cormorant Garamond', serif; font-size: 0.95rem;
-            color: var(--text-muted); padding: 0.6rem 0.9rem;
-            background: rgba(255,79,109,0.06); border: 1px solid rgba(255,79,109,0.15);
-            border-radius: 8px;
-        }
-        .weapon-counter::before { content: '🛡'; font-size: 1rem; flex-shrink: 0; }
-
-        .disabled-banner {
-            display: flex; align-items: center; gap: 0.5rem;
-            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
-            letter-spacing: 0.1em; color: #888; text-transform: uppercase;
-            background: rgba(255,255,255,0.03); border-radius: 6px;
-            padding: 0.5rem 0.9rem; border: 1px solid rgba(255,255,255,0.07);
-        }
-        .disabled-banner::before { content: '⚠'; }
-
-        #commands-section {
+            margin-top: 16px;
+            padding-top: 16px;
             border-top: 1px solid var(--border);
-            padding-top: 6rem; padding-bottom: 6rem;
         }
-        .guide-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .guide-info-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s; }
-        .guide-info-card:hover { background: var(--surface-hover); border-color: var(--border-strong); transform: translateY(-4px); }
-        .guide-info-icon { font-size: 2rem; margin-bottom: 0.8rem; }
-        .guide-info-title { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--sun); margin-bottom: 0.4rem; }
-        .guide-info-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+        .weapon-forms h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+        .form-entry {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 0.88rem;
+        }
+        .form-entry .form-num {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: var(--border-accent);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .form-entry.unlocked .form-num { background: var(--accent-gold); color: var(--bg-dark); }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+        /* ── Tier Timeline ── */
+        .tier-timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+        .tier-timeline::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--rarity-common), var(--rarity-uncommon), var(--rarity-rare), var(--rarity-legendary));
+            border-radius: 2px;
+        }
+        .tier-node {
+            position: relative;
+            padding: 16px 0 16px 20px;
+        }
+        .tier-node::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 22px;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+            border: 3px solid var(--rarity-common);
+            z-index: 2;
+        }
+        .tier-node.tier-1::before { border-color: var(--rarity-uncommon); }
+        .tier-node.tier-2::before { border-color: var(--rarity-rare); }
+        .tier-node.tier-3::before { border-color: var(--rarity-legendary); box-shadow: 0 0 12px rgba(212,168,67,0.3); }
+        .tier-node h4 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tier-node p { color: var(--text-secondary); font-size: 0.92rem; }
+        .tier-node .tier-reqs {
+            margin-top: 10px;
+            padding: 12px;
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+        .tier-node .tier-reqs li {
+            list-style: none;
+            padding: 4px 0;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tier-node .tier-reqs li::before {
+            content: '✦';
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+        }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--ink); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--sun-dim), var(--sun)); border-radius: 3px; }
+        /* ── Quest Cards ── */
+        .quest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .quest-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .quest-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-cyan));
+        }
+        .quest-card h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .quest-card .quest-reward {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .reward-pill {
+            background: rgba(212,168,67,0.1);
+            border: 1px solid rgba(212,168,67,0.2);
+            color: var(--accent-gold);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
 
-        @media (max-width: 768px) {
-            .nav-icon-btn { width: 40px; height: 40px; }
-            .hero-cta { flex-direction: column; align-items: center; }
-            .wiki-grid { grid-template-columns: 1fr; }
-            .update-header { flex-direction: column; text-align: center; gap: 0.8rem; }
-            .update-title-text { margin-left: 0; }
+        /* ── Income Table ── */
+        .income-highlight {
+            background: linear-gradient(135deg, rgba(212,168,67,0.08), rgba(212,168,67,0.02));
+            border: 1px solid rgba(212,168,67,0.2);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin: 16px 0;
+        }
+        .income-highlight h4 {
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        /* ── Footer ── */
+        .wiki-footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .wiki-footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--border-accent); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4a4a60; }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .wiki-header h1 { font-size: 1.8rem; }
+            .card { padding: 20px; }
+            .weapon-grid { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ── Section Headers ── */
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        h2 .section-icon {
+            width: 36px; height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 28px 0 14px;
+            color: var(--text-primary);
+        }
+        p { color: var(--text-secondary); margin-bottom: 12px; }
+        ul, ol { color: var(--text-secondary); margin: 8px 0 8px 20px; }
+        li { margin: 6px 0; }
+        code {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.88em;
+            color: var(--accent-cyan);
+        }
+        .kbd {
+            background: linear-gradient(180deg, #2a2a3a, #22222e);
+            border: 1px solid #3a3a50;
+            border-bottom-width: 3px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-family: 'SF Mono', monospace;
+            font-size: 0.85em;
+            color: var(--text-primary);
+            display: inline-block;
         }
     </style>
-    <base target="_blank">
+<base target="_blank">
 </head>
 <body>
-    <div class="loader" id="loader">
-        <div class="loader-inner">
-            <div class="loader-orb"></div>
-            <div class="loader-pulse-ring"></div>
-            <div class="loader-pulse-ring" style="animation-delay:0.4s"></div>
-            <div class="loader-label">LightCitySMP</div>
-            <div class="loader-sub">Initializing Season 6...</div>
-        </div>
-    </div>
 
-    <div class="bg-layer"></div>
-    <div class="bg-lines"></div>
-    <div class="bg-particles" id="particles"></div>
+    <!-- ═════════════════ HEADER ═════════════════ -->
+    <header class="wiki-header">
+        <h1>⚔️ LightCitySMP Wiki</h1>
+        <p class="subtitle">Staff Weapons &amp; Clan Systems — Complete Reference</p>
+        <span class="badge">Official Server Documentation</span>
+    </header>
 
-    <nav id="navbar">
-        <a href="#" class="logo" target="_self">LightCitySMP</a>
-        <div class="nav-icons">
-
-            <a href="#wiki" class="nav-icon-btn" title="Wiki" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            </a>
-            <a href="leaderboard.html" class="nav-icon-btn" title="Leaderboard" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-            </a>
-            <a href="items.html" class="nav-icon-btn" title="Item Utilities" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M7 20h4v-2H7v2zm6-4h4v-2h-4v2zm-6-4h4v-2H7v2zm6-4h4V6h-4v2zM5 22V4l2-2h10l2 2v18H5z"/></svg>
-            </a>
-            <a href="rules.html" class="nav-icon-btn" title="Rules" target="_self">
-                <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
-            </a>
+    <!-- ═════════════════ NAVIGATION ═════════════════ -->
+    <nav class="nav-bar">
+        <div class="nav-inner">
+            <button class="nav-tab active" onclick="showSection('weapons')">🗡️ Staff Weapons</button>
+            <button class="nav-tab" onclick="showSection('clans')">🏰 Clans</button>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="season-tag">☀ Season 6 &middot; Summer 2025</div>
-        <h1 class="hero-title"><span class="line1">LightCitySMP</span></h1>
-        <div class="hero-rule"><span></span><em>&#10022;</em><span></span></div>
-        <p class="hero-sub">Welcome to the official website for LightCitySMP, supervised by LightCity's council, owned by Sam.</p>
-        <div class="hero-cta">
-            <a href="#wiki" class="btn btn-primary" target="_self">Explore Season 6</a>
-        </div>
-    </section>
+    <div class="container">
 
-    <section id="wiki">
-        <div class="container">
-            <div class="section-label reveal">Season 6</div>
-            <h2 class="section-title reveal">Ascension Wiki</h2>
-            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-            <div class="wiki-content">
+        <!-- ════════════════════════════════════════════════
+             STAFF WEAPONS SECTION
+             ════════════════════════════════════════════════ -->
+        <div id="weapons" class="section active">
 
-                <!-- ☠ POISON STAFF -->
-                <div class="weapon-card poison">
-                    <div class="weapon-header">
-                        <span class="weapon-icon">☠</span>
-                        <span class="weapon-name">Poison Staff</span>
-                        <span class="weapon-type-tag tag-projectile">Projectile</span>
-                    </div>
-                    <p class="weapon-subtitle">Aimed projectile — you have to hit your target.</p>
-                    <div class="weapon-body">
-                        <div class="weapon-ability">
-                            <div class="weapon-ability-name">Venom Burst</div>
-                            <div class="weapon-ability-desc">A lethal poison-over-time lasting <span style="color:var(--sun-bright)">6 seconds</span>. Milk cleanses it entirely; golden apples soften the damage.</div>
-                        </div>
-                        <div class="weapon-stats">
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Uses</div>
-                                <div class="weapon-stat-value"><span>3</span> charges (spammable)</div>
-                            </div>
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Base Cooldown</div>
-                                <div class="weapon-stat-value"><span>50s</span> after charges depleted</div>
-                            </div>
-                        </div>
-                        <div class="weapon-stat">
-                            <div class="weapon-stat-label">Damage by Form (total over 6s)</div>
-                            <div class="weapon-forms" style="margin-top:0.5rem">
-                                <div class="form-pip"><span class="form-pip-label">Form 0</span><span class="form-pip-val">3 ❤</span></div>
-                                <div class="form-pip"><span class="form-pip-label">Form 1</span><span class="form-pip-val">3.5 ❤</span></div>
-                                <div class="form-pip"><span class="form-pip-label">Form 2</span><span class="form-pip-val">4 ❤</span></div>
-                                <div class="form-pip"><span class="form-pip-label">Form 3</span><span class="form-pip-val">4.5 ❤</span></div>
-                            </div>
-                        </div>
-                        <div class="weapon-stat">
-                            <div class="weapon-stat-label">Cooldown by Condition</div>
-                            <div class="weapon-stat-value"><span>50s</span> Healthy &nbsp;/&nbsp; <span>60s</span> Hurt &nbsp;/&nbsp; <span>70s</span> Damaged &nbsp;/&nbsp; <span>90s</span> Very Damaged</div>
-                        </div>
-                    </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="icon" style="background: rgba(212,168,67,0.15);">⚔️</span>
+                    About Staff Weapons
                 </div>
-
-                <!-- 🔥 FIRE STAFF -->
-                <div class="weapon-card fire">
-                    <div class="weapon-header">
-                        <span class="weapon-icon">🔥</span>
-                        <span class="weapon-name">Fire Staff</span>
-                        <span class="weapon-type-tag tag-projectile">Projectile</span>
-                    </div>
-                    <p class="weapon-subtitle">Aimed projectile — you have to hit your target. Ignores fire resistance.</p>
-                    <div class="weapon-body">
-                        <div class="weapon-ability">
-                            <div class="weapon-ability-name">Fire Bolt</div>
-                            <div class="weapon-ability-desc">Direct burning damage applied over <span style="color:var(--sun-bright)">8 seconds</span>. Fire resistance potions do absolutely nothing against it.</div>
-                        </div>
-                        <div class="weapon-stats">
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Uses</div>
-                                <div class="weapon-stat-value"><span>3</span> charges (spammable)</div>
-                            </div>
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Base Cooldown</div>
-                                <div class="weapon-stat-value"><span>60s</span> after charges depleted</div>
-                            </div>
-                        </div>
-                        <div class="weapon-stat">
-                            <div class="weapon-stat-label">Damage by Form (total over 8s)</div>
-                            <div class="weapon-forms" style="margin-top:0.5rem">
-                                <div class="form-pip"><span class="form-pip-label">Form 0</span><span class="form-pip-val">2.5 ❤</span></div>
-                                <div class="form-pip"><span class="form-pip-label">Form 1</span><span class="form-pip-val">3 ❤</span></div>
-                                <div class="form-pip"><span class="form-pip-label">Form 2</span><span class="form-pip-val">3.5 ❤</span></div>
-                                <div class="form-pip"><span class="form-pip-label">Form 3</span><span class="form-pip-val">4 ❤</span></div>
-                            </div>
-                        </div>
-                        <div class="weapon-stat">
-                            <div class="weapon-stat-label">Cooldown by Condition</div>
-                            <div class="weapon-stat-value"><span>60s</span> Healthy &nbsp;/&nbsp; <span>70s</span> Hurt &nbsp;/&nbsp; <span>80s</span> Damaged &nbsp;/&nbsp; <span>100s</span> Very Damaged</div>
-                        </div>
-                        <div class="weapon-counter">Gapples and Egaps counter with absorption + regen. Fire resistance potions do nothing.</div>
-                    </div>
-                </div>
-
-                <!-- 💨 SWIFT STAFF -->
-                <div class="weapon-card swift">
-                    <div class="weapon-header">
-                        <span class="weapon-icon">💨</span>
-                        <span class="weapon-name">Swift Staff</span>
-                        <span class="weapon-type-tag tag-selfbuff">Self-Buff</span>
-                    </div>
-                    <p class="weapon-subtitle">Self-buff — cast on yourself.</p>
-                    <div class="weapon-body">
-                        <div class="weapon-ability">
-                            <div class="weapon-ability-name">Swift Surge</div>
-                            <div class="weapon-ability-desc"><span style="color:var(--aqua-bright)">Speed III</span> + full knockback immunity for <span style="color:var(--sun-bright)">15 seconds</span>. Form 1 and above also dash you forward on cast. Very Damaged condition downgrades Speed III → Speed II.</div>
-                        </div>
-                        <div class="weapon-stats">
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Uses</div>
-                                <div class="weapon-stat-value"><span>2</span> charges</div>
-                            </div>
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Base Cooldown</div>
-                                <div class="weapon-stat-value"><span>40s</span> after charges depleted</div>
-                            </div>
-                        </div>
-                        <div class="weapon-stat">
-                            <div class="weapon-stat-label">Cooldown by Condition</div>
-                            <div class="weapon-stat-value"><span>40s</span> Healthy &nbsp;/&nbsp; <span>50s</span> Hurt &nbsp;/&nbsp; <span>60s</span> Damaged &nbsp;/&nbsp; <span>80s</span> Very Damaged</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ⚔ RAMPAGE STAFF -->
-                <div class="weapon-card rampage">
-                    <div class="weapon-header">
-                        <span class="weapon-icon">⚔</span>
-                        <span class="weapon-name">Rampage Staff</span>
-                        <span class="weapon-type-tag tag-selfbuff">Self-Buff</span>
-                    </div>
-                    <p class="weapon-subtitle">Self-buff — cast on yourself.</p>
-                    <div class="weapon-body">
-                        <div class="weapon-ability">
-                            <div class="weapon-ability-name">Rampage</div>
-                            <div class="weapon-ability-desc"><span style="color:var(--sun-bright)">Strength II</span> for 5 seconds. Forms stack on top of each other — Form 1 adds +0.5❤ melee damage, Form 2 reduces incoming damage by 6%, Form 3 adds −10% incoming damage and Absorption hearts.</div>
-                        </div>
-                        <div class="weapon-stats">
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Uses</div>
-                                <div class="weapon-stat-value"><span>1</span> charge</div>
-                            </div>
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Base Cooldown</div>
-                                <div class="weapon-stat-value"><span>120s</span></div>
-                            </div>
-                        </div>
-                        <div class="weapon-stat">
-                            <div class="weapon-stat-label">Cooldown by Condition</div>
-                            <div class="weapon-stat-value"><span>120s</span> Healthy &nbsp;/&nbsp; <span>135s</span> Hurt &nbsp;/&nbsp; <span>150s</span> Damaged &nbsp;/&nbsp; <span>170s</span> Very Damaged</div>
-                        </div>
-                        <div class="weapon-counter">Counter: chugging Enchanted Golden Apples.</div>
-                    </div>
-                </div>
-
-                <!-- 🗡 SWORD OF VENGEANCE -->
-                <div class="weapon-card vengeance disabled">
-                    <div class="weapon-header">
-                        <span class="weapon-icon">🗡</span>
-                        <span class="weapon-name">Sword of Vengeance</span>
-                        <span class="weapon-type-tag tag-disabled">Disabled</span>
-                    </div>
-                    <p class="weapon-subtitle">Self-buff · Netherite Sword · Currently disabled — unobtainable.</p>
-                    <div class="weapon-body">
-                        <div class="disabled-banner">Currently disabled &amp; unobtainable in Season 6</div>
-                        <div class="weapon-ability">
-                            <div class="weapon-ability-name">Vengeance Mode</div>
-                            <div class="weapon-ability-desc">On activation, lightning strikes the user and they become a dark figure. Everyone within 15 blocks sees <em style="color:var(--text-dim)">"[player] has entered Vengeance mode.."</em> — <span style="color:var(--sun-bright)">Strength III</span> + knockback immunity + immunity to enemy staff abilities for <span style="color:var(--sun-bright)">7 seconds</span>. Forms stack: Form 1 adds +0.5❤ &amp; +10% outgoing damage, Form 2 also reduces incoming by 8%, Form 3 (Last Stand) gives −15% incoming / +15% outgoing.</div>
-                        </div>
-                        <div class="weapon-stat">
-                            <div class="weapon-stat-label">Condition Scaling</div>
-                            <div class="weapon-stat-value">Damaged loses staff immunity · Very Damaged loses all immunities</div>
-                        </div>
-                        <div class="weapon-stats">
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Uses</div>
-                                <div class="weapon-stat-value"><span>1</span> charge</div>
-                            </div>
-                            <div class="weapon-stat">
-                                <div class="weapon-stat-label">Base Cooldown</div>
-                                <div class="weapon-stat-value"><span>240s</span></div>
-                            </div>
-                        </div>
-                        <div class="weapon-stat">
-                            <div class="weapon-stat-label">Cooldown by Condition</div>
-                            <div class="weapon-stat-value"><span>240s</span> Healthy &nbsp;/&nbsp; <span>260s</span> Hurt &nbsp;/&nbsp; <span>280s</span> Damaged &nbsp;/&nbsp; <span>300s</span> Very Damaged</div>
-                        </div>
-                        <div class="weapon-counter">Counter: chugging Enchanted Golden Apples.</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="commands-section">
-        <div class="container">
-            <div class="section-label reveal">Reference</div>
-            <h2 class="section-title reveal">Commands &amp; Utilities</h2>
-            <div class="section-rule reveal"><span></span><em>&#9670;</em><span></span></div>
-            <div class="guide-info reveal" style="cursor:pointer;" onclick="openModal('m-commands')">
-                <div class="guide-info-card" style="grid-column:1/-1;max-width:600px;margin:0 auto;" onmouseover="this.style.borderColor='var(--sun)';this.style.boxShadow='0 0 30px rgba(255,107,53,0.15)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
-                    <div class="guide-info-icon">&#128736;&#65039;</div>
-                    <div class="guide-info-title">View All Commands</div>
-                    <div class="guide-info-text">Teleportation, homes, clans, combat utilities and more. <span style="color:var(--sun-dim)">Click to view &rarr;</span></div>
+                <p>Staff Weapons are special melee weapons that grow in power as you unlock additional <strong>Forms</strong>. Each weapon starts at <strong>Form 1</strong> and can be upgraded up to <strong>Form 3</strong>, unlocking new passive effects and increased damage with each tier.</p>
+                <div class="callout callout-info">
+                    <h4>💡 How Forms Work</h4>
+                    <p>Forms are unlocked by meeting specific in-game requirements (usually kill counts or achievements). Once a Form is unlocked, its passive buff is <strong>permanently active</strong> — you don't need to switch between them. Higher Forms stack their benefits on top of lower ones.</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- MODALS -->
-    <div id="m-blade" class="modal">
-        <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-blade')">&times;</span>
-            <h2>Ascension Blade</h2><div class="m-rule"></div>
-            <p>A craftable custom weapon. Killing a player with it <strong>steals one of their rebirth levels</strong>, including the ability tied to it.</p>
-            <p class="recipe-label">Ascension Blade Recipe</p>
-            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231529.png" alt="Ascension Blade Recipe">
+            <h2><span class="section-icon" style="background: rgba(196,75,75,0.15);">🔥</span> Rampage Staff</h2>
+
+            <div class="weapon-grid">
+                <div class="weapon-card">
+                    <div class="weapon-header">
+                        <h3 style="color: var(--rarity-mythic);">Rampage Staff</h3>
+                        <span class="tag tag-mythic">Mythic</span>
+                    </div>
+                    <div class="weapon-body">
+                        <div class="weapon-stat">
+                            <span class="stat-name">Base Damage</span>
+                            <span class="stat-val">12 DMG</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span class="stat-name">Attack Speed</span>
+                            <span class="stat-val">1.6</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span class="stat-name">Max Forms</span>
+                            <span class="stat-val">3</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span class="stat-name">Type</span>
+                            <span class="stat-val">Melee / Buff</span>
+                        </div>
+
+                        <div class="weapon-forms">
+                            <h4>📈 Form Unlocks</h4>
+                            <div class="form-entry unlocked">
+                                <span class="form-num">1</span>
+                                <div>
+                                    <strong>Strength III</strong> — Unlocks at <strong>5 player kills</strong>
+                                    <br><span style="color: var(--text-muted); font-size: 0.82rem;">Grants permanent Strength III while held</span>
+                                </div>
+                            </div>
+                            <div class="form-entry">
+                                <span class="form-num">2</span>
+                                <div>
+                                    <strong>Strength IV</strong> — Unlocks at <strong>15 player kills</strong>
+                                    <br><span style="color: var(--text-muted); font-size: 0.82rem;">Upgrades to Strength IV while held</span>
+                                </div>
+                            </div>
+                            <div class="form-entry">
+                                <span class="form-num">3</span>
+                                <div>
+                                    <strong>Strength V</strong> — Unlocks at <strong>30 player kills</strong>
+                                    <br><span style="color: var(--text-muted); font-size: 0.82rem;">Upgrades to Strength V while held</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 0;">
+                    <div class="card-title">
+                        <span class="icon" style="background: rgba(196,75,75,0.15);">📊</span>
+                        Rampage Progression
+                    </div>
+                    <p style="margin-bottom: 16px;">The Rampage Staff scales purely through player kills. Each Form upgrade replaces the previous Strength level with a stronger one.</p>
+
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="value">5</div>
+                            <div class="label">Kills for Form 1</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">15</div>
+                            <div class="label">Kills for Form 2</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">30</div>
+                            <div class="label">Kills for Form 3</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="value">III→V</div>
+                            <div class="label">Strength Range</div>
+                        </div>
+                    </div>
+
+                    <div class="callout callout-warn" style="margin-top: 16px;">
+                        <h4>⚠️ Important Note</h4>
+                        <p>When <strong>Form 1</strong> is unlocked, the Rampage Staff begins granting <strong>Strength III</strong> (not Strength II). Each subsequent Form replaces the previous Strength level — they do not stack.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More weapons can be added here following the same pattern -->
+
         </div>
-    </div>
-    <div id="m-rebirths" class="modal">
-        <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-rebirths')">&times;</span>
-            <h2>Rebirths</h2><div class="m-rule"></div>
-            <h3>How to Rebirth</h3>
-            <p>Requires 1 Rebirth Point, earned by reaching the required kill streak, purchasing from the store, or crafting.</p>
-            <p class="recipe-label">Rebirth Point Recipe</p>
-            <img class="recipe-img" src="https://raw.githubusercontent.com/LightCitySMP/LightCity-s-Official-Website/main/Screenshot%202026-04-26%20231638.png" alt="Rebirth Point Recipe">
+
+        <!-- ════════════════════════════════════════════════
+             CLANS SECTION
+             ════════════════════════════════════════════════ -->
+        <div id="clans" class="section">
+
+            <!-- Overview -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="icon" style="background: rgba(212,168,67,0.15);">🏰</span>
+                    Clans — LightCitySMP
+                </div>
+                <p>Clans are <strong>persistent player groups</strong> that grow through 4 tiers by playing together. Higher tiers unlock more members, clan homes, quests, and passive income for the leader.</p>
+
+                <div class="stats-row" style="margin-top: 20px;">
+                    <div class="stat-box">
+                        <div class="value">4</div>
+                        <div class="label">Total Tiers</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">12</div>
+                        <div class="label">Max Members</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">2</div>
+                        <div class="label">Max Clan Homes</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">15</div>
+                        <div class="label">Renown to Found</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Getting Started -->
+            <h2><span class="section-icon" style="background: rgba(74,184,74,0.15);">🚀</span> Getting Started</h2>
+
+            <div class="info-grid">
+                <div class="info-block">
+                    <h4>📋 Create a Clan</h4>
+                    <p>Open everything from the <code>/clan</code> menu — no subcommands, it's all in the GUI. Founding a clan costs <strong>15 renown</strong>. Click <strong>Create Clan</strong> and type a name (5–16 characters).</p>
+                </div>
+                <div class="info-block">
+                    <h4>💬 Clan Chat</h4>
+                    <p>Talk privately to your clan with <kbd>/cc</kbd> or <kbd>/clanchat</kbd>. Toggle it on/off, or use <kbd>/cc &lt;message&gt;</kbd> for a single message.</p>
+                </div>
+                <div class="info-block">
+                    <h4>👑 Leader Perks</h4>
+                    <p>Clan leaders earn <strong>passive income</strong> while online, scaling with clan tier. Reaching Tier 3 also grants the temporary <strong>[LORD]</strong> rank.</p>
+                </div>
+            </div>
+
+            <!-- Roles -->
+            <h2><span class="section-icon" style="background: rgba(155,74,196,0.15);">👥</span> Clan Roles</h2>
+
+            <div class="card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Powers &amp; Responsibilities</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span style="color: var(--accent-gold); font-weight: 700;">👑 Leader</span></td>
+                                <td>Full control: invite, promote/demote, kick, rename, set join requirement, set sigil, disband, and transfer leadership. <strong>Earns clan passive income.</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: var(--accent-blue); font-weight: 700;">⚔️ Officer</span></td>
+                                <td>Can invite players and manage members (kick/promote below their rank).</td>
+                            </tr>
+                            <tr>
+                                <td><span style="color: var(--text-secondary); font-weight: 700;">🛡️ Member</span></td>
+                                <td>Contributes to clan renown, completes quests, and helps push tier progress.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tiers -->
+            <h2><span class="section-icon" style="background: rgba(74,138,196,0.15);">📈</span> Clan Tiers</h2>
+
+            <div class="card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tier</th>
+                                <th>Member Cap</th>
+                                <th>Clan Homes</th>
+                                <th>Clan Quests</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge-inline badge-tier-0">Tier 0</span></td>
+                                <td>6</td>
+                                <td>0</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-inline badge-tier-1">Tier 1</span></td>
+                                <td>8</td>
+                                <td>1</td>
+                                <td>Tier 1 Quests</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-inline badge-tier-2">Tier 2</span></td>
+                                <td>10</td>
+                                <td>1</td>
+                                <td>Tier 1–2 Quests</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-inline badge-tier-3">Tier 3</span></td>
+                                <td>12</td>
+                                <td>2</td>
+                                <td>Tier 1–3 Quests</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-success" style="margin-top: 16px;">
+                    <h4>🏆 Lord Rank</h4>
+                    <p>Reaching <strong>Tier 3</strong> makes the leader a temporary <strong>[LORD]</strong> — a special server rank kept for as long as they remain the clan leader.</p>
+                </div>
+            </div>
+
+            <!-- How to Rank Up -->
+            <h2><span class="section-icon" style="background: rgba(212,168,67,0.15);">🎯</span> How to Rank Up</h2>
+
+            <div class="card">
+                <p style="margin-bottom: 20px;">Tiers unlock <strong>automatically</strong> once <em>every member individually</em> meets all requirements. No manual application needed — the system checks and promotes when ready.</p>
+
+                <div class="tier-timeline">
+                    <div class="tier-node tier-1">
+                        <h4>Tier 1 <span class="badge-inline badge-tier-1">Unlock</span></h4>
+                        <p>Each member must complete:</p>
+                        <ul class="tier-reqs">
+                            <li><strong>5</strong> distinct player kills</li>
+                            <li><strong>24 hours</strong> total playtime</li>
+                        </ul>
+                    </div>
+                    <div class="tier-node tier-2">
+                        <h4>Tier 2 <span class="badge-inline badge-tier-2">Unlock</span></h4>
+                        <p>Each member must complete:</p>
+                        <ul class="tier-reqs">
+                            <li><strong>10</strong> distinct player kills</li>
+                            <li><strong>48 hours</strong> total playtime</li>
+                            <li><strong>Fully Netherite</strong> achievement</li>
+                        </ul>
+                    </div>
+                    <div class="tier-node tier-3">
+                        <h4>Tier 3 <span class="badge-inline badge-tier-3">Unlock</span></h4>
+                        <p>Each member must complete:</p>
+                        <ul class="tier-reqs">
+                            <li><strong>15</strong> distinct player kills</li>
+                            <li><strong>100 hours</strong> total playtime</li>
+                            <li><strong>Beacon</strong> achievement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout callout-info" style="margin-top: 20px;">
+                    <h4>ℹ️ Distinct Kills Explained</h4>
+                    <p>"Distinct kills" means <strong>different victims</strong> — repeatedly killing the same player doesn't count. There is a <strong>1-hour cooldown</strong> on counting kills against the same victim.</p>
+                </div>
+            </div>
+
+            <!-- Renown -->
+            <h2><span class="section-icon" style="background: rgba(155,74,196,0.15);">⚡</span> Renown System</h2>
+
+            <div class="card">
+                <p>Renown is your clan's <strong>reputation</strong> and the key to its power. It determines your standing on the leaderboard and unlocks clan features.</p>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="value" style="color: var(--accent-green);">+0.5</div>
+                        <div class="label">Per Confirmed Kill</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value" style="color: var(--accent-red);">−0.25</div>
+                        <div class="label">Per Death</div>
+                    </div>
+                </div>
+
+                <div class="callout callout-warn" style="margin-top: 16px;">
+                    <h4>⚠️ Healthy Clan Requirement</h4>
+                    <p>A clan only earns renown from its members' kills while it is <strong>"healthy"</strong>:</p>
+                    <ul style="margin-top: 8px;">
+                        <li>The <strong>leader</strong> must have at least <strong>10 renown</strong></li>
+                        <li><strong>Every member</strong> must have at least <strong>5 renown</strong></li>
+                    </ul>
+                    <p style="margin-top: 8px;">Keep your clan active or your renown income stops entirely.</p>
+                </div>
+            </div>
+
+            <!-- Leader Income -->
+            <h2><span class="section-icon" style="background: rgba(212,168,67,0.15);">💰</span> Clan Leader Income</h2>
+
+            <div class="card">
+                <p>While the leader is <strong>online</strong>, the clan pays them automatically on a set timer. The amount and frequency scale with tier.</p>
+
+                <div class="table-wrap" style="margin-top: 16px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tier</th>
+                                <th>Light Coins</th>
+                                <th>Gold</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge-inline badge-tier-0">Tier 0</span></td>
+                                <td><strong>3 LC</strong> every 30 min</td>
+                                <td><strong>64 gold</strong> every 40 min</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-inline badge-tier-1">Tier 1</span></td>
+                                <td><strong>6 LC</strong> every 30 min</td>
+                                <td><strong>128 gold</strong> every 40 min</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-inline badge-tier-2">Tier 2</span></td>
+                                <td><strong>12 LC</strong> every 40 min</td>
+                                <td><strong>400 gold</strong> every 50 min</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-inline badge-tier-3">Tier 3</span></td>
+                                <td><strong>16 LC</strong> every 45 min</td>
+                                <td><strong>650 gold</strong> every 60 min</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Clan Quests -->
+            <h2><span class="section-icon" style="background: rgba(74,184,184,0.15);">📜</span> Clan Quests</h2>
+
+            <div class="card">
+                <p>Quests unlock at <strong>Tier 1</strong>. Only <strong>one active quest</strong> at a time, with a <strong>1-hour cooldown</strong> after completing one. On completion, the clan gains renown and every <strong>online member</strong> gets Light Orbs (LO).</p>
+
+                <div class="quest-grid" style="margin-top: 20px;">
+                    <div class="quest-card">
+                        <h4>💎 Mine 150 Diamonds <span class="badge-inline badge-tier-1">Tier 1</span></h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Gather 150 diamonds as a clan effort.</p>
+                        <div class="quest-reward">
+                            <span class="reward-pill">+1.5 Renown</span>
+                            <span class="reward-pill">+500 LO each</span>
+                        </div>
+                    </div>
+                    <div class="quest-card">
+                        <h4>⚔️ 50 Clan Kills <span class="badge-inline badge-tier-1">Tier 1</span></h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Accumulate 50 player kills across all members.</p>
+                        <div class="quest-reward">
+                            <span class="reward-pill">+45 Renown</span>
+                            <span class="reward-pill">+1,200 LO each</span>
+                        </div>
+                    </div>
+                    <div class="quest-card">
+                        <h4>💎 Mine 200 Diamonds <span class="badge-inline badge-tier-2">Tier 2</span></h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Gather 200 diamonds as a clan effort.</p>
+                        <div class="quest-reward">
+                            <span class="reward-pill">+1.5 Renown</span>
+                            <span class="reward-pill">+650 LO each</span>
+                        </div>
+                    </div>
+                    <div class="quest-card">
+                        <h4>⚔️ 100 Clan Kills <span class="badge-inline badge-tier-2">Tier 2</span></h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Accumulate 100 player kills across all members.</p>
+                        <div class="quest-reward">
+                            <span class="reward-pill">+65 Renown</span>
+                            <span class="reward-pill">+3,500 LO each</span>
+                        </div>
+                    </div>
+                    <div class="quest-card">
+                        <h4>🌾 Harvest 10,000 Crops <span class="badge-inline badge-tier-3">Tier 3</span></h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Harvest 10,000 crops collectively.</p>
+                        <div class="quest-reward">
+                            <span class="reward-pill">+80 Renown</span>
+                            <span class="reward-pill">+20,000 LO each</span>
+                        </div>
+                    </div>
+                    <div class="quest-card">
+                        <h4>⚔️ 500 Clan Kills <span class="badge-inline badge-tier-3">Tier 3</span></h4>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Accumulate 500 player kills across all members.</p>
+                        <div class="quest-reward">
+                            <span class="reward-pill">+100 Renown</span>
+                            <span class="reward-pill">+25,000 LO each</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clan Features -->
+            <h2><span class="section-icon" style="background: rgba(74,138,196,0.15);">🔧</span> Clan Features</h2>
+
+            <div class="info-grid">
+                <div class="info-block">
+                    <h4>🏠 Clan Homes</h4>
+                    <p>Shared teleport locations for the whole clan. <strong>1 home</strong> unlocks at Tier 1, and a <strong>2nd home</strong> unlocks at Tier 3.</p>
+                </div>
+                <div class="info-block">
+                    <h4>🎨 Clan Sigil</h4>
+                    <p>Available at <strong>Tier 2+</strong>. Set a custom banner as your clan's emblem by holding a banner and using the sigil command in the clan menu.</p>
+                </div>
+                <div class="info-block">
+                    <h4>🔒 Join Requirement</h4>
+                    <p>Available at <strong>Tier 1+</strong>. Leaders can set a minimum personal renown that players must have to join the clan.</p>
+                </div>
+                <div class="info-block">
+                    <h4>📋 Members</h4>
+                    <p>View the full clan roster, check individual member stats, and manage roles directly from the clan GUI.</p>
+                </div>
+                <div class="info-block">
+                    <h4>🤝 Allies</h4>
+                    <p>Browse every clan on the server, sorted by renown. View each clan's owner and shared renown to consider allying.</p>
+                </div>
+                <div class="info-block">
+                    <h4>⚔️ Enemies</h4>
+                    <p>Browse every clan on the server, sorted by renown. View each clan's owner and shared renown to declare war.</p>
+                </div>
+            </div>
+
+            <!-- Quick Reference -->
+            <h2><span class="section-icon" style="background: rgba(160,160,160,0.15);">📋</span> Quick Command Reference</h2>
+
+            <div class="card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><kbd>/clan</kbd></td>
+                                <td>Open the main clan GUI — <strong>all features are here</strong></td>
+                            </tr>
+                            <tr>
+                                <td><kbd>/cc</kbd> / <kbd>/clanchat</kbd></td>
+                                <td>Toggle clan chat mode, or send a single message</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>/cc &lt;message&gt;</kbd></td>
+                                <td>Send one message to clan chat without toggling</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout callout-info" style="margin-top: 16px;">
+                    <h4>💡 Tip</h4>
+                    <p>There are <strong>no subcommands</strong> for clans — everything from creating, inviting, managing tiers, setting sigils, and browsing allies/enemies is done through the <kbd>/clan</kbd> GUI menu.</p>
+                </div>
+            </div>
+
         </div>
-    </div>
-    <div id="m-abilities" class="modal">
-        <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-abilities')">&times;</span>
-            <h2>All 18+ Abilities</h2><div class="m-rule"></div>
-            <h3>Ascension I — Low Power</h3>
-            <ul><li><strong>Iron Skin:</strong> Resistance I for 8s. CD: 40s.</li><li><strong>Dash:</strong> Forward launch. CD: 15s.</li><li><strong>Smokescreen:</strong> Blinds target 3s. CD: 45s.</li></ul>
-            <h3>Ascension II — Low Power</h3>
-            <ul><li><strong>Blood Rush:</strong> Speed II on hit 5s. CD: 45s.</li><li><strong>Fortify:</strong> -25% damage 8s on hit. CD: 50s.</li><li><strong>Splinter:</strong> +8% damage 8s. CD: 50s.</li></ul>
-            <h3>Ascension III — Medium</h3>
-            <ul><li><strong>Exposed:</strong> +10% dmg to target 4s. CD: 60s.</li><li><strong>Phantom Step:</strong> Invis 4s. CD: 65s.</li><li><strong>Shockwave:</strong> Knockback 5b, 2 hearts. CD: 55s.</li></ul>
-            <h3>Ascension IV — Medium</h3>
-            <ul><li><strong>Overclock:</strong> Speed III + Haste II 30s. CD: 120s.</li><li><strong>Soul Drain:</strong> Strip target effects. CD: 75s.</li><li><strong>Warden's Grasp:</strong> Root 3s + Slow X 5s. CD: 500s.</li></ul>
-            <h3>Ascension V — High</h3>
-            <ul><li><strong>Wraith Form:</strong> Invis + no damage 5s. CD: 150s.</li><li><strong>Execution:</strong> 2x dmg below 25% HP. CD: 85s.</li><li><strong>Marked:</strong> +15% dmg 5s. CD: 95s.</li></ul>
-            <h3>Ascension VI — High</h3>
-            <ul><li><strong>Soul Lock:</strong> Silence + freeze. CD: 750s.</li><li><strong>Warlord's Aura:</strong> Str III + Speed III 8s. CD: 300s.</li><li><strong>Reaper's Call:</strong> Blind + nausea 4s. CD: 800s.</li></ul>
-        </div>
-    </div>
-    <div id="m-streaks" class="modal">
-        <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-streaks')">&times;</span>
-            <h2>Kill Streaks</h2><div class="m-rule"></div>
-            <p>Every 5 kill streak = 1 Rebirth Point. Dying resets streak to 0.</p>
-            <h3>Display</h3>
-            <ul><li><strong>5–14</strong> — orange tag</li><li><strong>15–24</strong> — purple tag</li><li><strong>25–30</strong> — blood red, larger</li></ul>
-        </div>
-    </div>
-    <div id="m-concept" class="modal">
-        <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-concept')">&times;</span>
-            <h2>Plugin Information</h2><div class="m-rule"></div>
-            <p>Ascension is a PvP & grinding plugin where players earn <strong>Rebirth Points</strong> through kill streaks or crafting, unlocking abilities. With each rebirth, abilities grow stronger.</p>
-        </div>
-    </div>
-    <div id="m-commands" class="modal">
-        <div class="modal-box">
-            <span class="modal-close" onclick="closeModal('m-commands')">&times;</span>
-            <h2>Commands &amp; Utilities</h2><div class="m-rule"></div>
-            <h3>⚔️ Combat</h3>
-            <table class="m-table"><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
-                <tr><td>/kills</td><td>View how many kills you have.</td></tr>
-                <tr><td>/forge</td><td>Upgrade your staff.</td></tr>
-            </tbody></table>
-            <h3>🏠 Teleportation</h3>
-            <table class="m-table"><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
-                <tr><td>/home</td><td>Manage homes.</td></tr>
-                <tr><td>/tpa &lt;player&gt;</td><td>Teleport request.</td></tr>
-                <tr><td>/tpahere &lt;player&gt;</td><td>Teleport a player to you.</td></tr>
-                <tr><td>/rtp</td><td>Random teleport (6000 radius).</td></tr>
-                <tr><td>/back</td><td>Return to last death.</td></tr>
-                <tr><td>/spawn</td><td>Go to spawn.</td></tr>
-            </tbody></table>
-            <h3>🛡️ Clans</h3>
-            <table class="m-table"><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
-                <tr><td>/clan &lt;name&gt;</td><td>Opens clan GUI and lets you create and configure your clan.</td></tr>
-                <tr><td>/clan chat</td><td>Toggle clan chat.</td></tr>
-            </tbody></table>
-        </div>
+
     </div>
 
+    <!-- ═════════════════ FOOTER ═════════════════ -->
+    <footer class="wiki-footer">
+        <p>LightCitySMP Wiki — Staff Weapons &amp; Clans</p>
+        <p style="margin-top: 4px; font-size: 0.8rem;">Last updated: June 2026</p>
+    </footer>
+
+    <!-- ═════════════════ SCRIPTS ═════════════════ -->
     <script>
-    (function spawnParticles() {
-        const wrap = document.getElementById('particles');
-        const colors = ['#FF6B35','#FF4F6D','#00D4FF','#FF9A5C','#4DE8FF'];
-        for (let i = 0; i < 20; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = Math.random() * 100 + '%';
-            p.style.animationDuration = (12 + Math.random() * 14) + 's';
-            p.style.animationDelay = (Math.random() * 14) + 's';
-            const size = 1.5 + Math.random() * 2.5;
-            p.style.width = size + 'px'; p.style.height = size + 'px';
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            p.style.background = color;
-            p.style.boxShadow = `0 0 6px ${color}`;
-            wrap.appendChild(p);
+        function showSection(id) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            // Show target
+            document.getElementById(id).classList.add('active');
+            // Update nav
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    })();
-
-    window.addEventListener('load', () => { setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1200); });
-    window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
-
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    // Animate weapon cards on scroll
-    const wikiObserver = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.weapon-card').forEach((el, i) => {
-        el.style.transitionDelay = (i * 0.08) + 's';
-        wikiObserver.observe(el);
-    });
-
-    function openModal(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = ''; }
-    window.addEventListener('click', e => { if (e.target.classList.contains('modal')) { e.target.style.display = 'none'; document.body.style.overflow = ''; } });
-
     </script>
+
 </body>
 </html>
